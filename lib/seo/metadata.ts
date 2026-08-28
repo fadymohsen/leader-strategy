@@ -39,10 +39,10 @@ export function buildMetadata({ locale, slug, title, description }: PageMeta): M
       type: "website",
       images: [
         {
-          url: "/opengraph-image",
+          url: `/${locale}${slug ? `/${slug}` : ""}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: siteConfig.name,
+          alt: `${t(title)} | ${siteConfig.name}`,
         },
       ],
     },
@@ -51,7 +51,7 @@ export function buildMetadata({ locale, slug, title, description }: PageMeta): M
       card: "summary_large_image",
       title: fullTitle,
       description: t(description),
-      images: ["/opengraph-image"],
+      images: [`/${locale}${slug ? `/${slug}` : ""}/opengraph-image`],
     },
 
     robots: {
