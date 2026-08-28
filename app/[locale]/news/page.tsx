@@ -1,5 +1,18 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
+import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
+import { NewsJsonLd } from "@/components/JsonLd";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isValidLocale(locale)) return {};
+  return buildMetadata({ locale, slug: "news", ...pageMeta.news });
+}
 
 export default async function NewsPage({
   params,
@@ -14,6 +27,7 @@ export default async function NewsPage({
 
   return (
     <>
+      <NewsJsonLd locale={locale} articles={news.articles} />
       {/* ── Hero ── */}
       <section className="bg-[#1e3a5f] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

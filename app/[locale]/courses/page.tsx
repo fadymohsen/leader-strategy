@@ -1,6 +1,19 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
+import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
+import { CoursesJsonLd } from "@/components/JsonLd";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isValidLocale(locale)) return {};
+  return buildMetadata({ locale, slug: "courses", ...pageMeta.courses });
+}
 
 const levelColors: Record<string, string> = {
   Foundation: "bg-green-50 text-green-700 border-green-200",
@@ -24,6 +37,7 @@ export default async function CoursesPage({
 
   return (
     <>
+      <CoursesJsonLd locale={locale} courses={courses.items} />
       {/* ── Hero ── */}
       <section className="bg-[#1e3a5f] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

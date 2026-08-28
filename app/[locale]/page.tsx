@@ -1,6 +1,19 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
+import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
+import { HomeJsonLd } from "@/components/JsonLd";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isValidLocale(locale)) return {};
+  return buildMetadata({ locale, slug: "", ...pageMeta.home });
+}
 
 export default async function HomePage({
   params,
@@ -15,6 +28,7 @@ export default async function HomePage({
 
   return (
     <>
+      <HomeJsonLd />
       {/* ── Hero ── */}
       <section className="relative overflow-hidden bg-[#1e3a5f] text-white">
         {/* Decorative circles */}

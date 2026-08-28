@@ -192,10 +192,9 @@ export default async function LocaleLayout({
   }
 
   const dict = await getDictionary(locale);
-  const dir = locale === "ar" ? "rtl" : "ltr";
 
   return (
-    <div lang={locale} dir={dir} className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen">
       <Navbar locale={locale} dict={dict} />
       <main className="flex-1">{children}</main>
       <Footer locale={locale} dict={dict} />
