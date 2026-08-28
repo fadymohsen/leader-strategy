@@ -1,32 +1,32 @@
 const en = {
   // ── Metadata ──────────────────────────────────────────────────────────────
   meta: {
-    siteName: "Leader Strategy International",
-    tagline: "Empowering Communities Through Faith & Action",
+    siteName: "Leader Strategies",
+    tagline: "Make Your Work a Center for Your Mission",
     description:
-      "A Christian international charity committed to serving the vulnerable, spreading hope, and building leaders across the globe.",
+      "A Christian organization for spiritual service and leadership training in Egypt — building influential leaders through specialized professional groups.",
   },
 
   // ── Navigation ────────────────────────────────────────────────────────────
   nav: {
     home: "Home",
     about: "About",
-    services: "Services",
+    services: "Sectors",
     news: "News",
     courses: "Courses",
     contact: "Contact",
-    donate: "Donate Now",
+    donate: "Join Us",
     langSwitch: "العربية",
   },
 
   // ── Footer ────────────────────────────────────────────────────────────────
   footer: {
     description:
-      "Leader Strategy International is a registered Christian charity committed to transforming lives through faith-based outreach, education, and community service.",
+      "Leader Strategies is a Christian spiritual service and leadership training organization in Egypt, dedicated to creating a spiritual movement among influential leaders across the nation.",
     quickLinks: "Quick Links",
     contact: "Contact Us",
-    address: "123 Ministry Lane, Cairo, Egypt",
-    email: "info@leaderstrategy.org",
+    address: "Cairo, Egypt — also operating in Minya, Assiut, Alexandria & Tanta",
+    email: "info@leaderstrategies.org",
     phone: "+20 2 1234 5678",
     rights: "All rights reserved.",
     madeWith: "Made with faith and love.",
@@ -35,72 +35,72 @@ const en = {
   // ── Home Page ─────────────────────────────────────────────────────────────
   home: {
     hero: {
-      badge: "Christian International Charity",
-      headline: "Serving the World,\nOne Life at a Time",
+      badge: "Spiritual Service & Leadership Training — Egypt",
+      headline: "Building Influential\nLeaders in Egypt",
       subheadline:
-        "Through faith, compassion, and strategic leadership, we empower communities to rise above poverty, ignorance, and despair.",
-      cta: "Our Services",
-      ctaSecondary: "Learn More",
+        "We create a spiritual movement among Egypt's most influential leaders — working on their lives spiritually, personally, and professionally.",
+      cta: "Our Sectors",
+      ctaSecondary: "Our Vision",
     },
     stats: [
-      { value: "40+", label: "Countries Served" },
-      { value: "150K+", label: "Families Helped" },
-      { value: "500+", label: "Local Partners" },
-      { value: "30+", label: "Years of Ministry" },
+      { value: "5", label: "Cities Across Egypt" },
+      { value: "5", label: "Professional Sectors" },
+      { value: "25+", label: "Active Groups" },
+      { value: "100+", label: "Leaders Trained" },
     ],
     mission: {
       badge: "Our Mission",
-      headline: "Faith in Action",
-      body: "We believe every person is created in the image of God and deserves dignity, opportunity, and love. Our programs combine practical aid with spiritual support to bring lasting transformation.",
+      headline: "Making Influential Leaders",
+      body: "We believe the Christian leader does not live for himself — but to influence. Our mission is to equip and empower leaders who transform their professional communities through faith, integrity, and service.",
       cta: "About Us",
     },
     services: {
-      headline: "How We Serve",
-      sub: "Holistic programs rooted in Christian values",
+      headline: "Professional Sectors We Serve",
+      sub: "Specialized spiritual groups for each profession",
       items: [
         {
-          icon: "🌍",
-          title: "Community Outreach",
-          desc: "On-the-ground support for families in need across urban and rural communities.",
+          icon: "🎓",
+          title: "Graduates — Leader Impact Next",
+          desc: "Spiritual groups for university graduates, helping them launch their careers with purpose and faith.",
         },
         {
-          icon: "🍞",
-          title: "Food & Nutrition",
-          desc: "Emergency food parcels and long-term nutrition programs for vulnerable households.",
+          icon: "💼",
+          title: "Business & Managers — Leader Impact",
+          desc: "Equipping business leaders and managers to integrate faith into their leadership and workplace culture.",
         },
         {
-          icon: "📚",
-          title: "Education Support",
-          desc: "Scholarships, school supplies, and tutoring for children who cannot afford education.",
+          icon: "🏫",
+          title: "Teachers — ISP",
+          desc: "Developing teacher-leaders who shape the next generation with values, character, and spiritual depth.",
+        },
+        {
+          icon: "⚖️",
+          title: "Lawyers — FLAG",
+          desc: "Building a network of Christian lawyers who lead with integrity and serve their communities with justice.",
         },
         {
           icon: "🏥",
-          title: "Medical Aid",
-          desc: "Free clinics, medicine distribution, and health awareness campaigns.",
+          title: "Doctors — Medical Strategy",
+          desc: "Empowering medical professionals to serve with compassion and lead with a kingdom vision.",
         },
         {
-          icon: "🙏",
-          title: "Spiritual Counseling",
-          desc: "Pastoral care and counseling to nurture faith and emotional well-being.",
-        },
-        {
-          icon: "🏗️",
-          title: "Disaster Relief",
-          desc: "Rapid response to natural disasters — shelter, supplies, and rebuilding support.",
+          icon: "🔄",
+          title: "Multiplying Leaders",
+          desc: "Every leader trained becomes a leader-maker — the core principle of our multiplication approach.",
         },
       ],
-      cta: "All Services",
+      cta: "All Sectors",
     },
     news: {
       headline: "Latest News",
-      sub: "Stories of hope and transformation",
+      sub: "Stories of impact and transformation",
       cta: "All News",
     },
     cta: {
-      headline: "Ready to Make a Difference?",
-      body: "Your support changes lives. Join thousands of partners who give generously to spread hope across the world.",
-      donate: "Donate Today",
-      volunteer: "Become a Volunteer",
+      headline: "Make Your Work a Center for Your Mission",
+      body: "Join the movement. Whether you're a doctor, lawyer, teacher, or business leader — your profession is your mission field.",
+      donate: "Join the Movement",
+      volunteer: "Contact Us",
     },
   },
 
@@ -108,82 +108,92 @@ const en = {
   about: {
     hero: {
       badge: "About Us",
-      headline: "Our Story of Faith & Service",
-      sub: "Three decades of transforming communities through the love of Christ.",
+      headline: "Our Story of Faith & Leadership",
+      sub: "A spiritual movement to develop influential leaders across Egypt.",
     },
     story: {
-      headline: "How It All Began",
+      headline: "Who We Are",
       body1:
-        "Leader Strategy International was founded in 1994 by a small group of committed Christians who believed that faith without works is dead. Starting with a single feeding program in Cairo, the ministry quickly grew as God opened doors across the region and beyond.",
+        "Leader Strategies is the spiritual service and leadership training body of Egypt — a Christian organization with a 50-year heritage of equipping leaders. We operate through a Matrix Structure that reaches professionals across Egypt's major cities, building specialized spiritual communities for each profession.",
       body2:
-        "Today, we operate in more than 40 countries, partnering with local churches and organizations to deliver holistic care — addressing physical, educational, and spiritual needs with equal passion.",
+        "Our approach is simple: we create spiritual movements through small groups tailored to each professional category — doctors, lawyers, teachers, business leaders, and graduates — working on each leader's life spiritually, personally, and professionally.",
     },
     mission: {
-      headline: "Mission, Vision & Values",
+      headline: "Mission, Vision & Slogan",
       mission: {
         title: "Our Mission",
-        body: "To serve the vulnerable with compassion and dignity, grounded in Christian principles, bringing lasting transformation to individuals, families, and communities.",
+        body: "Making influential leaders — equipping every Christian leader to live not for himself, but to influence and transform those around him.",
       },
       vision: {
         title: "Our Vision",
-        body: "A world where every person experiences the love of God through acts of service, where leaders rise from the communities we serve to carry the mission forward.",
+        body: "Creating a spiritual movement among influential leaders in Egypt — where every professional is a center of mission in their workplace and community.",
       },
     },
     values: [
       {
-        icon: "✝️",
-        title: "Faith-Centered",
-        desc: "Everything we do flows from our faith in Jesus Christ and commitment to His teachings.",
+        icon: "💡",
+        title: "Influence",
+        desc: "The Christian leader does not live for himself but to influence — impacting their profession and community for Christ.",
       },
       {
-        icon: "❤️",
-        title: "Compassion",
-        desc: "We see every person as worthy of love, care, and a chance to flourish.",
-      },
-      {
-        icon: "🌐",
+        icon: "🧭",
         title: "Integrity",
-        desc: "Transparent stewardship of every resource entrusted to us by our donors and partners.",
+        desc: "Leadership begins with character — building leaders whose inner life matches their public witness.",
+      },
+      {
+        icon: "📖",
+        title: "Wisdom",
+        desc: "Making decisions with a biblical spirit — rooted in Scripture and guided by the Holy Spirit.",
       },
       {
         icon: "🤝",
-        title: "Partnership",
-        desc: "We work alongside local churches and leaders, empowering communities from within.",
+        title: "Service",
+        desc: "The leader serves before he leads — following the model of Christ the servant-leader.",
       },
       {
         icon: "🌱",
-        title: "Sustainability",
-        desc: "Programs designed for lasting impact, not temporary relief alone.",
-      },
-      {
-        icon: "🔥",
-        title: "Excellence",
-        desc: "Delivering the best stewardship of resources to maximize Kingdom impact.",
+        title: "Empowerment",
+        desc: "The leader makes leaders — every trained leader becomes a leader-maker who multiplies the movement.",
       },
     ],
     team: {
-      headline: "Our Leadership",
-      sub: "Dedicated servants guiding the ministry",
+      headline: "Board of Leader Strategies",
+      sub: "Dedicated leaders guiding the movement",
       members: [
         {
-          name: "Rev. Dr. Samuel Nasser",
-          role: "Founder & President",
-          bio: "30+ years in international Christian ministry and community development.",
+          name: "Majed Girgis",
+          role: "Board Member",
+          bio: "Key leader in the Leader Strategies movement.",
         },
         {
-          name: "Dr. Mary Hanna",
-          role: "Executive Director",
-          bio: "Expert in non-profit management and humanitarian relief operations.",
+          name: "Anan Awad",
+          role: "Board Member",
+          bio: "Strategic leadership and vision development.",
         },
         {
-          name: "Pastor James Khalil",
-          role: "Director of Programs",
-          bio: "Leading outreach initiatives across the Middle East and Africa.",
+          name: "Ihab Ezzat",
+          role: "Social Media & Board",
+          bio: "Leading digital outreach and content strategy.",
         },
         {
-          name: "Sister Anna Mikhail",
-          role: "Director of Education",
-          bio: "Champion of Christian education and leadership development programs.",
+          name: "Lucas Fawzy",
+          role: "Assiut City Leader",
+          bio: "Overseeing the Leader Strategies movement in Assiut.",
+        },
+        {
+          name: "Ihab Samuel",
+          role: "Minya City Leader",
+          bio: "Leading spiritual groups and training in Minya.",
+        },
+        {
+          name: "Alaa Wahba",
+          role: "Cairo City Leader",
+          bio: "Developing influential leaders across Cairo.",
+        },
+        {
+          name: "Mira Halim",
+          role: "Alexandria City Leader",
+          bio: "Pioneering the movement in Alexandria.",
         },
       ],
     },
@@ -192,58 +202,40 @@ const en = {
   // ── Services Page ─────────────────────────────────────────────────────────
   services: {
     hero: {
-      badge: "Our Services",
-      headline: "Holistic Care for Every Need",
-      sub: "From emergency relief to long-term development — all rooted in Christian love.",
+      badge: "Professional Sectors",
+      headline: "Specialized Groups for Every Profession",
+      sub: "We don't run a generic service — we build tailored spiritual communities for each professional category, because every profession has different needs and a unique mission field.",
     },
     items: [
       {
-        icon: "🌍",
-        title: "Community Outreach",
-        desc: "Our community teams live and work alongside those they serve, providing direct support, advocacy, and connection to vital resources. We focus on sustainable relationships that build trust.",
-        tags: ["Direct Aid", "Advocacy", "Relationships"],
-      },
-      {
-        icon: "🍞",
-        title: "Food & Nutrition Programs",
-        desc: "We operate food banks, monthly food parcel distributions, and school feeding programs. In crisis zones, we deploy emergency nutrition teams within 48 hours.",
-        tags: ["Food Banks", "Emergency Response", "School Feeding"],
-      },
-      {
-        icon: "📚",
-        title: "Education Support",
-        desc: "Scholarships, school-fee assistance, uniform provision, and after-school tutoring ensure no child is denied education due to poverty. We also support teachers and build school infrastructure.",
-        tags: ["Scholarships", "Tutoring", "Infrastructure"],
-      },
-      {
-        icon: "🏥",
-        title: "Medical Aid & Health",
-        desc: "Mobile clinics, medication distribution, maternal health programs, and health education campaigns reach communities with little or no healthcare access.",
-        tags: ["Mobile Clinics", "Maternal Health", "Medication"],
-      },
-      {
-        icon: "🙏",
-        title: "Spiritual Counseling",
-        desc: "Trained pastoral counselors offer individual and group sessions, grief support, trauma recovery, and faith-building programs for all ages.",
-        tags: ["Pastoral Care", "Trauma Support", "Faith Building"],
-      },
-      {
-        icon: "🏗️",
-        title: "Disaster Relief",
-        desc: "When disaster strikes, we mobilize quickly — providing emergency shelter kits, food, clean water, and rebuilding support in partnership with local churches.",
-        tags: ["Emergency Shelter", "Clean Water", "Rebuilding"],
+        icon: "🎓",
+        title: "Graduates — Leader Impact Next",
+        desc: "Specialized spiritual groups for university graduates entering the workforce. We help young professionals discover their calling, build godly character, and lead with purpose from the very start of their careers.",
+        tags: ["University Graduates", "Career Purpose", "Leader Impact Next"],
       },
       {
         icon: "💼",
-        title: "Livelihood Training",
-        desc: "Vocational training programs equip adults with skills in carpentry, sewing, IT, and entrepreneurship — enabling self-sufficiency and dignity.",
-        tags: ["Vocational Skills", "Entrepreneurship", "Self-Sufficiency"],
+        title: "Business Leaders & Managers — Leader Impact",
+        desc: "Groups designed for business owners and managers who want to integrate faith into their leadership. We explore what it means to run a business or manage a team with kingdom principles and eternal impact.",
+        tags: ["Business Owners", "Managers", "Leader Impact"],
       },
       {
-        icon: "👶",
-        title: "Child Protection",
-        desc: "Safe spaces, child sponsorship, anti-trafficking awareness, and social worker support protect the most vulnerable members of our communities.",
-        tags: ["Child Sponsorship", "Safe Spaces", "Anti-Trafficking"],
+        icon: "🏫",
+        title: "Teachers — ISP",
+        desc: "Teacher-leaders shape the next generation. Our ISP track equips educators with a spiritual vision for their classroom, tools for character formation, and strategies to influence their schools as mission centers.",
+        tags: ["Educators", "School Leadership", "ISP"],
+      },
+      {
+        icon: "⚖️",
+        title: "Lawyers — FLAG",
+        desc: "The FLAG track builds a network of Christian lawyers committed to justice, integrity, and influence. We equip legal professionals to see their courtroom and law firm as their mission field.",
+        tags: ["Legal Professionals", "Justice & Integrity", "FLAG"],
+      },
+      {
+        icon: "🏥",
+        title: "Doctors — Medical Strategy",
+        desc: "Medical professionals hold extraordinary influence. Our Medical Strategy track helps doctors and healthcare workers lead their teams, care for patients, and build their practice as a center of compassion and Christ-centered service.",
+        tags: ["Healthcare", "Medical Leadership", "Medical Strategy"],
       },
     ],
   },
@@ -252,51 +244,51 @@ const en = {
   news: {
     hero: {
       badge: "News & Stories",
-      headline: "Stories of Hope & Transformation",
-      sub: "See how your support is changing lives around the world.",
+      headline: "Stories of Impact & Transformation",
+      sub: "Updates from the Leader Strategies movement across Egypt.",
     },
     articles: [
       {
-        date: "August 20, 2026",
-        category: "Disaster Relief",
-        title: "Rapid Response: Aid Reaches Flood Victims in Sudan",
+        date: "August 2026",
+        category: "Leadership Summit",
+        title: "Annual Leadership Summit Gathers Leaders from Across Egypt",
         excerpt:
-          "Our teams were on the ground within 24 hours of the flooding, distributing emergency kits to over 3,000 displaced families.",
+          "Leaders from Cairo, Minya, Assiut, Alexandria, and Tanta gathered for our annual planning summit — casting vision for the movement's next chapter.",
       },
       {
-        date: "August 10, 2026",
-        category: "Education",
-        title: "New Scholarship Program Launches for 500 Students",
+        date: "July 2026",
+        category: "Medical Strategy",
+        title: "New Medical Strategy Group Launches in Alexandria",
         excerpt:
-          "Thanks to generous donors, we launched a scholarship program covering tuition, books, and uniforms for 500 deserving children.",
+          "A new group for doctors and healthcare workers launched in Alexandria, bringing together medical professionals to integrate faith and calling into their practice.",
       },
       {
-        date: "July 28, 2026",
-        category: "Health",
-        title: "Mobile Clinics Serve 10,000 Patients This Quarter",
+        date: "June 2026",
+        category: "ISP — Teachers",
+        title: "Teacher-Leaders Training Program Completes 3rd Cohort",
         excerpt:
-          "Our mobile medical teams visited 45 villages, providing free consultations, medications, and preventive care.",
+          "20 educators completed the ISP leadership track, equipped to transform their schools into centers of influence and mission.",
       },
       {
-        date: "July 15, 2026",
-        category: "Community",
-        title: "Vocational Training Graduates 200 Women in Kenya",
+        date: "May 2026",
+        category: "Leader Impact Next",
+        title: "50 Graduates Join Leader Impact Next Groups",
         excerpt:
-          "Two hundred women received certificates in tailoring and business skills, launching micro-enterprises in their communities.",
+          "Fifty recent university graduates joined specialized Leader Impact Next groups across three cities, beginning their journey of professional and spiritual development.",
       },
       {
-        date: "June 30, 2026",
-        category: "Courses",
-        title: "Biblical Leadership Summit Draws Leaders from 20 Nations",
+        date: "April 2026",
+        category: "FLAG — Lawyers",
+        title: "FLAG Network Expands to Minya",
         excerpt:
-          "Our annual leadership summit brought together 400 Christian leaders from across Africa and the Middle East for training and fellowship.",
+          "The FLAG track for lawyers officially launched in Minya, building a community of legal professionals committed to justice and kingdom impact.",
       },
       {
-        date: "June 12, 2026",
-        category: "Food",
-        title: "Ramadan Food Drive Blesses 5,000 Families",
+        date: "March 2026",
+        category: "Multiplication",
+        title: "Leader Strategies Reaches 25 Active Groups Nationwide",
         excerpt:
-          "In partnership with local churches, we distributed food parcels to 5,000 households during the holy season.",
+          "A major milestone: the movement now has 25 active professional groups across Egypt, with leaders multiplying leaders in every sector.",
       },
     ],
   },
@@ -306,7 +298,7 @@ const en = {
     hero: {
       badge: "Training & Courses",
       headline: "Equipping Leaders for Kingdom Impact",
-      sub: "Faith-based training programs to develop Christian leaders, counselors, and community servants.",
+      sub: "Faith-based leadership training programs designed for professionals — developing spiritual depth, character, and strategic influence.",
     },
     items: [
       {
@@ -314,53 +306,53 @@ const en = {
         level: "Foundation",
         duration: "8 Weeks",
         title: "Biblical Leadership Foundations",
-        desc: "A comprehensive introduction to leadership principles rooted in Scripture — covering servanthood, vision, integrity, and team-building for church and ministry contexts.",
-        topics: ["Servant Leadership", "Vision Casting", "Team Building", "Biblical Ethics"],
+        desc: "A comprehensive introduction to Christian leadership — covering the five core values of Leader Strategies: Influence, Integrity, Wisdom, Service, and Empowerment.",
+        topics: ["Servant Leadership", "Biblical Integrity", "Wisdom in Decision-Making", "Multiplying Leaders"],
       },
       {
-        icon: "💬",
-        level: "Intermediate",
-        duration: "12 Weeks",
-        title: "Christian Counseling & Pastoral Care",
-        desc: "Equip yourself to walk alongside hurting people with professional counseling skills grounded in Christian theology — grief, trauma, addiction, marriage, and family.",
-        topics: ["Grief Counseling", "Trauma Recovery", "Marriage & Family", "Addiction Support"],
-      },
-      {
-        icon: "📖",
-        level: "Advanced",
-        duration: "16 Weeks",
-        title: "Ministry Development & Church Planting",
-        desc: "Strategic training for church planters and ministry leaders — covering organizational development, fundraising, cross-cultural mission, and discipleship models.",
-        topics: ["Church Planting", "Cross-Cultural Mission", "Fundraising", "Discipleship"],
-      },
-      {
-        icon: "🌍",
-        level: "Foundation",
-        duration: "6 Weeks",
-        title: "Community Development & Social Work",
-        desc: "Learn to design and manage community development programs that address poverty, education, and health using a holistic, faith-based approach.",
-        topics: ["Needs Assessment", "Program Design", "Monitoring & Evaluation", "Community Engagement"],
-      },
-      {
-        icon: "👩‍🏫",
+        icon: "💡",
         level: "Intermediate",
         duration: "10 Weeks",
-        title: "Youth Ministry & Discipleship",
-        desc: "Practical training for youth workers — creative discipleship methods, mentoring techniques, safe-guarding, and building thriving youth communities.",
-        topics: ["Youth Discipleship", "Mentoring", "Safe Guarding", "Creative Ministry"],
+        title: "Leader Impact — Professionals Track",
+        desc: "Designed for business leaders and managers. Explore how to integrate faith into your leadership culture, build teams with kingdom values, and make your workplace a center of mission.",
+        topics: ["Faith & Work Integration", "Team Culture", "Kingdom Business", "Influence at Work"],
       },
       {
-        icon: "📢",
+        icon: "🏫",
         level: "Foundation",
-        duration: "4 Weeks",
-        title: "Evangelism & Outreach Methods",
-        desc: "Discover effective and compassionate approaches to sharing the Gospel in diverse cultural contexts, using both relational and proclamation methods.",
-        topics: ["Relational Evangelism", "Cultural Sensitivity", "Gospel Proclamation", "Follow-Up"],
+        duration: "6 Weeks",
+        title: "ISP — Leadership in Education",
+        desc: "The educator's leadership track. Discover how to transform your classroom and school into a mission center, lead colleagues with character, and invest in the next generation.",
+        topics: ["Classroom Mission", "Character Formation", "School Leadership", "Teacher Influence"],
+      },
+      {
+        icon: "⚖️",
+        level: "Intermediate",
+        duration: "8 Weeks",
+        title: "FLAG — Faith & Law",
+        desc: "For Christian lawyers and legal professionals. Learn to navigate your field with biblical justice, build integrity-based legal practice, and influence the justice system for good.",
+        topics: ["Biblical Justice", "Legal Integrity", "Professional Ethics", "Kingdom Influence in Law"],
+      },
+      {
+        icon: "🏥",
+        level: "Intermediate",
+        duration: "8 Weeks",
+        title: "Medical Strategy — Faith & Medicine",
+        desc: "For doctors and healthcare workers. Develop a vision for compassionate, Christ-centered healthcare, lead your medical team with servant leadership, and see your clinic as your mission.",
+        topics: ["Compassionate Care", "Medical Ethics", "Team Leadership", "Healthcare Mission"],
+      },
+      {
+        icon: "🔄",
+        level: "Advanced",
+        duration: "12 Weeks",
+        title: "Leader Impact Next — Graduate Leaders",
+        desc: "A specialized track for university graduates launching their careers. Builds the foundations for a life of influence — professionally, personally, and spiritually from day one.",
+        topics: ["Career Purpose", "Graduate Leadership", "Life Mission", "Early-Career Impact"],
       },
     ],
     cta: {
-      headline: "Ready to Grow as a Leader?",
-      body: "Register today and join a global community of Christian leaders being equipped for greater Kingdom impact.",
+      headline: "Ready to Lead with Greater Impact?",
+      body: "Join a specialized group in your professional sector and become the influential leader God called you to be.",
       register: "Register Now",
       contact: "Ask a Question",
     },
@@ -371,12 +363,12 @@ const en = {
     hero: {
       badge: "Contact Us",
       headline: "We'd Love to Hear from You",
-      sub: "Whether you want to partner, volunteer, donate, or simply learn more — reach out and we'll respond within 24 hours.",
+      sub: "Whether you want to join a group, partner with us, or simply learn more — reach out and we'll respond within 24 hours.",
     },
     info: [
-      { icon: "📍", title: "Our Address", value: "123 Ministry Lane, Cairo, Egypt" },
+      { icon: "📍", title: "Our Locations", value: "Cairo · Minya · Assiut · Alexandria · Tanta" },
       { icon: "📞", title: "Phone", value: "+20 2 1234 5678" },
-      { icon: "✉️", title: "Email", value: "info@leaderstrategy.org" },
+      { icon: "✉️", title: "Email", value: "info@leaderstrategies.org" },
       { icon: "🕐", title: "Office Hours", value: "Mon – Fri, 9:00 AM – 5:00 PM" },
     ],
     form: {
@@ -397,7 +389,6 @@ const en = {
 
 export default en;
 
-// Replace all leaf string literals with `string` so Arabic translations satisfy the type
 type DeepString<T> = T extends string
   ? string
   : T extends readonly (infer U)[]
