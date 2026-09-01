@@ -50,8 +50,8 @@ const en = {
     ],
     mission: {
       badge: "Our Mission",
-      headline: "Making Influential Leaders",
-      body: "We believe the Christian leader does not live for himself — but to influence. Our mission is to equip and empower leaders who transform their professional communities through faith, integrity, and service.",
+      headline: "Equipping Influential Leaders",
+      body: "Equipping believers to be influential leaders in their fields of work, capable of serving those around them, building influential relationships, and representing Christ in their professional and community environments.",
       cta: "About Us",
     },
     services: {
@@ -108,25 +108,25 @@ const en = {
   about: {
     hero: {
       badge: "About Us",
-      headline: "Our Story of Faith & Leadership",
-      sub: "A spiritual movement to develop influential leaders across Egypt.",
+      headline: "Influential Leaders Ministry",
+      sub: "A strategy of the Spiritual Service and Leadership Training Organization in Egypt.",
     },
     story: {
       headline: "Who We Are",
       body1:
-        "Leader Strategies is the spiritual service and leadership training body of Egypt — a Christian organization with a 50-year heritage of equipping leaders. We operate through a Matrix Structure that reaches professionals across Egypt's major cities, building specialized spiritual communities for each profession.",
+        "The Influential Leaders Ministry is a strategy of the Spiritual Service and Leadership Training Organization in Egypt, aiming to help believers discover their calling to influence and transform their workplaces into real spaces for witness, service, and change-making. We believe that a believer's influence is not limited to church or spiritual activities, but extends to every place God has placed them.",
       body2:
-        "Our approach is simple: we create spiritual movements through small groups tailored to each professional category — doctors, lawyers, teachers, business leaders, and graduates — working on each leader's life spiritually, personally, and professionally.",
+        "A teacher can be influential among fellow teachers and students, a doctor can be a witness for Christ among physicians and patients, an engineer among colleagues, a business leader in their work environment — every believer can use their position, relationships, and gifts to make a difference in the lives of others. Therefore, we seek to equip and train leaders and believers to live out their faith in an influential and effective way within their professional communities, through character building, developing leadership skills, growing the ability to communicate and influence, and connecting faith to daily life and work. We don't just want believers to have a presence in the workplace — we want them to have a clear impact through their workplace.",
     },
     mission: {
       headline: "Mission, Vision & Slogan",
       mission: {
         title: "Our Mission",
-        body: "Making influential leaders — equipping every Christian leader to live not for himself, but to influence and transform those around him.",
+        body: "Equipping believers to be influential leaders in their fields of work, capable of serving those around them, building influential relationships, and representing Christ in their professional and community environments.",
       },
       vision: {
         title: "Our Vision",
-        body: "Creating a spiritual movement among influential leaders in Egypt — where every professional is a center of mission in their workplace and community.",
+        body: "To see influential believers living out their calling in every sphere of society, using their work, relationships, and leadership positions as a means for service, witness, and building others up.",
       },
     },
     values: [

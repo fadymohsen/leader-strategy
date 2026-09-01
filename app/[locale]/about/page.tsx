@@ -183,10 +183,15 @@ export default async function AboutPage({
               <h3 className="text-xl font-bold mb-3 text-[#1e3a5f]">
                 {locale === "ar" ? "شعارنا" : "Our Slogan"}
               </h3>
-              <p className="text-gray-700 leading-relaxed font-semibold text-lg">
+              <p className="text-gray-700 leading-relaxed font-semibold text-lg mb-2">
                 {locale === "ar"
-                  ? "اجعل من عملك مركزاً لارساليتك"
-                  : "Make your work a center for your mission."}
+                  ? "«اجعل من مكان عملك مركزًا لإرساليتك»"
+                  : '"Make your workplace a center for your mission"'}
+              </p>
+              <p className="text-gray-500 leading-relaxed text-sm">
+                {locale === "ar"
+                  ? "نؤمن أن مكان عملك ليس مجرد مكان لكسب الرزق، بل يتحول للمكان الذي دعاك الله للخدمة ولتشهد عنه، وتؤثر، وتبني فيه، وتكون سبب بركة للآخرين."
+                  : "We believe your workplace is not just a place to earn a living — it becomes the place God has called you to serve, to witness, to influence, to build, and to be a blessing to others."}
               </p>
             </div>
           </div>
