@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
@@ -22,14 +23,15 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center gap-2 shrink-0">
-            <div className="w-9 h-9 rounded-full bg-[#1e3a5f] flex items-center justify-center text-white font-bold text-sm select-none">
-              LS
-            </div>
-            <div className="hidden sm:block">
-              <p className="text-sm font-bold text-[#1e3a5f] leading-none">Leader Strategy</p>
-              <p className="text-[10px] text-[#c8972e] font-medium leading-none mt-0.5">International</p>
-            </div>
+          <Link href={`/${locale}`} className="shrink-0">
+            <Image
+              src="/logo.jpeg"
+              alt="Leader Strategies"
+              width={160}
+              height={48}
+              className="h-12 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop links */}
@@ -114,14 +116,14 @@ function Footer({ locale, dict }: { locale: Locale; dict: Awaited<ReturnType<typ
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-full bg-[#c8972e] flex items-center justify-center text-white font-bold text-sm">
-                LS
-              </div>
-              <div>
-                <p className="font-bold leading-none">{meta.siteName}</p>
-                <p className="text-[11px] text-blue-300 leading-none mt-0.5">{meta.tagline}</p>
-              </div>
+            <div className="mb-4">
+              <Image
+                src="/logo.jpeg"
+                alt={meta.siteName}
+                width={180}
+                height={54}
+                className="h-14 w-auto"
+              />
             </div>
             <p className="text-sm text-blue-200 leading-relaxed">{footer.description}</p>
           </div>
