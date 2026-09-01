@@ -25,7 +25,7 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
           {/* Logo */}
           <Link href={`/${locale}`} className="shrink-0">
             <Image
-              src="/logo.jpeg"
+              src="/logo.png"
               alt="Leader Strategies"
               width={160}
               height={48}
@@ -118,7 +118,7 @@ function Footer({ locale, dict }: { locale: Locale; dict: Awaited<ReturnType<typ
           <div>
             <div className="mb-4">
               <Image
-                src="/logo.jpeg"
+                src="/logo.png"
                 alt={meta.siteName}
                 width={180}
                 height={54}
