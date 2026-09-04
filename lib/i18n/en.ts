@@ -202,42 +202,164 @@ const en = {
   // ── Services Page ─────────────────────────────────────────────────────────
   services: {
     hero: {
-      badge: "Professional Sectors",
-      headline: "Specialized Groups for Every Profession",
-      sub: "We don't run a generic service — we build tailored spiritual communities for each professional category, because every profession has different needs and a unique mission field.",
+      badge: "Our Services",
+      headline: "We Develop People... and Equip Them to Influence Their Fields",
+      sub: "In the Influential Leaders Ministry, we believe every professional field represents an opportunity for mission and influence. That's why we designed specialized programs suited to each category, combining spiritual growth, personal development, professional training, relationship building, and discovering opportunities for service and impact.",
     },
+    intro: "Our goal is not just for a person to become more successful at work, but to become more influential among the people around them through their work.",
     items: [
       {
-        icon: "🎓",
-        title: "Graduates — Leader Impact Next",
-        desc: "Specialized spiritual groups for university graduates entering the workforce. We help young professionals discover their calling, build godly character, and lead with purpose from the very start of their careers.",
-        tags: ["University Graduates", "Career Purpose", "Leader Impact Next"],
-      },
-      {
-        icon: "💼",
-        title: "Business Leaders & Managers — Leader Impact",
-        desc: "Groups designed for business owners and managers who want to integrate faith into their leadership. We explore what it means to run a business or manage a team with kingdom principles and eternal impact.",
-        tags: ["Business Owners", "Managers", "Leader Impact"],
-      },
-      {
         icon: "🏫",
-        title: "Teachers — ISP",
-        desc: "Teacher-leaders shape the next generation. Our ISP track equips educators with a spiritual vision for their classroom, tools for character formation, and strategies to influence their schools as mission centers.",
+        title: "Teachers Ministry",
+        slogan: "An influential teacher... making a difference in others' lives",
+        intro: "A teacher doesn't just deal with curricula and textbooks — they deal with people. That's why we help teachers discover their potential as leaders and influencers within schools, universities, and educational institutions, and to see the classroom and work environment as a real space for building and serving people.",
+        sections: [
+          {
+            title: "Spiritual & Personal Growth",
+            desc: "We help teachers build a balanced spiritual life, grow in their relationship with God, and discover how their faith can be reflected in their character, decisions, and relationships within the workplace.",
+            points: ["Humility", "Honesty & Integrity", "Patience", "Compassion & Empathy", "Taking Responsibility", "Servant Leadership", "Wise Handling of Differences"],
+          },
+          {
+            title: "Developing Teaching Skills",
+            desc: "We provide training to help teachers develop their professional tools.",
+            points: ["Communication with Students", "Classroom Management", "Dealing with Different Personalities", "Presentation Skills", "Using Technology in Education", "Creative Thinking & Problem Solving", "Building a Positive Learning Environment", "Handling Professional Pressures & Challenges"],
+          },
+          {
+            title: "Leadership & Influence",
+            desc: "We help teachers move from merely performing their job role to becoming leaders and influencers within their educational community.",
+            points: ["How can a teacher influence their colleagues?", "How to build a successful team?", "How to be a role model for students?", "How to use relationships as opportunities for service?"],
+          },
+          {
+            title: "Professional Specialization",
+            desc: "We offer workshops and specialized programs tailored to teachers' needs and fields of work, so that teachers receive real professional development — not just spiritual content.",
+            points: [],
+          },
+        ],
+        goal: "To see influential teachers living out their faith practically, using their profession and relationships to shape better generations.",
         tags: ["Educators", "School Leadership", "ISP"],
       },
       {
-        icon: "⚖️",
-        title: "Lawyers — FLAG",
-        desc: "The FLAG track builds a network of Christian lawyers committed to justice, integrity, and influence. We equip legal professionals to see their courtroom and law firm as their mission field.",
-        tags: ["Legal Professionals", "Justice & Integrity", "FLAG"],
-      },
-      {
         icon: "🏥",
-        title: "Doctors — Medical Strategy",
-        desc: "Medical professionals hold extraordinary influence. Our Medical Strategy track helps doctors and healthcare workers lead their teams, care for patients, and build their practice as a center of compassion and Christ-centered service.",
+        title: "Doctors & Medical Professionals Ministry",
+        slogan: "An influential doctor... healing and serving people",
+        intro: "Medicine is not just a profession — it's a deep human relationship. A doctor meets people daily in moments of weakness, pain, and need, making the medical field a unique space for service and influence. We help doctors and medical professionals grow spiritually and professionally, becoming influential leaders in their workplaces.",
+        sections: [
+          {
+            title: "Spiritual Growth",
+            desc: "We help doctors maintain a strong spiritual life amid work pressure and responsibilities, and to see their profession as part of their calling to serve humanity.",
+            points: ["Faith in the Workplace", "Dealing with Pressure & Burnout", "Compassion & Empathy", "Professional Integrity", "Dealing with Illness & Pain", "Making Difficult Decisions", "Work-Life Balance", "Servant Leadership"],
+          },
+          {
+            title: "Human & Medical Skills",
+            desc: "We provide training to help doctors develop their skills in dealing with patients and colleagues.",
+            points: ["Effective Patient Communication", "Active Listening", "Handling Difficult Situations", "Teamwork Skills", "Time & Pressure Management", "Conflict Resolution", "Leadership Within the Medical Team"],
+          },
+          {
+            title: "Specialized Professional Development",
+            desc: "We collaborate with specialists to provide content and training related to doctors' needs and professional development, helping them keep up with changes in their field and develop their leadership and management skills.",
+            points: [],
+          },
+          {
+            title: "Building a Network of Influential Doctors",
+            desc: "We seek to form a community of doctors who can support and encourage one another, share experiences, and create new opportunities for service and influence within the medical field.",
+            points: [],
+          },
+        ],
+        goal: "For doctors to excel in their profession, mature in character, influential among colleagues, and servants of the people God has entrusted to them.",
         tags: ["Healthcare", "Medical Leadership", "Medical Strategy"],
       },
+      {
+        icon: "💼",
+        title: "Business Leaders Ministry",
+        slogan: "Successful businesses... and leaders making an impact",
+        intro: "We believe the business world represents a vast space for influence and change-making. A business leader doesn't just influence the market — they influence employees, clients, partners, and the community around them. That's why we help business leaders combine professional excellence with spiritual values and influential leadership.",
+        sections: [
+          {
+            title: "Spiritual & Leadership Growth",
+            desc: "We help business leaders build a mature leadership character based on:",
+            points: ["Integrity", "Honesty", "Humility", "Responsibility", "Wisdom", "Decision Making", "Servant Leadership", "Managing Authority & Influence Properly"],
+          },
+          {
+            title: "Management & Leadership Skills",
+            desc: "We offer specialized programs in:",
+            points: ["Team Management", "Building Positive Organizational Culture", "Decision Making", "Problem Solving", "Negotiation", "Crisis Management", "Time Management", "Leadership Communication", "Building & Managing Teams", "Strategic Planning"],
+          },
+          {
+            title: "Connecting Faith with Business",
+            desc: "We help business leaders think through important questions:",
+            points: ["How do I practice my work with integrity?", "How do I treat my employees in a way that reflects Christ's values?", "How do I use my success to help others?", "How can I be a servant leader, not just a manager?", "How do I make my company and workplace a space for influence?"],
+          },
+          {
+            title: "Building a Community of Influential Business Leaders",
+            desc: "We seek to create a community where business leaders can exchange experiences, encourage one another, and discover new opportunities for collaboration, service, and community impact.",
+            points: [],
+          },
+        ],
+        goal: "To see business leaders who are professionally successful, spiritually mature, faithful in their practices, and influential among the people and community around them.",
+        tags: ["Business Owners", "Managers", "Leader Impact"],
+      },
+      {
+        icon: "🎓",
+        title: "Graduates Ministry",
+        slogan: "From university to the job market... from graduation to influence",
+        intro: "Graduation is a new beginning full of questions: Where will I work? How do I search for a job? How do I write a professional CV? How do I prepare for an interview? How do I choose the right field? And how do I live out my faith in my first work experience? We help graduates transition from university life to professional life with confidence and readiness.",
+        sections: [
+          {
+            title: "Job Market Readiness",
+            desc: "We provide practical training including:",
+            points: ["How to Search for a Job", "Using Job Platforms", "Writing a Professional CV", "Writing a Cover Letter", "Creating & Developing a LinkedIn Profile", "Interview Preparation", "Professional Communication Skills", "Navigating the Work Environment", "Professional Networking", "Choosing the Right Career Path"],
+          },
+          {
+            title: "Discovering Abilities & Talents",
+            desc: "We help graduates discover their strengths, identify skills they need to develop, and create a practical plan for professional growth.",
+            points: [],
+          },
+          {
+            title: "Personal Skills",
+            desc: "We focus on developing the skills graduates need at the start of their careers.",
+            points: ["Communication", "Teamwork", "Problem Solving", "Critical Thinking", "Time Management", "Emotional Intelligence", "Presentation Skills", "Taking Responsibility", "Leadership"],
+          },
+          {
+            title: "Spiritual Growth",
+            desc: "We don't just want graduates to be ready for the job market — we want them ready for life. So we help them understand how to live their faith at university and then in the workplace, and how to see their future profession as part of their calling and influence.",
+            points: [],
+          },
+        ],
+        goal: "To help graduates start their professional lives with strong skills, mature character, clear vision, and faith capable of influencing the place God will put them in.",
+        tags: ["University Graduates", "Career Purpose", "Leader Impact Next"],
+      },
+      {
+        icon: "📚",
+        title: "Students Ministry",
+        slogan: "Building today... the leaders of tomorrow",
+        intro: "We believe influence doesn't start only after graduation. That's why we work with students during their study years, helping them build strong character, discover their talents, and prepare for professional and spiritual life.",
+        sections: [
+          {
+            title: "What We Offer Students",
+            desc: "",
+            points: ["Character development & leadership programs", "Communication & teamwork training", "Activities to discover talents & abilities", "Career awareness & connecting students to the job market", "Meetings with specialists in various fields", "Encouraging students to serve others & make a positive impact in their communities"],
+          },
+          {
+            title: "Bible Distribution",
+            desc: "Through our programs and student ministry, we also seek to provide and distribute Bibles to students, giving them the opportunity to learn about God's Word, read it, and discover its message for themselves.",
+            points: [],
+          },
+        ],
+        goal: "We believe the real investment in a student is not just teaching them how to succeed in the future, but helping them build a life with meaning, mission, and purpose.",
+        tags: ["Students", "Character Development", "Future Leaders"],
+      },
     ],
+    sharedVision: {
+      headline: "Our Shared Vision",
+      intro: "Despite the different fields, all our programs share one goal: to help believers live out their faith wherever God has placed them.",
+      points: [
+        "The teacher serves in the school.",
+        "The doctor serves in the hospital and clinic.",
+        "The business leader serves in their company and community.",
+        "The graduate begins their mission from day one at work.",
+        "The student learns now how to be influential in their university and community.",
+      ],
+    },
   },
 
   // ── News Page ─────────────────────────────────────────────────────────────
