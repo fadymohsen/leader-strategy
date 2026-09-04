@@ -36,17 +36,17 @@ const en = {
   home: {
     hero: {
       badge: "Spiritual Service & Leadership Training — Egypt",
-      headline: "Building Influential\nLeaders in Egypt",
+      headline: "We Develop People...\nand Equip Them to Influence",
       subheadline:
-        "We create a spiritual movement among Egypt's most influential leaders — working on their lives spiritually, personally, and professionally.",
-      cta: "Our Sectors",
-      ctaSecondary: "Our Vision",
+        "We help believers discover their calling to influence, transforming their workplaces into real spaces for witness, service, and change-making.",
+      cta: "Our Services",
+      ctaSecondary: "About Us",
     },
     stats: [
+      { value: "50+", label: "Years of Ministry" },
       { value: "5", label: "Cities Across Egypt" },
-      { value: "5", label: "Professional Sectors" },
-      { value: "25+", label: "Active Groups" },
-      { value: "100+", label: "Leaders Trained" },
+      { value: "5", label: "Specialized Ministries" },
+      { value: "100+", label: "Influential Leaders" },
     ],
     mission: {
       badge: "Our Mission",
@@ -55,41 +55,36 @@ const en = {
       cta: "About Us",
     },
     services: {
-      headline: "Professional Sectors We Serve",
-      sub: "Specialized spiritual groups for each profession",
+      headline: "Our Specialized Ministries",
+      sub: "Programs designed to suit each professional category",
       items: [
         {
-          icon: "🎓",
-          title: "Graduates — Leader Impact Next",
-          desc: "Spiritual groups for university graduates, helping them launch their careers with purpose and faith.",
-        },
-        {
-          icon: "💼",
-          title: "Business & Managers — Leader Impact",
-          desc: "Equipping business leaders and managers to integrate faith into their leadership and workplace culture.",
-        },
-        {
           icon: "🏫",
-          title: "Teachers — ISP",
-          desc: "Developing teacher-leaders who shape the next generation with values, character, and spiritual depth.",
-        },
-        {
-          icon: "⚖️",
-          title: "Lawyers — FLAG",
-          desc: "Building a network of Christian lawyers who lead with integrity and serve their communities with justice.",
+          title: "Teachers Ministry",
+          desc: "We help teachers discover their potential as leaders and influencers within schools and universities, seeing the classroom as a real space for building and serving people.",
         },
         {
           icon: "🏥",
-          title: "Doctors — Medical Strategy",
-          desc: "Empowering medical professionals to serve with compassion and lead with a kingdom vision.",
+          title: "Doctors Ministry",
+          desc: "We help doctors and medical professionals grow spiritually and professionally, becoming influential leaders who heal and serve people.",
         },
         {
-          icon: "🔄",
-          title: "Multiplying Leaders",
-          desc: "Every leader trained becomes a leader-maker — the core principle of our multiplication approach.",
+          icon: "💼",
+          title: "Business Leaders Ministry",
+          desc: "We help business leaders combine professional excellence with spiritual values and influential leadership in their communities.",
+        },
+        {
+          icon: "🎓",
+          title: "Graduates Ministry",
+          desc: "We help graduates transition from university life to professional life with confidence and readiness — from graduation to influence.",
+        },
+        {
+          icon: "📚",
+          title: "Students Ministry",
+          desc: "We work with students during their study years, helping them build strong character, discover their talents, and prepare for professional and spiritual life.",
         },
       ],
-      cta: "All Sectors",
+      cta: "Explore Our Services",
     },
     news: {
       headline: "Latest News",
@@ -97,8 +92,8 @@ const en = {
       cta: "All News",
     },
     cta: {
-      headline: "Make Your Work a Center for Your Mission",
-      body: "Join the movement. Whether you're a doctor, lawyer, teacher, or business leader — your profession is your mission field.",
+      headline: "Make Your Workplace a Center for Your Mission",
+      body: "We believe your workplace is not just a place to earn a living — it becomes the place God has called you to serve, to witness, to influence, to build, and to be a blessing to others.",
       donate: "Join the Movement",
       volunteer: "Contact Us",
     },

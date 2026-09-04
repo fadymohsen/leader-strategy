@@ -125,10 +125,14 @@ export default async function HomePage({
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {home.services.items.map((item) => (
+            {home.services.items.map((item, i) => (
               <div
                 key={item.title}
-                className="p-6 rounded-2xl border border-gray-100 hover:border-[#1e3a5f]/20 hover:shadow-md transition-all group"
+                className={`p-6 rounded-2xl border border-gray-100 hover:border-[#1e3a5f]/20 hover:shadow-md transition-all group${
+                  home.services.items.length % 3 !== 0 && i >= home.services.items.length - (home.services.items.length % 3)
+                    ? " sm:col-span-1 lg:col-span-1"
+                    : ""
+                }`}
               >
                 <div className="text-4xl mb-4">{item.icon}</div>
                 <h3 className="font-bold text-[#1e3a5f] text-lg mb-2 group-hover:text-[#c8972e] transition-colors">
