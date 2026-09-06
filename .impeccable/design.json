@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-05T00:00:00Z",
+  "title": "Design System: Leader Strategies",
+  "extensions": {
+    "colorMeta": {
+      "clay": { "role": "primary", "displayName": "Deep Terracotta Clay", "canonical": "oklch(45% 0.14 35)", "tonalRamp": ["#3d1c10", "#5c2a18", "#7e341e", "#a3462a", "#c05f3f", "#d98564", "#e8b7a3", "#f5ded3"] },
+      "sand": { "role": "neutral", "displayName": "Warm Sand", "canonical": "oklch(97% 0.01 70)", "tonalRamp": ["#2a2420", "#463d35", "#6b5f52", "#8a8074", "#b3a99b", "#d3c7b5", "#f2ebe1", "#faf6f0"] },
+      "ink": { "role": "neutral", "displayName": "Warm Ink", "canonical": "oklch(24% 0.015 60)", "tonalRamp": ["#000000", "#1a1512", "#2a2420", "#3f382f", "#5c5349", "#8a8074", "#c3b9ab", "#e4dccf"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Fraunces Display", "purpose": "Hero headline only, English." },
+      "display-ar": { "displayName": "Rubik Display", "purpose": "Hero headline only, Arabic." },
+      "body-ar": { "displayName": "Rubik Body", "purpose": "Running Arabic copy, tuned line-height 1.9." }
+    },
+    "shadows": [
+      { "name": "ambient-low", "value": "0 1px 2px rgba(42,36,32,0.06), 0 8px 24px rgba(42,36,32,0.06)", "purpose": "Resting cards and sticky nav." },
+      { "name": "ambient-hover", "value": "0 4px 12px rgba(42,36,32,0.08), 0 16px 32px rgba(163,70,42,0.10)", "purpose": "Hover lift on cards and buttons." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Default state-change easing." }
+    ],
+    "breakpoints": []
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main CTA action button.",
+      "html": "<button class=\"ds-btn-primary\">Get Involved</button>",
+      "css": ".ds-btn-primary { background: #a3462a; color: #faf6f0; padding: 14px 28px; border-radius: 10px; font-weight: 600; border: none; transition: background 0.2s cubic-bezier(0.4,0,0.2,1), transform 0.2s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s; } .ds-btn-primary:hover { background: #7e341e; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(42,36,32,0.08), 0 16px 32px rgba(163,70,42,0.10); } .ds-btn-primary:focus-visible { outline: 2px solid #e8b7a3; outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action button.",
+      "html": "<button class=\"ds-btn-ghost\">Learn More</button>",
+      "css": ".ds-btn-ghost { background: transparent; color: #2a2420; padding: 14px 28px; border-radius: 10px; font-weight: 600; border: 1px solid #d3c7b5; transition: background 0.2s; } .ds-btn-ghost:hover { background: #f2ebe1; }"
+    },
+    {
+      "name": "Content Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Section/feature card on sand background.",
+      "html": "<div class=\"ds-card\"><span class=\"ds-card-label\">Sector</span><h3 class=\"ds-card-title\">Business Leaders</h3><p class=\"ds-card-body\">Equipping managers and executives to lead with integrity.</p></div>",
+      "css": ".ds-card { background: #f2ebe1; border-radius: 16px; padding: 32px; box-shadow: 0 1px 2px rgba(42,36,32,0.06), 0 8px 24px rgba(42,36,32,0.06); } .ds-card-label { color: #a3462a; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; } .ds-card-title { font-family: Fraunces, Georgia, serif; font-size: 1.25rem; font-weight: 600; color: #2a2420; margin: 8px 0; } .ds-card-body { color: #5c5349; line-height: 1.65; }"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Primary navigation link with grow-in underline active state.",
+      "html": "<a class=\"ds-nav-link\" href=\"#\">Services</a>",
+      "css": ".ds-nav-link { position: relative; color: #5c5349; font-size: 0.875rem; font-weight: 500; padding: 8px 4px; text-decoration: none; } .ds-nav-link::after { content: ''; position: absolute; left: 50%; right: 50%; bottom: 0; height: 2px; background: #a3462a; transition: left 0.2s cubic-bezier(0.4,0,0.2,1), right 0.2s cubic-bezier(0.4,0,0.2,1); } .ds-nav-link:hover::after, .ds-nav-link[aria-current='page']::after { left: 0; right: 0; } .ds-nav-link:hover { color: #2a2420; }"
+    },
+    {
+      "name": "Tag Badge",
+      "kind": "chip",
+      "refersTo": "tag-badge",
+      "description": "Small pill badge, the one place pill radius is allowed.",
+      "html": "<span class=\"ds-tag\">Cairo</span>",
+      "css": ".ds-tag { display: inline-block; background: #e8b7a3; color: #7e341e; padding: 4px 12px; border-radius: 999px; font-size: 0.8125rem; font-weight: 600; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Clay Ledger",
+    "overview": "An editorial, warm-earth identity for an organization that keeps real records of real people: names, cities, sectors, board members. The system reads like a well-kept ledger bound in clay-red cloth: confident serif headlines, generous cream space, one deep terracotta accent used sparingly to mark what matters. It rejects the cool navy-and-gold institutional template look the site currently wears, which reads as a generic downloaded NGO theme rather than a specific organization.",
+    "keyCharacteristics": [
+      "One confident accent (deep terracotta clay), never more than ~10% of any screen's surface.",
+      "Warm tinted neutrals throughout; no pure white, no pure black anywhere.",
+      "Serif display type for gravity and warmth; workhorse sans for body text.",
+      "Arabic and English are two native executions of one system, not a mirrored reskin.",
+      "Real photography from public/images/ replaces icon grids and emoji wherever a concrete image exists."
+    ],
+    "rules": [
+      { "name": "The One Ledger-Mark Rule", "body": "Clay appears in at most one place per section: the CTA, or the eyebrow label, or the active nav underline, never two at once.", "section": "colors" },
+      { "name": "No Pure Rule", "body": "Never #fff or #000 or Tailwind gray-*. Every neutral is warm-tinted from the sand/ink ramp.", "section": "colors" },
+      { "name": "The No Font-Swap Rule", "body": "Arabic is never the English scale with Rubik substituted in. Line-height, base size, and weight are tuned per-script.", "section": "typography" },
+      { "name": "The Gentle Lift Rule", "body": "Shadows only deepen in response to hover/focus state; nothing sits under a heavy shadow at rest.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use clay (#a3462a) in exactly one role per section.",
+      "Do give Arabic its own type scale: larger line-height, heavier default weight.",
+      "Do mirror layout direction for RTL: flex/grid order, icon direction, text-align, logical margin/padding.",
+      "Do use real photography from public/images/ instead of generic icon grids.",
+      "Do keep shadows soft and hover-triggered."
+    ],
+    "donts": [
+      "Don't use gradient hero blobs, gradient text, or default glassmorphism.",
+      "Don't build icons-in-circles feature grids or hero-metric-stat-card blocks.",
+      "Don't use emoji as functional UI icons.",
+      "Don't use rounded-full pill shape on primary/secondary action buttons.",
+      "Don't use pure white/black or Tailwind default gray-*.",
+      "Don't treat Arabic as English with dir=\"rtl\" and a font swap.",
+      "Don't stack border + shadow + heavy radius on the same card.",
+      "Don't reuse stock team high-fiving or corporate-megachurch photography style."
+    ]
+  }
+}

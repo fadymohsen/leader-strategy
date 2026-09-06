@@ -31,18 +31,18 @@ export default async function ContactPage({
       <ContactJsonLd locale={locale} />
 
       {/* ── Hero ── */}
-      <section className="bg-[#1e3a5f] text-white py-20">
+      <section className="bg-ink text-sand py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="inline-block mb-4 px-4 py-1.5 bg-white/10 text-blue-200 text-xs font-semibold uppercase tracking-widest rounded-full">
+          <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest">
             {contact.hero.badge}
           </span>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{contact.hero.headline}</h1>
-          <p className="text-blue-200 text-xl max-w-2xl">{contact.hero.sub}</p>
+          <h1 className="font-display text-4xl md:text-5xl mb-4">{contact.hero.headline}</h1>
+          <p className="text-sand/70 text-xl max-w-2xl">{contact.hero.sub}</p>
         </div>
       </section>
 
       {/* ── Content ── */}
-      <section className="bg-gray-50 py-20">
+      <section className="bg-sand-raised py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Info */}
@@ -51,21 +51,27 @@ export default async function ContactPage({
                 {contact.info.map((item) => (
                   <div
                     key={item.title}
-                    className="flex items-start gap-4 p-5 bg-white rounded-2xl border border-gray-100 hover:shadow-sm transition-shadow"
+                    className="flex items-start gap-4 p-5 bg-sand rounded-lg border border-border"
                   >
-                    <span className="text-2xl shrink-0">{item.icon}</span>
                     <div>
-                      <p className="text-xs font-semibold text-[#c8972e] uppercase tracking-wide mb-0.5">
+                      <p className="text-xs font-semibold text-clay uppercase tracking-wide mb-0.5">
                         {item.title}
                       </p>
-                      <p className="text-gray-700 text-sm font-medium">{item.value}</p>
+                      <p className="text-ink text-sm font-medium">{item.value}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              {/* Map placeholder */}
-              <div className="rounded-2xl bg-[#1e3a5f]/5 border border-[#1e3a5f]/10 h-52 flex items-center justify-center text-5xl">
-                🗺️
+              {/* Locations note */}
+              <div className="rounded-lg bg-sand border border-border-strong p-6">
+                <p className="text-xs font-semibold text-clay uppercase tracking-wide mb-2">
+                  {locale === "ar" ? "نخدم في" : "Serving"}
+                </p>
+                <p className="text-ink-muted text-sm">
+                  {locale === "ar"
+                    ? "القاهرة · الإسكندرية · المنيا · أسيوط · طنطا"
+                    : "Cairo · Alexandria · Minya · Assiut · Tanta"}
+                </p>
               </div>
             </div>
 

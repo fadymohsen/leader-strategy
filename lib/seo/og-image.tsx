@@ -24,7 +24,7 @@ export function OgImageTemplate({ locale, icon, title, subtitle, badge }: OgImag
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        background: "linear-gradient(135deg, #1e3a5f 0%, #0d2540 55%, #1a1030 100%)",
+        background: "linear-gradient(135deg, #2a2420 0%, #1a1512 55%, #120e0c 100%)",
         fontFamily: "sans-serif",
         position: "relative",
         overflow: "hidden",
@@ -39,7 +39,7 @@ export function OgImageTemplate({ locale, icon, title, subtitle, badge }: OgImag
           width: 480,
           height: 480,
           borderRadius: "50%",
-          background: "rgba(200,151,46,0.10)",
+          background: "rgba(163,70,42,0.14)",
         }}
       />
       <div
@@ -50,7 +50,7 @@ export function OgImageTemplate({ locale, icon, title, subtitle, badge }: OgImag
           width: 360,
           height: 360,
           borderRadius: "50%",
-          background: "rgba(200,151,46,0.06)",
+          background: "rgba(163,70,42,0.08)",
         }}
       />
       <div
@@ -82,7 +82,7 @@ export function OgImageTemplate({ locale, icon, title, subtitle, badge }: OgImag
               width: 56,
               height: 56,
               borderRadius: "50%",
-              background: "#c8972e",
+              background: "#a3462a",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -111,9 +111,9 @@ export function OgImageTemplate({ locale, icon, title, subtitle, badge }: OgImag
           style={{
             padding: "8px 20px",
             borderRadius: 999,
-            border: "1px solid rgba(200,151,46,0.45)",
-            background: "rgba(200,151,46,0.12)",
-            color: "#e0b245",
+            border: "1px solid rgba(232,183,163,0.35)",
+            background: "rgba(163,70,42,0.18)",
+            color: "#e8b7a3",
             fontSize: 15,
             fontWeight: 600,
             letterSpacing: "0.04em",
@@ -143,7 +143,7 @@ export function OgImageTemplate({ locale, icon, title, subtitle, badge }: OgImag
           style={{
             width: 64,
             height: 3,
-            background: "#c8972e",
+            background: "#a3462a",
             borderRadius: 2,
             marginBottom: 28,
           }}
@@ -169,7 +169,7 @@ export function OgImageTemplate({ locale, icon, title, subtitle, badge }: OgImag
         <div
           style={{
             fontSize: 24,
-            color: "#c8972e",
+            color: "#e8b7a3",
             fontWeight: 600,
             maxWidth: 780,
             textAlign: "center",

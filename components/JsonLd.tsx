@@ -1,4 +1,4 @@
-import { siteConfig, canonical, type SupportedLocale, type PageSlug } from "@/lib/seo/config";
+import { siteConfig, canonical, type SupportedLocale } from "@/lib/seo/config";
 
 // ── Generic renderer ──────────────────────────────────────────────────────────
 

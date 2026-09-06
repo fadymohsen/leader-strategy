@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
+import { DirSync } from "@/components/DirSync";
 
 // ── Navbar ────────────────────────────────────────────────────────────────
 
@@ -19,7 +20,7 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+    <header className="sticky top-0 z-50 bg-sand/95 backdrop-blur-sm shadow-[0_1px_2px_rgba(42,36,32,0.06),0_8px_24px_rgba(42,36,32,0.06)]">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -30,6 +31,7 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
               width={160}
               height={48}
               className="h-12 w-auto"
+              style={{ width: "auto" }}
               priority
             />
           </Link>
@@ -40,28 +42,29 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-[#1e3a5f] hover:bg-blue-50 rounded-md transition-colors"
+                  className="group relative px-3 py-2 text-sm font-medium text-ink-muted hover:text-ink transition-colors"
                 >
                   {l.label}
+                  <span className="absolute inset-x-1/2 -bottom-0.5 h-0.5 bg-clay transition-all duration-200 group-hover:inset-x-3" />
                 </Link>
               </li>
             ))}
           </ul>
 
           {/* Right side */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {/* Language switcher */}
             <Link
               href={`/${otherLocale}`}
-              className="hidden sm:flex items-center gap-1 px-3 py-1.5 text-xs font-medium border border-gray-200 rounded-full text-gray-500 hover:border-[#1e3a5f] hover:text-[#1e3a5f] transition-colors"
+              className="hidden sm:inline-flex items-center px-3 py-1.5 text-xs font-semibold border border-border-strong rounded-md text-ink-muted hover:border-clay hover:text-clay transition-colors"
             >
-              🌐 {nav.langSwitch}
+              {nav.langSwitch}
             </Link>
 
             {/* Donate CTA */}
             <Link
               href={`/${locale}/contact`}
-              className="px-4 py-2 text-sm font-semibold bg-[#c8972e] hover:bg-[#b8861e] text-white rounded-full transition-colors whitespace-nowrap"
+              className="px-4 py-2 text-sm font-semibold bg-clay hover:bg-clay-deep text-sand rounded-md transition-colors whitespace-nowrap"
             >
               {nav.donate}
             </Link>
@@ -75,7 +78,7 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className="block px-3 py-1.5 text-xs font-medium text-gray-600 hover:text-[#1e3a5f] hover:bg-blue-50 rounded-md transition-colors whitespace-nowrap"
+                  className="block px-3 py-1.5 text-xs font-medium text-ink-muted hover:text-clay transition-colors whitespace-nowrap"
                 >
                   {l.label}
                 </Link>
@@ -84,9 +87,9 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
             <li>
               <Link
                 href={`/${otherLocale}`}
-                className="block px-3 py-1.5 text-xs font-medium text-gray-400 hover:text-[#1e3a5f] rounded-md transition-colors whitespace-nowrap"
+                className="block px-3 py-1.5 text-xs font-medium text-ink-faint hover:text-clay transition-colors whitespace-nowrap"
               >
-                🌐 {nav.langSwitch}
+                {nav.langSwitch}
               </Link>
             </li>
           </ul>
@@ -111,7 +114,7 @@ function Footer({ locale, dict }: { locale: Locale; dict: Awaited<ReturnType<typ
   ];
 
   return (
-    <footer className="bg-[#1e3a5f] text-white mt-auto">
+    <footer className="bg-ink text-sand/80 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
@@ -123,14 +126,15 @@ function Footer({ locale, dict }: { locale: Locale; dict: Awaited<ReturnType<typ
                 width={180}
                 height={54}
                 className="h-14 w-auto"
+                style={{ width: "auto" }}
               />
             </div>
-            <p className="text-sm text-blue-200 leading-relaxed">{footer.description}</p>
+            <p className="text-sm leading-relaxed">{footer.description}</p>
           </div>
 
           {/* Quick links */}
           <div>
-            <h3 className="font-semibold text-[#c8972e] mb-4 uppercase text-xs tracking-widest">
+            <h3 className="font-semibold text-clay-soft mb-4 uppercase text-xs tracking-widest">
               {footer.quickLinks}
             </h3>
             <ul className="space-y-2">
@@ -138,7 +142,7 @@ function Footer({ locale, dict }: { locale: Locale; dict: Awaited<ReturnType<typ
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-sm text-blue-200 hover:text-white transition-colors"
+                    className="text-sm hover:text-sand transition-colors"
                   >
                     {l.label}
                   </Link>
@@ -149,27 +153,27 @@ function Footer({ locale, dict }: { locale: Locale; dict: Awaited<ReturnType<typ
 
           {/* Contact info */}
           <div>
-            <h3 className="font-semibold text-[#c8972e] mb-4 uppercase text-xs tracking-widest">
+            <h3 className="font-semibold text-clay-soft mb-4 uppercase text-xs tracking-widest">
               {footer.contact}
             </h3>
-            <ul className="space-y-3 text-sm text-blue-200">
+            <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
-                <span>📍</span>
+                <svg className="w-4 h-4 mt-0.5 shrink-0 rtl:scale-x-[-1]" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M10 18s6-5.686 6-10a6 6 0 10-12 0c0 4.314 6 10 6 10z"/><circle cx="10" cy="8" r="2"/></svg>
                 <span>{footer.address}</span>
               </li>
               <li className="flex items-center gap-2">
-                <span>✉️</span>
+                <svg className="w-4 h-4 shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="4" width="16" height="12" rx="1.5"/><path d="M3 5l7 6 7-6"/></svg>
                 <span>{footer.email}</span>
               </li>
               <li className="flex items-center gap-2">
-                <span>📞</span>
+                <svg className="w-4 h-4 shrink-0 rtl:scale-x-[-1]" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 3h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a1 1 0 01-1 1A13 13 0 013 4a1 1 0 011-1z"/></svg>
                 <span>{footer.phone}</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-blue-800 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-blue-300">
+        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-sand/50">
           <p>© {new Date().getFullYear()} {meta.siteName}. {footer.rights}</p>
           <p>{footer.madeWith}</p>
         </div>
@@ -197,6 +201,7 @@ export default async function LocaleLayout({
 
   return (
     <div className="flex flex-col min-h-screen">
+      <DirSync locale={locale} />
       <Navbar locale={locale} dict={dict} />
       <main className="flex-1">{children}</main>
       <Footer locale={locale} dict={dict} />
