@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
 import { DirSync } from "@/components/DirSync";
+import { NavLinksDesktop, NavLinksMobile } from "@/components/NavLinks";
+import { LocaleSwitchLink } from "@/components/LocaleSwitchLink";
 
 // ── Navbar ────────────────────────────────────────────────────────────────
 
@@ -37,29 +39,17 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
           </Link>
 
           {/* Desktop links */}
-          <ul className="hidden md:flex items-center gap-1">
-            {links.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className="group relative px-3 py-2 text-sm font-medium text-ink-muted hover:text-ink transition-colors"
-                >
-                  {l.label}
-                  <span className="absolute inset-x-1/2 -bottom-0.5 h-0.5 bg-clay transition-all duration-200 group-hover:inset-x-3" />
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <NavLinksDesktop links={links} />
 
           {/* Right side */}
           <div className="flex items-center gap-3">
             {/* Language switcher */}
-            <Link
-              href={`/${otherLocale}`}
+            <LocaleSwitchLink
+              targetLocale={otherLocale}
               className="hidden sm:inline-flex items-center px-3 py-1.5 text-xs font-semibold border border-border-strong rounded-md text-ink-muted hover:border-clay hover:text-clay transition-colors"
             >
               {nav.langSwitch}
-            </Link>
+            </LocaleSwitchLink>
 
             {/* Donate CTA */}
             <Link
@@ -73,26 +63,15 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
 
         {/* Mobile nav */}
         <div className="md:hidden overflow-x-auto pb-3 pt-1 -mx-4 px-4">
-          <ul className="flex gap-1 w-max">
-            {links.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className="block px-3 py-1.5 text-xs font-medium text-ink-muted hover:text-clay transition-colors whitespace-nowrap"
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link
-                href={`/${otherLocale}`}
-                className="block px-3 py-1.5 text-xs font-medium text-ink-faint hover:text-clay transition-colors whitespace-nowrap"
-              >
-                {nav.langSwitch}
-              </Link>
-            </li>
-          </ul>
+          <div className="flex items-center gap-1 w-max">
+            <NavLinksMobile links={links} />
+            <LocaleSwitchLink
+              targetLocale={otherLocale}
+              className="block px-3 py-1.5 text-xs font-medium text-ink-faint hover:text-clay transition-colors whitespace-nowrap"
+            >
+              {nav.langSwitch}
+            </LocaleSwitchLink>
+          </div>
         </div>
       </nav>
     </header>

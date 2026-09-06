@@ -4,7 +4,7 @@ const en = {
     siteName: "Leader Strategies",
     tagline: "Make Your Work a Center for Your Mission",
     description:
-      "A Christian organization for spiritual service and leadership training in Egypt — building influential leaders through specialized professional groups.",
+      "A Christian organization for spiritual service and leadership training in Egypt — building influential leaders from Cairo to Alexandria, Minya to Assiut and Tanta, through specialized professional groups.",
   },
 
   // ── Navigation ────────────────────────────────────────────────────────────
@@ -22,7 +22,7 @@ const en = {
   // ── Footer ────────────────────────────────────────────────────────────────
   footer: {
     description:
-      "Leader Strategies is a Christian spiritual service and leadership training organization in Egypt, dedicated to creating a spiritual movement among influential leaders across the nation.",
+      "Leader Strategies is a Christian spiritual service and leadership training organization in Egypt, dedicated to creating a spiritual movement among influential leaders in every corner of the country.",
     quickLinks: "Quick Links",
     contact: "Contact Us",
     address: "Cairo, Egypt — also operating in Minya, Assiut, Alexandria & Tanta",
@@ -104,7 +104,7 @@ const en = {
     hero: {
       badge: "About Us",
       headline: "Influential Leaders Ministry",
-      sub: "A strategy of the Spiritual Service and Leadership Training Organization in Egypt.",
+      sub: "A strategy of the Spiritual Service and Leadership Training Organization, working from Cairo to Alexandria, Minya to Assiut and Tanta.",
     },
     story: {
       headline: "Who We Are",
@@ -183,12 +183,12 @@ const en = {
         {
           name: "Alaa Wahba",
           role: "Cairo City Leader",
-          bio: "Developing influential leaders across Cairo.",
+          bio: "Developing influential leaders across Cairo, from Heliopolis to Maadi.",
         },
         {
           name: "Mira Halim",
           role: "Alexandria City Leader",
-          bio: "Pioneering the movement in Alexandria.",
+          bio: "Pioneering the movement in Alexandria, from Sidi Gaber to Smouha.",
         },
       ],
     },
@@ -362,7 +362,7 @@ const en = {
     hero: {
       badge: "News & Stories",
       headline: "Stories of Impact & Transformation",
-      sub: "Updates from the Leader Strategies movement across Egypt.",
+      sub: "Updates from the Leader Strategies movement, from Cairo to Alexandria, Minya to Assiut and Tanta.",
     },
     articles: [
       {
@@ -375,9 +375,9 @@ const en = {
       {
         date: "July 2026",
         category: "Medical Strategy",
-        title: "New Medical Strategy Group Launches in Alexandria",
+        title: "New Medical Strategy Group Launches in Sidi Gaber, Alexandria",
         excerpt:
-          "A new group for doctors and healthcare workers launched in Alexandria, bringing together medical professionals to integrate faith and calling into their practice.",
+          "A new group for doctors and healthcare workers launched in Alexandria's Sidi Gaber district, bringing together medical professionals to integrate faith and calling into their practice.",
       },
       {
         date: "June 2026",
