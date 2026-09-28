@@ -43,8 +43,18 @@ export default async function ServicesPage({
       <ServicesJsonLd locale={locale} />
 
       {/* ── Hero ── */}
-      <section className="bg-ink text-sand py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="grain relative overflow-hidden bg-ink text-sand py-20">
+        <Image
+          src="/images/team-lead-up-workshop.jpg"
+          alt=""
+          aria-hidden
+          priority
+          fill
+          sizes="100vw"
+          className="object-cover opacity-50"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink via-ink/90 to-ink/60" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest">
             {services.hero.badge}
           </span>
@@ -133,8 +143,17 @@ export default async function ServicesPage({
       })}
 
       {/* ── Shared Vision ── */}
-      <section className="bg-ink py-20 text-sand">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="grain relative overflow-hidden bg-ink py-20 text-sand">
+        <Image
+          src="/images/team-family-retreat.jpg"
+          alt=""
+          aria-hidden
+          fill
+          sizes="100vw"
+          className="object-cover opacity-35"
+        />
+        <div className="absolute inset-0 bg-ink/70" />
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-display text-3xl mb-6">{services.sharedVision.headline}</h2>
           <p className="text-sand/70 text-lg mb-8">{services.sharedVision.intro}</p>
           <div className="space-y-3">

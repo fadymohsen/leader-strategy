@@ -1,9 +1,23 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { NewsJsonLd } from "@/components/JsonLd";
 import { NewsletterForm } from "./NewsletterForm";
+
+// Article title -> a real photo, where one exists. The rest stay text-only rather than reuse a stand-in.
+const ARTICLE_PHOTOS: [string, string][] = [
+  ["Leadership Summit", "/images/community-celebration.jpg"],
+  ["قمة القيادة", "/images/community-celebration.jpg"],
+  ["ISP", "/images/team-lead-up-workshop.jpg"],
+  ["Leader Impact Next", "/images/graduates-gathering.jpg"],
+];
+
+function articlePhoto(title: string, category: string) {
+  const match = ARTICLE_PHOTOS.find(([key]) => title.includes(key) || category.includes(key));
+  return match ? match[1] : null;
+}
 
 export async function generateMetadata({
   params,
@@ -30,8 +44,18 @@ export default async function NewsPage({
     <>
       <NewsJsonLd locale={locale} articles={news.articles} />
       {/* ── Hero ── */}
-      <section className="bg-ink text-sand py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="grain relative overflow-hidden bg-ink text-sand py-20">
+        <Image
+          src="/images/interfaith-nativity-event.jpg"
+          alt=""
+          aria-hidden
+          priority
+          fill
+          sizes="100vw"
+          className="object-cover opacity-50 object-bottom"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink via-ink/90 to-ink/60" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest">
             {news.hero.badge}
           </span>
@@ -44,11 +68,21 @@ export default async function NewsPage({
       <section className="bg-sand-raised py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {news.articles.map((article) => (
+            {news.articles.map((article, i) => {
+              const photo = articlePhoto(article.title, article.category);
+              const featured = i === 0 && photo;
+              return (
               <article
                 key={article.title}
-                className="bg-sand rounded-lg overflow-hidden border border-border hover:shadow-[0_4px_12px_rgba(42,36,32,0.08),0_16px_32px_rgba(163,70,42,0.10)] transition-shadow flex flex-col"
+                className={`bg-sand rounded-lg overflow-hidden border border-border hover:shadow-[0_4px_12px_rgba(42,36,32,0.08),0_16px_32px_rgba(163,70,42,0.10)] transition-shadow flex flex-col ${
+                  featured ? "md:col-span-2 lg:col-span-3 md:flex-row" : ""
+                }`}
               >
+                {photo && (
+                  <div className={`relative shrink-0 ${featured ? "aspect-[16/9] md:aspect-auto md:w-2/5" : "aspect-[16/9]"}`}>
+                    <Image src={photo} alt="" fill sizes={featured ? "(min-width: 768px) 40vw, 100vw" : "(min-width: 768px) 33vw, 100vw"} className="object-cover" />
+                  </div>
+                )}
                 <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-center gap-2 mb-4">
                     <span className="text-xs font-semibold px-2.5 py-1 bg-clay-soft text-clay-deep rounded-full">
@@ -68,7 +102,8 @@ export default async function NewsPage({
                   </button>
                 </div>
               </article>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

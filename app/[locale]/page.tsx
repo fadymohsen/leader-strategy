@@ -47,18 +47,19 @@ export default async function HomePage({
 
       {/* ── Hero: editorial masthead, bottom-anchored, one CTA + one text link ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand min-h-screen flex items-center">
-        <div className="hidden md:flex absolute inset-y-0 end-0 w-1/2 items-center justify-center p-12 lg:p-16">
+        <div className="absolute -inset-y-16 inset-x-0">
           <Image
-            src="/images/shield-emblem-transparent.png"
+            src="/images/hero-stock-composite.jpg"
             alt=""
             aria-hidden
             priority
-            width={900}
-            height={1000}
-            className="hero-emblem-parallax pointer-events-none select-none w-full h-auto opacity-90 invert"
-            style={{ height: "auto" }}
+            fill
+            sizes="100vw"
+            className="hero-emblem-parallax object-cover opacity-70"
           />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink via-ink/90 to-ink/45" />
+        <div className="absolute inset-0 bg-clay/10 mix-blend-multiply" />
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full">
           <div className="max-w-2xl hero-stagger">
@@ -77,13 +78,44 @@ export default async function HomePage({
               </Link>
               <Link
                 href={`/${locale}/about`}
-                className="group inline-flex items-center gap-2 text-sand font-semibold"
+                className="group inline-flex items-center gap-2 text-sand font-semibold hover:text-clay-soft transition-colors duration-200"
               >
                 {home.hero.ctaSecondary}
                 <span className="rtl:-scale-x-100 transition-transform duration-200 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">→</span>
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── Pillars: how we build leaders, three dimensions ── */}
+      <section className="bg-sand-raised py-24">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal className="mb-14 max-w-2xl">
+            <span className="inline-block mb-3 text-clay text-xs font-semibold uppercase tracking-widest">
+              {home.pillars.badge}
+            </span>
+            <h2 className="font-display text-section-heading text-ink mb-5">
+              {home.pillars.tagline}
+            </h2>
+            <p className="text-ink-muted text-lg leading-relaxed">{home.pillars.intro}</p>
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-10 md:gap-8 mb-12">
+            {home.pillars.items.map((item, i) => (
+              <Reveal key={item.title} delay={i * 80}>
+                <span className="font-display text-3xl text-clay block mb-3">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="font-semibold text-ink text-lg mb-2">{item.title}</h3>
+                <p className="text-ink-muted text-sm leading-relaxed">{item.desc}</p>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="border-t border-border pt-8">
+            <p className="font-display text-xl text-ink leading-relaxed max-w-2xl">{home.pillars.goal}</p>
+          </Reveal>
         </div>
       </section>
 
@@ -169,8 +201,73 @@ export default async function HomePage({
         </div>
       </section>
 
-      {/* ── News: one featured story + a compact list, not three identical cards ── */}
+      {/* ── Community: real moments, not stock photography ── */}
       <section className="bg-sand py-24">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal className="mb-10 max-w-xl">
+            <h2 className="font-display text-section-heading text-ink mb-3">
+              {locale === "ar" ? "لحظات من الحركة" : "Moments from the Movement"}
+            </h2>
+            <p className="text-ink-muted text-lg">
+              {locale === "ar"
+                ? "مش بس شغل — دي حياة وناس وعلاقات حقيقية."
+                : "Not just programs — real people, real relationships."}
+            </p>
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            <Reveal className="md:col-span-2">
+              <div className="relative aspect-[4/3] md:h-full rounded-lg overflow-hidden">
+                <Image
+                  src="/images/interfaith-nativity-event.jpg"
+                  alt={locale === "ar" ? "احتفال مجتمعي مشترك يجمع قادة دينيين ومجتمعيين" : "A shared community celebration bringing together religious and civic leaders"}
+                  fill
+                  sizes="(min-width: 768px) 60vw, 100vw"
+                  className="object-cover object-bottom"
+                />
+              </div>
+            </Reveal>
+            <div className="flex flex-col gap-4">
+              <Reveal delay={70}>
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                  <Image
+                    src="/images/community-celebration.jpg"
+                    alt={locale === "ar" ? "قادة وأعضاء الحركة في لقاء احتفالي" : "Movement leaders and members at a celebration gathering"}
+                    fill
+                    sizes="(min-width: 768px) 30vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              </Reveal>
+              <Reveal delay={140}>
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                  <Image
+                    src="/images/team-lead-up-workshop.jpg"
+                    alt={locale === "ar" ? "ورشة تدريب Lead Up" : "A Lead Up training workshop"}
+                    fill
+                    sizes="(min-width: 768px) 30vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              </Reveal>
+              <Reveal delay={210}>
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                  <Image
+                    src="/images/staff-family-gathering.jpg"
+                    alt={locale === "ar" ? "فريق وعائلات الحركة في لقاء جماعي" : "The movement's staff and families at a gathering"}
+                    fill
+                    sizes="(min-width: 768px) 30vw, 100vw"
+                    className="object-cover object-bottom"
+                  />
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── News: one featured story + a compact list, not three identical cards ── */}
+      <section className="bg-sand-raised py-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="flex items-end justify-between mb-12">
             <div className="max-w-xl">
@@ -179,7 +276,7 @@ export default async function HomePage({
             </div>
             <Link
               href={`/${locale}/news`}
-              className="group hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-clay whitespace-nowrap"
+              className="group hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-clay hover:text-clay-deep hover:underline whitespace-nowrap"
             >
               {home.news.cta}
               <span className="rtl:-scale-x-100 inline-block transition-transform duration-200 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">→</span>
@@ -244,7 +341,7 @@ export default async function HomePage({
             </Link>
             <Link
               href={`/${locale}/contact`}
-              className="group inline-flex items-center justify-center gap-2 text-sand font-semibold"
+              className="group inline-flex items-center justify-center gap-2 text-sand font-semibold hover:text-ink transition-colors duration-200"
             >
               {home.cta.volunteer}
               <span className="rtl:-scale-x-100 transition-transform duration-200 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">→</span>

@@ -54,6 +54,26 @@ const en = {
       body: "Equipping believers to be influential leaders in their fields of work, capable of serving those around them, building influential relationships, and representing Christ in their professional and community environments.",
       cta: "About Us",
     },
+    pillars: {
+      badge: "How We Build Leaders",
+      tagline: "We Invest in People... So They Lead and Influence",
+      intro: "In our ministry, we believe in the complete, integrated formation of leaders. We help believers discover their true calling to be a light in their workplaces, by focusing on three essential dimensions:",
+      items: [
+        {
+          title: "Spiritual Formation",
+          desc: "Deepening your relationship with God so you become a living witness among those around you.",
+        },
+        {
+          title: "Professional Development",
+          desc: "Equipping you with the skills that make you distinguished and effective in your work.",
+        },
+        {
+          title: "Personal & Psychological Support",
+          desc: "Building inner resilience and self-awareness to help you face the challenges of leadership.",
+        },
+      ],
+      goal: "Our goal: to turn every workplace into a real space for service and change-making.",
+    },
     services: {
       headline: "Our Specialized Ministries",
       sub: "Programs designed to suit each professional category",

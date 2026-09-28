@@ -53,8 +53,18 @@ export default async function CoursesPage({
     <>
       <CoursesJsonLd locale={locale} courses={courses.items} />
       {/* ── Hero ── */}
-      <section className="bg-ink text-sand py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="grain relative overflow-hidden bg-ink text-sand py-20">
+        <Image
+          src="/images/graduates-gathering.jpg"
+          alt=""
+          aria-hidden
+          priority
+          fill
+          sizes="100vw"
+          className="object-cover opacity-50"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink via-ink/90 to-ink/60" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest">
             {courses.hero.badge}
           </span>
@@ -126,6 +136,17 @@ export default async function CoursesPage({
             })}
           </div>
         </div>
+      </section>
+
+      {/* ── Photo band ── */}
+      <section className="relative h-72 md:h-[28rem]">
+        <Image
+          src="/images/team-flag-launch-day.jpg"
+          alt={locale === "ar" ? "قادة الحركة في يوم إطلاق مسار FLAG" : "Movement leaders at a FLAG track launch day"}
+          fill
+          sizes="100vw"
+          className="object-cover object-bottom"
+        />
       </section>
 
       {/* ── Bottom CTA ── */}

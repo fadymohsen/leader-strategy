@@ -115,8 +115,18 @@ export default async function AboutPage({
     <>
       <AboutJsonLd locale={locale} />
       {/* ── Hero ── */}
-      <section className="bg-ink text-sand py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="grain relative overflow-hidden bg-ink text-sand py-24">
+        <Image
+          src="/images/team-family-retreat.jpg"
+          alt=""
+          aria-hidden
+          priority
+          fill
+          sizes="100vw"
+          className="object-cover opacity-55"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink via-ink/90 to-ink/55" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest">
             {about.hero.badge}
           </span>
@@ -149,6 +159,17 @@ export default async function AboutPage({
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ── Photo band ── */}
+      <section className="relative h-72 md:h-[28rem]">
+        <Image
+          src="/images/interfaith-nativity-event.jpg"
+          alt={locale === "ar" ? "لقاء مجتمعي يجمع قادة دينيين ومجتمعيين مع الحركة" : "A community gathering bringing religious and civic leaders together with the movement"}
+          fill
+          sizes="100vw"
+          className="object-cover object-bottom"
+        />
       </section>
 
       {/* ── Mission, Vision & Slogan ── */}
@@ -260,9 +281,20 @@ export default async function AboutPage({
       {/* ── Board of Leader Strategies ── */}
       <section className="bg-sand-raised py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl text-ink">{about.team.headline}</h2>
-            <p className="text-ink-muted mt-2">{about.team.sub}</p>
+          <div className="grid md:grid-cols-[1fr_1.3fr] gap-10 items-center mb-16">
+            <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-[0_1px_2px_rgba(42,36,32,0.06),0_8px_24px_rgba(42,36,32,0.06)]">
+              <Image
+                src="/images/board-team-portrait.jpg"
+                alt={locale === "ar" ? "صورة جماعية لفريق ومجلس Leader Strategies" : "Group portrait of the Leader Strategies team and board"}
+                fill
+                sizes="(min-width: 768px) 40vw, 100vw"
+                className="object-cover object-bottom"
+              />
+            </div>
+            <div>
+              <h2 className="font-display text-3xl text-ink mb-3">{about.team.headline}</h2>
+              <p className="text-ink-muted text-lg">{about.team.sub}</p>
+            </div>
           </div>
           <div className="flex flex-wrap justify-center gap-4">
             {about.team.members.map((member) => (
@@ -287,6 +319,15 @@ export default async function AboutPage({
           <h2 className="font-display text-3xl text-ink text-center mb-10">
             {cityBoardTitle}
           </h2>
+          <div className="relative aspect-[16/9] rounded-lg overflow-hidden mb-10 shadow-[0_1px_2px_rgba(42,36,32,0.06),0_8px_24px_rgba(42,36,32,0.06)]">
+            <Image
+              src="/images/team-flag-launch-day.jpg"
+              alt={locale === "ar" ? "قادة الحركة في لقاء المحافظات" : "Movement leaders at a city gathering"}
+              fill
+              sizes="100vw"
+              className="object-cover object-bottom"
+            />
+          </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
             {cities.map((city) => (
               <div key={city.city} className="rounded-lg overflow-hidden border border-border">
