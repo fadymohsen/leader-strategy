@@ -98,11 +98,6 @@ const en = {
           title: "Graduates Ministry",
           desc: "We help graduates transition from university life to professional life with confidence and readiness — from graduation to influence.",
         },
-        {
-          icon: "📚",
-          title: "Students Ministry",
-          desc: "We work with students during their study years, helping them build strong character, discover their talents, and prepare for professional and spiritual life.",
-        },
       ],
       cta: "Explore Our Services",
     },
@@ -343,26 +338,6 @@ const en = {
         goal: "To help graduates start their professional lives with strong skills, mature character, clear vision, and faith capable of influencing the place God will put them in.",
         tags: ["University Graduates", "Career Purpose", "Leader Impact Next"],
       },
-      {
-        icon: "📚",
-        title: "Students Ministry",
-        slogan: "Building today... the leaders of tomorrow",
-        intro: "We believe influence doesn't start only after graduation. That's why we work with students during their study years, helping them build strong character, discover their talents, and prepare for professional and spiritual life.",
-        sections: [
-          {
-            title: "What We Offer Students",
-            desc: "",
-            points: ["Character development & leadership programs", "Communication & teamwork training", "Activities to discover talents & abilities", "Career awareness & connecting students to the job market", "Meetings with specialists in various fields", "Encouraging students to serve others & make a positive impact in their communities"],
-          },
-          {
-            title: "Bible Distribution",
-            desc: "Through our programs and student ministry, we also seek to provide and distribute Bibles to students, giving them the opportunity to learn about God's Word, read it, and discover its message for themselves.",
-            points: [],
-          },
-        ],
-        goal: "We believe the real investment in a student is not just teaching them how to succeed in the future, but helping them build a life with meaning, mission, and purpose.",
-        tags: ["Students", "Character Development", "Future Leaders"],
-      },
     ],
     sharedVision: {
       headline: "Our Shared Vision",
@@ -372,7 +347,6 @@ const en = {
         "The doctor serves in the hospital and clinic.",
         "The business leader serves in their company and community.",
         "The graduate begins their mission from day one at work.",
-        "The student learns now how to be influential in their university and community.",
       ],
     },
   },
