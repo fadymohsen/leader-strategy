@@ -63,6 +63,19 @@ export default async function HomePage({
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full">
           <div className="max-w-2xl hero-stagger">
+            <div className="flex items-center gap-4 mb-8">
+              <Image
+                src="/logo.png"
+                alt="Leader Strategies"
+                width={80}
+                height={80}
+                className="h-16 sm:h-20 w-auto drop-shadow-lg"
+                style={{ width: "auto" }}
+              />
+              <span className="font-display text-2xl sm:text-3xl text-sand/90">
+                {locale === "ar" ? "خدمة القادة" : "Leader Strategies"}
+              </span>
+            </div>
             <h1 className="font-display text-hero leading-[0.95] tracking-tight mb-7 whitespace-pre-line">
               {home.hero.headline}
             </h1>
