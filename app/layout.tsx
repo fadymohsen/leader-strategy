@@ -26,8 +26,12 @@ export const metadata: Metadata = {
   description:
     "A Christian organization for spiritual service and leadership training in Egypt — building influential leaders through specialized professional groups.",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon.png", sizes: "192x192", type: "image/png" },
+    ],
     shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
   openGraph: {
     siteName: "Leader Strategies",
