@@ -232,8 +232,8 @@ export default async function HomePage({
             <Reveal className="md:col-span-2">
               <div className="relative aspect-[4/3] md:h-full rounded-lg overflow-hidden">
                 <Image
-                  src="/images/forum-4-group-arches.jpeg"
-                  alt={locale === "ar" ? "المنتدى الرابع للقادة المؤثرين — صورة جماعية" : "4th Influential Leaders Forum — group photo"}
+                  src="/images/strategy-team.jpeg"
+                  alt={locale === "ar" ? "فريق عمل الاستراتيجية" : "Leader Strategies team"}
                   fill
                   sizes="(min-width: 768px) 60vw, 100vw"
                   className="object-cover object-bottom"

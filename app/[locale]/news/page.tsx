@@ -8,8 +8,8 @@ import { NewsletterForm } from "./NewsletterForm";
 
 // Article title -> a real photo, where one exists. The rest stay text-only rather than reuse a stand-in.
 const ARTICLE_PHOTOS: [string, string][] = [
-  ["Forum", "/images/forum-4-group-arches.jpeg"],
-  ["المنتدى", "/images/forum-4-group-arches.jpeg"],
+  ["Forum", "/images/strategy-team.jpeg"],
+  ["المنتدى", "/images/strategy-team.jpeg"],
   ["Leadership Summit", "/images/community-celebration.jpg"],
   ["قمة القيادة", "/images/community-celebration.jpg"],
   ["ISP", "/images/team-lead-up-workshop.jpg"],
@@ -129,7 +129,7 @@ export default async function NewsPage({
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
             {[
-              { src: "/images/forum-4-group-arches.jpeg", alt: locale === "ar" ? "صورة جماعية للمنتدى الرابع" : "4th Forum group photo under the arches", span: "md:col-span-2" },
+              { src: "/images/strategy-team.jpeg", alt: locale === "ar" ? "فريق عمل الاستراتيجية" : "Leader Strategies team", span: "md:col-span-2" },
               { src: "/images/forum-4-group-building.jpeg", alt: locale === "ar" ? "مشاركون في المنتدى" : "Forum participants group photo", span: "" },
               { src: "/images/forum-4-group-garden.jpeg", alt: locale === "ar" ? "مشاركون في الحديقة" : "Participants in the garden", span: "" },
               { src: "/images/forum-4-lecture-hall.jpeg", alt: locale === "ar" ? "جلسة تدريبية في المنتدى" : "Forum training session", span: "" },
