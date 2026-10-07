@@ -4,7 +4,7 @@ const en = {
     siteName: "Leader Strategies",
     tagline: "Make Your Work a Center for Your Mission",
     description:
-      "A Christian organization for spiritual service and leadership training in Egypt — building influential leaders from Cairo to Alexandria, Minya to Assiut and Tanta, through specialized professional groups.",
+      "A leader-led movement within the Spiritual Service and Leadership Training Organization in Egypt — building influential leaders from Cairo to Alexandria, Minya to Assiut and Tanta, through specialized professional groups.",
   },
 
   // ── Navigation ────────────────────────────────────────────────────────────
@@ -22,7 +22,7 @@ const en = {
   // ── Footer ────────────────────────────────────────────────────────────────
   footer: {
     description:
-      "Leader Strategies is a Christian spiritual service and leadership training organization in Egypt, dedicated to creating a spiritual movement among influential leaders in every corner of the country.",
+      "Leader Strategies is a leader-led movement and one of the sectors of the Spiritual Service and Leadership Training Organization in Egypt. Our goal is to build a movement of influential leaders across the country.",
     quickLinks: "Quick Links",
     contact: "Contact Us",
     address: "Cairo, Egypt — also operating in Minya, Assiut, Alexandria & Tanta",
@@ -368,10 +368,10 @@ const en = {
       },
       {
         date: "August 2026",
-        category: "Leadership Summit",
-        title: "Annual Leadership Summit Gathers Leaders from Across Egypt",
+        category: "Leadership School",
+        title: "Leadership School Gathers Leaders from Across Egypt",
         excerpt:
-          "Leaders from Cairo, Minya, Assiut, Alexandria, and Tanta gathered for our annual planning summit — casting vision for the movement's next chapter.",
+          "Leaders from Cairo, Minya, Assiut, Alexandria, and Tanta gathered for the Leadership School — training, building, and casting vision for the movement's next chapter.",
       },
       {
         date: "July 2026",

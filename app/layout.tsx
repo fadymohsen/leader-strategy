@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s | Leader Strategies",
   },
   description:
-    "A Christian organization for spiritual service and leadership training in Egypt — building influential leaders through specialized professional groups.",
+    "A leader-led movement within the Spiritual Service and Leadership Training Organization in Egypt — building influential leaders through specialized professional groups.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },

@@ -8,7 +8,7 @@ export const siteConfig = {
     ar: "اجعل من عملك مركزاً لارساليتك",
   },
   description: {
-    en: "A Christian organization for spiritual service and leadership training in Egypt — building influential leaders through specialized professional groups for doctors, lawyers, teachers, business leaders, and graduates.",
+    en: "A leader-led movement within the Spiritual Service and Leadership Training Organization in Egypt — building influential leaders through specialized professional groups for doctors, lawyers, teachers, business leaders, and graduates.",
     ar: "هيئة الخدمة الروحية وتدريب القادة في مصر — نبني قادة مؤثرين من خلال مجموعات روحية متخصصة للأطباء والمحامين والمدرسين ورجال الأعمال والخريجين.",
   },
   /** ogLocale maps our locale codes to standard BCP-47 OG locale tags */

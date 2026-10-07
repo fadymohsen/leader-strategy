@@ -10,8 +10,8 @@ import { NewsletterForm } from "./NewsletterForm";
 const ARTICLE_PHOTOS: [string, string][] = [
   ["Forum", "/images/strategy-team.jpeg"],
   ["المنتدى", "/images/strategy-team.jpeg"],
-  ["Leadership Summit", "/images/community-celebration.jpg"],
-  ["قمة القيادة", "/images/community-celebration.jpg"],
+  ["Leadership School", "/images/leadership-school.jpeg"],
+  ["مدرسة القيادة", "/images/leadership-school.jpeg"],
   ["ISP", "/images/team-lead-up-workshop.jpg"],
   ["Leader Impact Next", "/images/graduates-gathering.jpg"],
 ];
