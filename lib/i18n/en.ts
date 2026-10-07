@@ -374,13 +374,6 @@ const en = {
           "Leaders from Cairo, Minya, Assiut, Alexandria, and Tanta gathered for the Leadership School — training, building, and casting vision for the movement's next chapter.",
       },
       {
-        date: "July 2026",
-        category: "Medical Strategy",
-        title: "New Medical Strategy Group Launches in Sidi Gaber, Alexandria",
-        excerpt:
-          "A new group for doctors and healthcare workers launched in Alexandria's Sidi Gaber district, bringing together medical professionals to integrate faith and calling into their practice.",
-      },
-      {
         date: "June 2026",
         category: "ISP — Teachers",
         title: "Teacher-Leaders Training Program Completes 3rd Cohort",
@@ -393,20 +386,6 @@ const en = {
         title: "50 Graduates Join Leader Impact Next Groups",
         excerpt:
           "Fifty recent university graduates joined specialized Leader Impact Next groups across three cities, beginning their journey of professional and spiritual development.",
-      },
-      {
-        date: "April 2026",
-        category: "FLAG — Lawyers",
-        title: "FLAG Network Expands to Minya",
-        excerpt:
-          "The FLAG track for lawyers officially launched in Minya, building a community of legal professionals committed to justice and kingdom impact.",
-      },
-      {
-        date: "March 2026",
-        category: "Multiplication",
-        title: "Leader Strategies Reaches 25 Active Groups Nationwide",
-        excerpt:
-          "A major milestone: the movement now has 25 active professional groups across Egypt, with leaders multiplying leaders in every sector.",
       },
     ],
   },
