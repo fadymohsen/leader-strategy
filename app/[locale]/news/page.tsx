@@ -132,7 +132,7 @@ export default async function NewsPage({
               { src: "/images/strategy-team.jpeg", alt: locale === "ar" ? "فريق عمل الاستراتيجية" : "Leader Strategies team", span: "md:col-span-2" },
               { src: "/images/forum-4-group-building.jpeg", alt: locale === "ar" ? "مشاركون في المنتدى" : "Forum participants group photo", span: "" },
               { src: "/images/forum-4-group-garden.jpeg", alt: locale === "ar" ? "مشاركون في الحديقة" : "Participants in the garden", span: "" },
-              { src: "/images/forum-4-lecture-hall.jpeg", alt: locale === "ar" ? "جلسة تدريبية في المنتدى" : "Forum training session", span: "" },
+              { src: "/images/isp-teachers-workshop.jpeg", alt: locale === "ar" ? "ورشة تدريب المدرسين — تطوير البيئة التعليمية" : "ISP Teachers workshop — Developing the Classroom Learning Environment", span: "" },
               { src: "/images/forum-4-audience.jpeg", alt: locale === "ar" ? "حضور المنتدى" : "Forum audience", span: "" },
               { src: "/images/forum-4-group-palms.jpeg", alt: locale === "ar" ? "صورة جماعية في الحديقة" : "Group photo in the palm garden", span: "md:col-span-2" },
             ].map((img) => (
