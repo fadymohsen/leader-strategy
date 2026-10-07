@@ -232,8 +232,8 @@ export default async function HomePage({
             <Reveal className="md:col-span-2">
               <div className="relative aspect-[4/3] md:h-full rounded-lg overflow-hidden">
                 <Image
-                  src="/images/interfaith-nativity-event.jpg"
-                  alt={locale === "ar" ? "احتفال مجتمعي مشترك يجمع قادة دينيين ومجتمعيين" : "A shared community celebration bringing together religious and civic leaders"}
+                  src="/images/forum-4-group-arches.jpeg"
+                  alt={locale === "ar" ? "المنتدى الرابع للقادة المؤثرين — صورة جماعية" : "4th Influential Leaders Forum — group photo"}
                   fill
                   sizes="(min-width: 768px) 60vw, 100vw"
                   className="object-cover object-bottom"
@@ -244,8 +244,8 @@ export default async function HomePage({
               <Reveal delay={70}>
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                   <Image
-                    src="/images/community-celebration.jpg"
-                    alt={locale === "ar" ? "قادة وأعضاء الحركة في لقاء احتفالي" : "Movement leaders and members at a celebration gathering"}
+                    src="/images/forum-4-group-garden.jpeg"
+                    alt={locale === "ar" ? "مشاركون في المنتدى الرابع" : "4th Forum participants in the garden"}
                     fill
                     sizes="(min-width: 768px) 30vw, 100vw"
                     className="object-cover"

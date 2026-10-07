@@ -360,6 +360,13 @@ const en = {
     },
     articles: [
       {
+        date: "September 2026",
+        category: "Forum",
+        title: "4th Influential Leaders Forum Concludes Successfully — 5th Edition Coming March 2027",
+        excerpt:
+          "The 4th edition of the Influential Leaders Forum brought together leaders from across Egypt for days of training, fellowship, and vision-casting. With powerful sessions on leadership, faith in the workplace, and community impact, the forum continues to grow each year. We're already preparing the 5th edition, coming in March 2027 — bigger and bolder than ever.",
+      },
+      {
         date: "August 2026",
         category: "Leadership Summit",
         title: "Annual Leadership Summit Gathers Leaders from Across Egypt",

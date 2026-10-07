@@ -8,6 +8,8 @@ import { NewsletterForm } from "./NewsletterForm";
 
 // Article title -> a real photo, where one exists. The rest stay text-only rather than reuse a stand-in.
 const ARTICLE_PHOTOS: [string, string][] = [
+  ["Forum", "/images/forum-4-group-arches.jpeg"],
+  ["المنتدى", "/images/forum-4-group-arches.jpeg"],
   ["Leadership Summit", "/images/community-celebration.jpg"],
   ["قمة القيادة", "/images/community-celebration.jpg"],
   ["ISP", "/images/team-lead-up-workshop.jpg"],
@@ -104,6 +106,40 @@ export default async function NewsPage({
               </article>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Forum Gallery ── */}
+      <section className="bg-sand py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 max-w-xl">
+            <span className="inline-block mb-3 text-clay text-xs font-semibold uppercase tracking-widest">
+              {locale === "ar" ? "المنتدى الرابع" : "4th Forum Edition"}
+            </span>
+            <h2 className="font-display text-section-heading text-ink mb-3">
+              {locale === "ar" ? "لحظات من المنتدى" : "Moments from the Forum"}
+            </h2>
+            <p className="text-ink-muted text-lg">
+              {locale === "ar"
+                ? "المنتدى الرابع للقادة المؤثرين — وبنجهّز الخامس في مارس ٢٠٢٧"
+                : "The 4th Influential Leaders Forum — 5th edition coming March 2027"}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+            {[
+              { src: "/images/forum-4-group-arches.jpeg", alt: locale === "ar" ? "صورة جماعية للمنتدى الرابع" : "4th Forum group photo under the arches", span: "md:col-span-2" },
+              { src: "/images/forum-4-group-building.jpeg", alt: locale === "ar" ? "مشاركون في المنتدى" : "Forum participants group photo", span: "" },
+              { src: "/images/forum-4-group-garden.jpeg", alt: locale === "ar" ? "مشاركون في الحديقة" : "Participants in the garden", span: "" },
+              { src: "/images/forum-4-lecture-hall.jpeg", alt: locale === "ar" ? "جلسة تدريبية في المنتدى" : "Forum training session", span: "" },
+              { src: "/images/forum-4-audience.jpeg", alt: locale === "ar" ? "حضور المنتدى" : "Forum audience", span: "" },
+              { src: "/images/forum-4-group-palms.jpeg", alt: locale === "ar" ? "صورة جماعية في الحديقة" : "Group photo in the palm garden", span: "md:col-span-2" },
+            ].map((img) => (
+              <div key={img.src} className={`relative aspect-[4/3] rounded-lg overflow-hidden ${img.span}`}>
+                <Image src={img.src} alt={img.alt} fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover" />
+              </div>
+            ))}
           </div>
         </div>
       </section>
