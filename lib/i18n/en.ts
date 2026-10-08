@@ -89,6 +89,11 @@ const en = {
           desc: "We help doctors and medical professionals grow spiritually and professionally, becoming influential leaders who heal and serve people.",
         },
         {
+          icon: "⚖️",
+          title: "Lawyers Ministry — FLAG",
+          desc: "Preparing and empowering a generation of lawyers through professional, personal, and spiritual training to be more influential in their work and society.",
+        },
+        {
           icon: "💼",
           title: "Business Leaders Ministry",
           desc: "We help business leaders combine professional excellence with spiritual values and influential leadership in their communities.",
@@ -279,6 +284,36 @@ const en = {
         tags: ["Healthcare", "Medical Leadership", "Medical Strategy"],
       },
       {
+        icon: "⚖️",
+        title: "Lawyers Ministry — FLAG",
+        slogan: "Faith & Law Around the Globe",
+        intro: "Our goal is to prepare and empower a generation of lawyers by training them professionally, personally, and spiritually to make them more influential in their work and society, and to the fullest extent they can reach.",
+        sections: [
+          {
+            title: "Our Vision",
+            desc: "To see a community of Christ-led lawyers in every city and village who have a spiritual impact on society.",
+            points: [],
+          },
+          {
+            title: "Our Plan",
+            desc: "Building local groups of lawyer leaders to support lawyers in their communities and meet their relational, skill-based, and spiritual needs.",
+            points: [],
+          },
+          {
+            title: "Last Year's Achievements",
+            desc: "",
+            points: ["780 evangelism encounters including 350 people from the majority", "15 discipleship groups formed across Alexandria, Cairo, Minya & Assiut", "A spiritual conference for about 100 lawyers under the theme \"Weigh It Right\"", "5 evangelistic trips and spiritual days with 150 lawyers", "20 lawyers participated in the Leadership School"],
+          },
+          {
+            title: "This Year's Goals",
+            desc: "",
+            points: ["Impact 100 new lawyers spiritually, professionally, and personally", "Build 15 multiplying disciples", "An evangelistic conference for 100 lawyers in March", "8 spiritual and evangelistic events across 4 governorates", "Train 30 lawyers on building a spiritual movement (Win — Build — Send)"],
+          },
+        ],
+        goal: "To see influential lawyers living out their faith in every courtroom, office, and community, leading a spiritual movement among their colleagues.",
+        tags: ["Lawyers", "Faith & Law", "FLAG"],
+      },
+      {
         icon: "💼",
         title: "Business Leaders Ministry",
         slogan: "Successful businesses... and leaders making an impact",
@@ -345,6 +380,7 @@ const en = {
       points: [
         "The teacher serves in the school.",
         "The doctor serves in the hospital and clinic.",
+        "The lawyer leads a spiritual movement in courtrooms and offices.",
         "The business leader serves in their company and community.",
         "The graduate begins their mission from day one at work.",
       ],

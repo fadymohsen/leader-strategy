@@ -11,6 +11,7 @@ import { Reveal } from "@/components/Reveal";
 // Sectors without a confirmed mark fall back to a plain numbered label.
 const SECTOR_LOGOS: Record<string, string> = {
   Teachers: "/images/isp-logo.jpeg",
+  FLAG: "/images/flag-logo-new.jpeg",
   Business: "/images/leader-impact-logo.jpeg",
   Graduates: "/images/leader-impact-next-logo.jpeg",
 };
