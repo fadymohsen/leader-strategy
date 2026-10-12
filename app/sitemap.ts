@@ -19,8 +19,17 @@ const priority: Record<PageSlug, number> = {
   contact:  0.6,
 };
 
+// Actual last-modified dates per page — update when content changes significantly
+const lastModified: Record<PageSlug, Date> = {
+  "":       new Date("2026-10-13"),
+  about:    new Date("2026-10-07"),
+  services: new Date("2026-10-08"),
+  news:     new Date("2026-10-07"),
+  courses:  new Date("2026-10-03"),
+  contact:  new Date("2026-09-01"),
+};
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   const entries: MetadataRoute.Sitemap = [];
 
   for (const locale of [...siteConfig.locales] as SupportedLocale[]) {
@@ -28,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       const path = slug ? `/${locale}/${slug}` : `/${locale}`;
       entries.push({
         url: `${siteConfig.baseUrl}${path}`,
-        lastModified: now,
+        lastModified: lastModified[slug],
         changeFrequency: changeFreq[slug],
         priority: priority[slug],
         alternates: {

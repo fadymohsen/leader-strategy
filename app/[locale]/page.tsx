@@ -44,7 +44,7 @@ export default async function HomePage({
 
   return (
     <>
-      <HomeJsonLd />
+      <HomeJsonLd locale={locale} />
 
       {/* ── Hero: editorial masthead, bottom-anchored, one CTA + one text link ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand min-h-screen flex items-center">
@@ -66,7 +66,7 @@ export default async function HomePage({
           <div className="max-w-2xl hero-stagger">
             <div className="flex items-center gap-4 mb-8">
               <Image
-                src="/logo.png"
+                src="/logo.webp"
                 alt="Leader Strategies"
                 width={80}
                 height={80}
