@@ -91,9 +91,6 @@ export default async function ServicesPage({
                 <p className="font-display text-3xl text-clay mb-3">{item.icon}</p>
               )}
               <h2 className="font-display text-3xl text-ink mb-3">{item.title}</h2>
-              <p className="text-clay text-lg font-semibold mb-4">
-                &laquo;{item.slogan}&raquo;
-              </p>
               <p className="text-ink-muted max-w-3xl mx-auto leading-relaxed">{item.intro}</p>
             </div>
 

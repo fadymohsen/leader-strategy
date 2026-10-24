@@ -227,7 +227,6 @@ const en = {
       {
             icon: "🎓",
             title: "Graduates Ministry (Youth at the Beginning of the Journey)",
-            slogan: "From graduation to impact... Work as worship and mission",
             intro: "We accompany new graduates in the transition from study to the labor market, helping them discover their identity and mission in professional life.",
             sections: [
                   {
@@ -275,7 +274,6 @@ const en = {
       {
             icon: "🏥",
             title: "Healthcare & Medical Professionals Ministry",
-            slogan: "An influential doctor... combining compassion, ethical practice, and psychological resilience",
             intro: "We prepare doctors and healthcare workers to unite compassion, ethical integrity, and emotional resilience while serving patients.",
             sections: [
                   {
@@ -307,32 +305,37 @@ const en = {
       {
             icon: "⚖️",
             title: "Lawyers & Legal Professionals Ministry (FLAG)",
-            slogan: "Lawyers leading with truth, serving with love, and making an impact",
             intro: "We aspire to build a generation of lawyers who combine spiritual maturity, professional excellence, and ethical integrity, to be witnesses for Christ through their profession and leaders who advance justice, serve others, and make a sustainable impact on society.",
             sections: [
                   {
-                        title: "How We Achieve Our Vision & Ministry Pillars",
-                        desc: "An integrated growth journey for legal professionals:",
+                        title: "How Do We Achieve Our Vision?",
+                        desc: "We accompany lawyers on an integrated journey of growth, helping them discover their identity and calling in Christ, grow in their relationship with God, excel in their profession, and use their experience and gifts to serve others and influence their professional and community circles.",
+                        points: []
+                  },
+                  {
+                        title: "Service Pillars",
+                        desc: "",
                         points: [
-                              "Spiritual and Personal Growth: Helping lawyers build a deep, enduring relationship with God, grow in spiritual maturity, and shape character according to biblical principles.",
-                              "Professional Excellence & Integrity: Enabling lawyers to practice with competence and responsibility, upholding truth and fairness while navigating ethical dilemmas with balance.",
-                              "Leadership and Influence: Equipping lawyers to be influential leaders in their firms, syndicates, and communities through leadership and decision-making skills.",
-                              "Witness, Discipleship & Mission: Preparing lawyers to reflect Christ in professional spaces, build meaningful relationships, and share faith with wisdom and respect.",
-                              "Community and Partnership: Fostering a supportive legal network united by common faith and vision to collaborate for positive social impact."
+                              "Spiritual and Personal Growth: Helping lawyers build a deep and lasting relationship with God, grow in spiritual maturity, and shape their character according to biblical principles, in a way that is reflected in their lives, decisions, and professional practice.",
+                              "Professional Excellence and Integrity: Enabling lawyers to practice their profession with competence and responsibility, establishing the values of truth, justice, and honesty, and facing ethical and professional challenges from a balanced biblical perspective.",
+                              "Leadership and Influence: Preparing lawyers to be influential leaders in their offices, institutions, syndicates, and communities, by developing leadership, communication, and decision-making skills and building purposeful relationships.",
+                              "Witness, Discipleship, and Mission: Equipping lawyers to reflect the love of Christ in their professional environments, take the initiative in building influential relationships, share their faith with wisdom and respect, and accompany others on their journey of spiritual growth.",
+                              "Community and Partnership: Building a community of lawyers united by faith and a shared vision, who support one another in spiritual and professional growth and cooperate to make a positive impact on society."
                         ]
                   },
                   {
-                        title: "Programs and Initiatives",
-                        desc: "Periodic initiatives and gatherings for lawyers:",
+                        title: "Programs and Activities",
+                        desc: "",
                         points: [
-                              "Community of Lawyers & Legal Leaders: Regular gatherings bringing lawyers together across specialties and stages for spiritual growth, networking, and legal leadership discussions.",
-                              "Spiritual and Professional Symposia: Workshops connecting biblical principles with practical legal ethics, stress management, and work-life balance.",
-                              "Discipleship Groups & Spiritual Accompaniment: Small cohorts providing a trusted space for faith growth, accountability, and applying biblical principles daily.",
-                              "Leader Development Program & Social Impact: Pathways empowering lawyers to lead initiatives, offer pro bono community support, and advocate for human dignity."
+                              "Community of Lawyers and Legal Leaders: Regular gatherings that bring together lawyers from different specialties and career stages, aimed at spiritual growth, exchanging experiences, building relationships, and discussing the challenges of leadership and legal work.",
+                              "Spiritual and Professional Growth Forums: Specialized gatherings and workshops that combine biblical principles with practical applications in leadership, professional integrity, stress management, decision-making, and achieving work-life balance.",
+                              "Discipleship and Spiritual Accompaniment Groups: Small groups that provide a safe environment for growth in faith, sharing, and mutual accountability, and that support lawyers in applying biblical principles in their daily lives.",
+                              "Leader Development Program: A path to prepare lawyers who are able to lead initiatives, serve their colleagues, build influential professional communities, and contribute to raising a new generation of leaders.",
+                              "Community Impact Initiatives: Encouraging lawyers to use their legal expertise and professional skills in serving society, raising awareness of rights and responsibilities, and contributing to initiatives that serve people and preserve their dignity."
                         ]
                   }
             ],
-            goal: "For lawyers to grow in Christ, excel in competence and integrity, and become disciple-making leaders for God's glory and the common good.",
+            goal: "For lawyers to grow in their relationship with Christ, increase in maturity, integrity, and excellence in their profession, and move from being mere recipients of the ministry to leaders and disciples who make disciples, influencing their colleagues, institutions, and society, for the glory of God and the good of humanity.",
             tags: [
                   "Legal",
                   "Lawyers",
@@ -343,7 +346,6 @@ const en = {
       {
             icon: "🏫",
             title: "Teachers & Educators Ministry",
-            slogan: "A leader in the classroom... shaping the lives of upcoming generations",
             intro: "We empower educators and teachers to be 'leaders in the classroom' and influencers in the lives of future generations, not merely conduits of curricula.",
             sections: [
                   {
@@ -376,7 +378,6 @@ const en = {
       {
             icon: "💼",
             title: "Business Leaders & Entrepreneurs Ministry",
-            slogan: "A kingdom vision founded on integrity, excellence, and societal impact",
             intro: "We support business leaders and entrepreneurs in leading their enterprises with a kingdom vision anchored in integrity, excellence, and community impact.",
             sections: [
                   {
