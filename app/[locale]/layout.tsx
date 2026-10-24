@@ -26,7 +26,7 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href={`/${locale}`} className="shrink-0">
+          <Link href={`/${locale}`} className="shrink-0 flex items-center gap-3">
             <Image
               src="/logo.webp"
               alt="Leader Strategies"
@@ -36,6 +36,11 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
               style={{ width: "auto" }}
               priority
             />
+            {locale === "ar" && (
+              <span className="hidden sm:inline font-display text-lg text-ink">
+                خدمة القادة المؤثرين
+              </span>
+            )}
           </Link>
 
           {/* Desktop links */}

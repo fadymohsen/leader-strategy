@@ -56,52 +56,53 @@ const en = {
     },
     pillars: {
       badge: "How We Build Leaders",
-      tagline: "We Invest in People... So They Lead and Influence",
-      intro: "In our ministry, we believe in the complete, integrated formation of leaders. We help believers discover their true calling to be a light in their workplaces, by focusing on three essential dimensions:",
+      tagline: "Empowering Leaders to Impact Society",
+      intro: "The Influential Leaders Ministry is one of the ministries of the Spiritual Service and Leadership Training Organization, affiliated with Campus Crusade for Christ International. We believe every job and field is a true mission field, and that influential leadership is built on a solid foundation and holistic vision. We dedicate our efforts to developing leaders across three core pillars:",
       items: [
         {
           title: "Spiritual Formation",
-          desc: "Deepening your relationship with God so you become a living witness among those around you.",
+          desc: "Deepening your relationship with God, reflecting in values, decisions, and relationships to become a living witness in your environment.",
         },
         {
           title: "Professional Development",
-          desc: "Equipping you with the skills that make you distinguished and effective in your work.",
+          desc: "Equipping leaders with practical skills and specialized knowledge that enhance their excellence and effectiveness.",
         },
         {
-          title: "Personal & Psychological Support",
-          desc: "Building inner resilience and self-awareness to help you face the challenges of leadership.",
+          title: "Personal Growth",
+          desc: "Developing leadership character, maturity, and emotional balance to lead with wisdom and face challenges with confidence.",
         },
       ],
-      goal: "Our goal: to turn every workplace into a real space for service and change-making.",
+      goal: "We achieve this comprehensive development through discipleship groups, leadership schools, and advanced training programs, with the goal of turning every workplace into a true space for service and impact.",
     },
     services: {
-      headline: "Our Specialized Ministries",
-      sub: "Programs designed to suit each professional category",
+      headline: "Our Professional Communities: Where Do We Serve?",
+      sub: "We believe every field is a mission field; therefore, we provide targeted programs and development tailored to each sector:",
+      readMore: "Read more / Details",
       items: [
         {
-          icon: "🏫",
-          title: "Teachers Ministry",
-          desc: "We help teachers discover their potential as leaders and influencers within schools and universities, seeing the classroom as a real space for building and serving people.",
+          icon: "🎓",
+          title: "Graduates Ministry (Youth at the Beginning of the Journey)",
+          desc: "We accompany new graduates in the transition from study to the labor market, helping them discover their identity and mission in professional life.",
         },
         {
           icon: "🏥",
-          title: "Doctors Ministry",
-          desc: "We help doctors and medical professionals grow spiritually and professionally, becoming influential leaders who heal and serve people.",
+          title: "Healthcare & Medical Professionals Ministry",
+          desc: "We prepare doctors and healthcare workers to unite compassion, ethical integrity, and emotional resilience while serving patients.",
         },
         {
           icon: "⚖️",
-          title: "Lawyers Ministry — FLAG",
-          desc: "Preparing and empowering a generation of lawyers through professional, personal, and spiritual training to be more influential in their work and society.",
+          title: "Lawyers & Legal Professionals Ministry (FLAG)",
+          desc: "We build legal professionals and justice-makers who stand firm for truth and integrity in the courts and halls of law.",
+        },
+        {
+          icon: "🏫",
+          title: "Teachers & Educators Ministry",
+          desc: "We empower educators and teachers to be 'leaders in the classroom' and influencers in the lives of future generations, not merely conduits of curricula.",
         },
         {
           icon: "💼",
-          title: "Business Leaders Ministry",
-          desc: "We help business leaders combine professional excellence with spiritual values and influential leadership in their communities.",
-        },
-        {
-          icon: "🎓",
-          title: "Graduates Ministry",
-          desc: "We help graduates transition from university life to professional life with confidence and readiness — from graduation to influence.",
+          title: "Business Leaders & Entrepreneurs Ministry",
+          desc: "We support business leaders and entrepreneurs in leading their enterprises with a kingdom vision anchored in integrity, excellence, and community impact.",
         },
       ],
       cta: "Explore Our Services",
@@ -224,156 +225,187 @@ const en = {
     intro: "Our goal is not just for a person to become more successful at work, but to become more influential among the people around them through their work.",
     items: [
       {
-        icon: "🏫",
-        title: "Teachers Ministry",
-        slogan: "An influential teacher... making a difference in others' lives",
-        intro: "A teacher doesn't just deal with curricula and textbooks — they deal with people. That's why we help teachers discover their potential as leaders and influencers within schools, universities, and educational institutions, and to see the classroom and work environment as a real space for building and serving people.",
-        sections: [
-          {
-            title: "Spiritual & Personal Growth",
-            desc: "We help teachers build a balanced spiritual life, grow in their relationship with God, and discover how their faith can be reflected in their character, decisions, and relationships within the workplace.",
-            points: ["Humility", "Honesty & Integrity", "Patience", "Compassion & Empathy", "Taking Responsibility", "Servant Leadership", "Wise Handling of Differences"],
-          },
-          {
-            title: "Developing Teaching Skills",
-            desc: "We provide training to help teachers develop their professional tools.",
-            points: ["Communication with Students", "Classroom Management", "Dealing with Different Personalities", "Presentation Skills", "Using Technology in Education", "Creative Thinking & Problem Solving", "Building a Positive Learning Environment", "Handling Professional Pressures & Challenges"],
-          },
-          {
-            title: "Leadership & Influence",
-            desc: "We help teachers move from merely performing their job role to becoming leaders and influencers within their educational community.",
-            points: ["How can a teacher influence their colleagues?", "How to build a successful team?", "How to be a role model for students?", "How to use relationships as opportunities for service?"],
-          },
-          {
-            title: "Professional Specialization",
-            desc: "We offer workshops and specialized programs tailored to teachers' needs and fields of work, so that teachers receive real professional development — not just spiritual content.",
-            points: [],
-          },
-        ],
-        goal: "To see influential teachers living out their faith practically, using their profession and relationships to shape better generations.",
-        tags: ["Educators", "School Leadership", "ISP"],
+            icon: "🎓",
+            title: "Graduates Ministry (Youth at the Beginning of the Journey)",
+            slogan: "From graduation to impact... Work as worship and mission",
+            intro: "We accompany new graduates in the transition from study to the labor market, helping them discover their identity and mission in professional life.",
+            sections: [
+                  {
+                        title: "Methodology (Spiritual, Professional, Psychological)",
+                        desc: "An integrated framework that accompanies graduates from day one:",
+                        points: [
+                              "Spiritually: Establishing the concept of 'work as worship and mission' and building a solid ethical compass from day one.",
+                              "Professionally: Providing competitive skills training (communication, time management, career planning) to excel early in the journey.",
+                              "Psychologically: Providing emotional support to face uncertainty and real-world adjustment after graduation with confidence."
+                        ]
+                  },
+                  {
+                        title: "Conferences and Leadership Schools",
+                        desc: "Specialized programs to sharpen young leaders:",
+                        points: [
+                              "ECHO Conference: The national annual graduates conference; a vital opportunity for youth across Egypt to network and exchange experiences with strategic spiritual, professional, and personal training.",
+                              "Lead Up School: A specialized school for deep leadership and spiritual formation."
+                        ]
+                  },
+                  {
+                        title: "Discipleship Groups & Missional Activities",
+                        desc: "Ongoing support and vibrant community:",
+                        points: [
+                              "Regular discipleship groups in each governorate for ongoing spiritual and personal growth.",
+                              "Periodic gatherings in each governorate addressing systematic topics tailored to youth challenges.",
+                              "Sports and missional events: Regular athletic activities and trips where relationships are built, creating an encouraging community environment to share faith practically."
+                        ]
+                  },
+                  {
+                        title: "Targeted Curricula and Topics",
+                        desc: "Tailored content touching real needs:",
+                        points: [
+                              "Structured curricula and study series designed to address the realistic psychological, personal, and professional challenges faced by youth entering the marketplace."
+                        ]
+                  }
+            ],
+            goal: "To help graduates start their careers with strong skills, mature character, clear vision, and faith capable of influencing wherever God places them.",
+            tags: [
+                  "University Graduates",
+                  "Lead Up",
+                  "ECHO",
+                  "Leader Impact Next"
+            ]
       },
       {
-        icon: "🏥",
-        title: "Doctors & Medical Professionals Ministry",
-        slogan: "An influential doctor... healing and serving people",
-        intro: "Medicine is not just a profession — it's a deep human relationship. A doctor meets people daily in moments of weakness, pain, and need, making the medical field a unique space for service and influence. We help doctors and medical professionals grow spiritually and professionally, becoming influential leaders in their workplaces.",
-        sections: [
-          {
-            title: "Spiritual Growth",
-            desc: "We help doctors maintain a strong spiritual life amid work pressure and responsibilities, and to see their profession as part of their calling to serve humanity.",
-            points: ["Faith in the Workplace", "Dealing with Pressure & Burnout", "Compassion & Empathy", "Professional Integrity", "Dealing with Illness & Pain", "Making Difficult Decisions", "Work-Life Balance", "Servant Leadership"],
-          },
-          {
-            title: "Human & Medical Skills",
-            desc: "We provide training to help doctors develop their skills in dealing with patients and colleagues.",
-            points: ["Effective Patient Communication", "Active Listening", "Handling Difficult Situations", "Teamwork Skills", "Time & Pressure Management", "Conflict Resolution", "Leadership Within the Medical Team"],
-          },
-          {
-            title: "Specialized Professional Development",
-            desc: "We collaborate with specialists to provide content and training related to doctors' needs and professional development, helping them keep up with changes in their field and develop their leadership and management skills.",
-            points: [],
-          },
-          {
-            title: "Building a Network of Influential Doctors",
-            desc: "We seek to form a community of doctors who can support and encourage one another, share experiences, and create new opportunities for service and influence within the medical field.",
-            points: [],
-          },
-        ],
-        goal: "For doctors to excel in their profession, mature in character, influential among colleagues, and servants of the people God has entrusted to them.",
-        tags: ["Healthcare", "Medical Leadership", "Medical Strategy"],
+            icon: "🏥",
+            title: "Healthcare & Medical Professionals Ministry",
+            slogan: "An influential doctor... combining compassion, ethical practice, and psychological resilience",
+            intro: "We prepare doctors and healthcare workers to unite compassion, ethical integrity, and emotional resilience while serving patients.",
+            sections: [
+                  {
+                        title: "Methodology (Spiritual, Professional, Psychological)",
+                        desc: "Holistic care for healthcare practitioners:",
+                        points: [
+                              "Spiritually: Reclaiming the missional dimension of medicine as a Christ-centered healing and caring ministry.",
+                              "Professionally: Developing medical leadership, team governance, and empathetic communication with patients and families.",
+                              "Psychologically: Offering equal emotional support to address burnout and the pressures of critical and urgent care."
+                        ]
+                  },
+                  {
+                        title: "Training Programs and Activities",
+                        desc: "Specialized forums and communities for physicians:",
+                        points: [
+                              "Annual Medical Conference: A gathering bringing medical professionals together to share experiences and discuss ethical and professional challenges.",
+                              "Burnout Support Meetings: Periodic spaces providing emotional resilience and balance in high-stress clinical environments.",
+                              "Spiritual Discipleship Groups: Cohorts dedicated to spiritual building and unlocking service opportunities in healthcare."
+                        ]
+                  }
+            ],
+            goal: "For doctors to excel in their practice, be emotionally grounded, and serve as reflections of Christ's compassion and healing.",
+            tags: [
+                  "Healthcare",
+                  "Medical Leadership",
+                  "Medical Strategy"
+            ]
       },
       {
-        icon: "⚖️",
-        title: "Lawyers Ministry — FLAG",
-        slogan: "Faith & Law Around the Globe",
-        intro: "Our goal is to prepare and empower a generation of lawyers by training them professionally, personally, and spiritually to make them more influential in their work and society, and to the fullest extent they can reach.",
-        sections: [
-          {
-            title: "Our Vision",
-            desc: "To see a community of Christ-led lawyers in every city and village who have a spiritual impact on society.",
-            points: [],
-          },
-          {
-            title: "Our Plan",
-            desc: "Building local groups of lawyer leaders to support lawyers in their communities and meet their relational, skill-based, and spiritual needs.",
-            points: [],
-          },
-          {
-            title: "Last Year's Achievements",
-            desc: "",
-            points: ["780 evangelism encounters including 350 people from the majority", "15 discipleship groups formed across Alexandria, Cairo, Minya & Assiut", "A spiritual conference for about 100 lawyers under the theme \"Weigh It Right\"", "5 evangelistic trips and spiritual days with 150 lawyers", "20 lawyers participated in the Leadership School"],
-          },
-          {
-            title: "This Year's Goals",
-            desc: "",
-            points: ["Impact 100 new lawyers spiritually, professionally, and personally", "Build 15 multiplying disciples", "An evangelistic conference for 100 lawyers in March", "8 spiritual and evangelistic events across 4 governorates", "Train 30 lawyers on building a spiritual movement (Win — Build — Send)"],
-          },
-        ],
-        goal: "To see influential lawyers living out their faith in every courtroom, office, and community, leading a spiritual movement among their colleagues.",
-        tags: ["Lawyers", "Faith & Law", "FLAG"],
+            icon: "⚖️",
+            title: "Lawyers & Legal Professionals Ministry (FLAG)",
+            slogan: "Lawyers leading with truth, serving with love, and making an impact",
+            intro: "We aspire to build a generation of lawyers who combine spiritual maturity, professional excellence, and ethical integrity, to be witnesses for Christ through their profession and leaders who advance justice, serve others, and make a sustainable impact on society.",
+            sections: [
+                  {
+                        title: "How We Achieve Our Vision & Ministry Pillars",
+                        desc: "An integrated growth journey for legal professionals:",
+                        points: [
+                              "Spiritual and Personal Growth: Helping lawyers build a deep, enduring relationship with God, grow in spiritual maturity, and shape character according to biblical principles.",
+                              "Professional Excellence & Integrity: Enabling lawyers to practice with competence and responsibility, upholding truth and fairness while navigating ethical dilemmas with balance.",
+                              "Leadership and Influence: Equipping lawyers to be influential leaders in their firms, syndicates, and communities through leadership and decision-making skills.",
+                              "Witness, Discipleship & Mission: Preparing lawyers to reflect Christ in professional spaces, build meaningful relationships, and share faith with wisdom and respect.",
+                              "Community and Partnership: Fostering a supportive legal network united by common faith and vision to collaborate for positive social impact."
+                        ]
+                  },
+                  {
+                        title: "Programs and Initiatives",
+                        desc: "Periodic initiatives and gatherings for lawyers:",
+                        points: [
+                              "Community of Lawyers & Legal Leaders: Regular gatherings bringing lawyers together across specialties and stages for spiritual growth, networking, and legal leadership discussions.",
+                              "Spiritual and Professional Symposia: Workshops connecting biblical principles with practical legal ethics, stress management, and work-life balance.",
+                              "Discipleship Groups & Spiritual Accompaniment: Small cohorts providing a trusted space for faith growth, accountability, and applying biblical principles daily.",
+                              "Leader Development Program & Social Impact: Pathways empowering lawyers to lead initiatives, offer pro bono community support, and advocate for human dignity."
+                        ]
+                  }
+            ],
+            goal: "For lawyers to grow in Christ, excel in competence and integrity, and become disciple-making leaders for God's glory and the common good.",
+            tags: [
+                  "Legal",
+                  "Lawyers",
+                  "FLAG",
+                  "Justice & Integrity"
+            ]
       },
       {
-        icon: "💼",
-        title: "Business Leaders Ministry",
-        slogan: "Successful businesses... and leaders making an impact",
-        intro: "We believe the business world represents a vast space for influence and change-making. A business leader doesn't just influence the market — they influence employees, clients, partners, and the community around them. That's why we help business leaders combine professional excellence with spiritual values and influential leadership.",
-        sections: [
-          {
-            title: "Spiritual & Leadership Growth",
-            desc: "We help business leaders build a mature leadership character based on:",
-            points: ["Integrity", "Honesty", "Humility", "Responsibility", "Wisdom", "Decision Making", "Servant Leadership", "Managing Authority & Influence Properly"],
-          },
-          {
-            title: "Management & Leadership Skills",
-            desc: "We offer specialized programs in:",
-            points: ["Team Management", "Building Positive Organizational Culture", "Decision Making", "Problem Solving", "Negotiation", "Crisis Management", "Time Management", "Leadership Communication", "Building & Managing Teams", "Strategic Planning"],
-          },
-          {
-            title: "Connecting Faith with Business",
-            desc: "We help business leaders think through important questions:",
-            points: ["How do I practice my work with integrity?", "How do I treat my employees in a way that reflects Christ's values?", "How do I use my success to help others?", "How can I be a servant leader, not just a manager?", "How do I make my company and workplace a space for influence?"],
-          },
-          {
-            title: "Building a Community of Influential Business Leaders",
-            desc: "We seek to create a community where business leaders can exchange experiences, encourage one another, and discover new opportunities for collaboration, service, and community impact.",
-            points: [],
-          },
-        ],
-        goal: "To see business leaders who are professionally successful, spiritually mature, faithful in their practices, and influential among the people and community around them.",
-        tags: ["Business Owners", "Managers", "Leader Impact"],
+            icon: "🏫",
+            title: "Teachers & Educators Ministry",
+            slogan: "A leader in the classroom... shaping the lives of upcoming generations",
+            intro: "We empower educators and teachers to be 'leaders in the classroom' and influencers in the lives of future generations, not merely conduits of curricula.",
+            sections: [
+                  {
+                        title: "Methodology (Spiritual, Professional, Psychological)",
+                        desc: "Empowering educators across every facet of their educational calling:",
+                        points: [
+                              "Spiritually: Seeing education as a divine calling to build human lives and instill values quietly yet powerfully.",
+                              "Professionally: Advancing modern teaching tools, smart classroom management, and emotional/pedagogical intelligence.",
+                              "Psychologically: Cultivating patience and mental balance to navigate institutional pressures and diverse student behaviors."
+                        ]
+                  },
+                  {
+                        title: "Training Programs and Activities",
+                        desc: "Continuous growth and workshops for educators:",
+                        points: [
+                              "Educators & Leaders Forum: Training days and conferences focused on honing the teacher's role as a leader and mentor.",
+                              "Skill & Pedagogical Workshops: Courses in modern classroom engagement and constructive interaction with different student groups.",
+                              "Discipleship Cohorts & Regular Meetings: Ongoing spiritual and personal follow-up to sustain teachers' passion and resilience."
+                        ]
+                  }
+            ],
+            goal: "To see educators and leaders living their calling with excellence, making a profound difference in tomorrow's generations.",
+            tags: [
+                  "Educators",
+                  "Education",
+                  "School Leadership",
+                  "ISP"
+            ]
       },
       {
-        icon: "🎓",
-        title: "Graduates Ministry",
-        slogan: "From university to the job market... from graduation to influence",
-        intro: "Graduation is a new beginning full of questions: Where will I work? How do I search for a job? How do I write a professional CV? How do I prepare for an interview? How do I choose the right field? And how do I live out my faith in my first work experience? We help graduates transition from university life to professional life with confidence and readiness.",
-        sections: [
-          {
-            title: "Job Market Readiness",
-            desc: "We provide practical training including:",
-            points: ["How to Search for a Job", "Using Job Platforms", "Writing a Professional CV", "Writing a Cover Letter", "Creating & Developing a LinkedIn Profile", "Interview Preparation", "Professional Communication Skills", "Navigating the Work Environment", "Professional Networking", "Choosing the Right Career Path"],
-          },
-          {
-            title: "Discovering Abilities & Talents",
-            desc: "We help graduates discover their strengths, identify skills they need to develop, and create a practical plan for professional growth.",
-            points: [],
-          },
-          {
-            title: "Personal Skills",
-            desc: "We focus on developing the skills graduates need at the start of their careers.",
-            points: ["Communication", "Teamwork", "Problem Solving", "Critical Thinking", "Time Management", "Emotional Intelligence", "Presentation Skills", "Taking Responsibility", "Leadership"],
-          },
-          {
-            title: "Spiritual Growth",
-            desc: "We don't just want graduates to be ready for the job market — we want them ready for life. So we help them understand how to live their faith at university and then in the workplace, and how to see their future profession as part of their calling and influence.",
-            points: [],
-          },
-        ],
-        goal: "To help graduates start their professional lives with strong skills, mature character, clear vision, and faith capable of influencing the place God will put them in.",
-        tags: ["University Graduates", "Career Purpose", "Leader Impact Next"],
-      },
-    ],
+            icon: "💼",
+            title: "Business Leaders & Entrepreneurs Ministry",
+            slogan: "A kingdom vision founded on integrity, excellence, and societal impact",
+            intro: "We support business leaders and entrepreneurs in leading their enterprises with a kingdom vision anchored in integrity, excellence, and community impact.",
+            sections: [
+                  {
+                        title: "Methodology (Spiritual, Professional, Psychological)",
+                        desc: "Strategic empowerment for investors and business executives:",
+                        points: [
+                              "Spiritually: Transforming corporate environments into centers of mission through faithful capital stewardship and God-honoring business ethics.",
+                              "Professionally: Providing executive leadership training in organizational governance, strategic decision-making, and high-impact social investments.",
+                              "Psychologically: Offering confidential support spaces to navigate executive isolation, market risks, and high-stakes choices with calm assurance."
+                        ]
+                  },
+                  {
+                        title: "Training Programs and Activities",
+                        desc: "Executive forums and workshops for founders and leaders:",
+                        points: [
+                              "Business Leaders Forum: Regular gatherings and an annual conference exploring faith values in business and corporate leadership.",
+                              "Strategic Leadership Workshops: Executive programs encouraging ethical investment and team empowerment.",
+                              "Executive Discipleship & Support Cohorts: Confidential spaces supporting leaders through difficult choices and market strains."
+                        ]
+                  }
+            ],
+            goal: "To see businesses operated with the highest standards of integrity, serving as beacons of prosperity and societal blessing.",
+            tags: [
+                  "Business Leaders",
+                  "Enterprises",
+                  "Leader Impact"
+            ]
+      }
+],
     sharedVision: {
       headline: "Our Shared Vision",
       intro: "Despite the different fields, all our programs share one goal: to help believers live out their faith wherever God has placed them.",

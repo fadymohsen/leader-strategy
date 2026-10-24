@@ -5,11 +5,14 @@ import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { ServicesJsonLd } from "@/components/JsonLd";
+import { sectorAnchor } from "@/lib/sectors";
 
 const SECTOR_LOGOS: Record<string, string> = {
   Teachers: "/images/isp-logo.jpeg",
   Business: "/images/leader-impact-logo.jpeg",
   Graduates: "/images/leader-impact-next-logo.jpeg",
+  Lawyers: "/images/flag-logo.jpeg",
+  FLAG: "/images/flag-logo.jpeg",
 };
 
 function sectorLogo(title: string) {
@@ -76,6 +79,7 @@ export default async function ServicesPage({
         return (
         <section
           key={item.title}
+          id={sectorAnchor(item.icon).slice(1) || undefined}
           className={idx % 2 === 0 ? "bg-sand py-20" : "bg-sand-raised py-20"}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
