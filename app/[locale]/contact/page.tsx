@@ -55,27 +55,7 @@ export default async function ContactPage({
       {/* ── Content ── */}
       <section className="bg-sand-raised py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Contact Info */}
-            <div>
-              <div className="grid grid-cols-1 gap-4 mb-8">
-                {contact.info.map((item) => (
-                  <div
-                    key={item.title}
-                    className="flex items-start gap-4 p-5 bg-sand rounded-lg border border-border"
-                  >
-                    <div>
-                      <p className="text-xs font-semibold text-clay uppercase tracking-wide mb-0.5">
-                        {item.title}
-                      </p>
-                      <p className="text-ink text-sm font-medium">{item.value}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Contact Form (client component) */}
+          <div className="max-w-2xl mx-auto">
             <ContactForm form={contact.form} />
           </div>
         </div>
