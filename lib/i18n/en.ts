@@ -108,8 +108,8 @@ const en = {
       cta: "Explore Our Services",
     },
     cta: {
-      headline: "Make Your Workplace a Center for Your Mission",
-      body: "We believe your workplace is not just a place to earn a living — it becomes the place God has called you to serve, to witness, to influence, to build, and to be a blessing to others.",
+      headline: "تمكين قادة .. لتغيير المجتمع",
+      body: "نعمل على إعداد القادة وتمكينهم وتطويرهم روحيًا ومهنيًا ونفسيًا، ليكتشفوا دعوة الله لهم في مجالات عملهم، ويصبحوا نورًا ومصدر تأثير حقيقي.",
       donate: "Join the Movement",
       volunteer: "Contact Us",
     },
@@ -527,10 +527,7 @@ const en = {
       sub: "Whether you want to join a group, partner with us, or simply learn more — reach out and we'll respond within 24 hours.",
     },
     info: [
-      { icon: "📍", title: "Our Locations", value: "Cairo · Minya · Assiut · Alexandria · Tanta" },
-      { icon: "📞", title: "Phone", value: "+20 2 1234 5678" },
       { icon: "✉️", title: "Email", value: "info@leaderstrategies.org" },
-      { icon: "🕐", title: "Office Hours", value: "Mon – Fri, 9:00 AM – 5:00 PM" },
     ],
     form: {
       headline: "Send Us a Message",

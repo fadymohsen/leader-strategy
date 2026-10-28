@@ -141,17 +141,9 @@ function Footer({ locale, dict }: { locale: Locale; dict: Awaited<ReturnType<typ
               {footer.contact}
             </h3>
             <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2">
-                <svg className="w-4 h-4 mt-0.5 shrink-0 rtl:scale-x-[-1]" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M10 18s6-5.686 6-10a6 6 0 10-12 0c0 4.314 6 10 6 10z"/><circle cx="10" cy="8" r="2"/></svg>
-                <span>{footer.address}</span>
-              </li>
               <li className="flex items-center gap-2">
                 <svg className="w-4 h-4 shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="4" width="16" height="12" rx="1.5"/><path d="M3 5l7 6 7-6"/></svg>
                 <span>{footer.email}</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <svg className="w-4 h-4 shrink-0 rtl:scale-x-[-1]" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 3h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a1 1 0 01-1 1A13 13 0 013 4a1 1 0 011-1z"/></svg>
-                <span>{footer.phone}</span>
               </li>
             </ul>
           </div>

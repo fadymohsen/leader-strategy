@@ -73,28 +73,6 @@ export default async function ContactPage({
                   </div>
                 ))}
               </div>
-              {/* Locations note */}
-              <div className="rounded-lg overflow-hidden border border-border-strong">
-                <div className="relative aspect-[16/10]">
-                  <Image
-                    src="/images/staff-family-gathering.jpg"
-                    alt={locale === "ar" ? "فريق وعائلات Leader Strategies في لقاء جماعي" : "The Leader Strategies team and families at a gathering"}
-                    fill
-                    sizes="(min-width: 768px) 40vw, 100vw"
-                    className="object-cover object-bottom"
-                  />
-                </div>
-                <div className="bg-sand p-6">
-                  <p className="text-xs font-semibold text-clay uppercase tracking-wide mb-2">
-                    {locale === "ar" ? "نخدم في" : "Serving"}
-                  </p>
-                  <p className="text-ink-muted text-sm">
-                    {locale === "ar"
-                      ? "القاهرة · الإسكندرية · المنيا · أسيوط · طنطا"
-                      : "Cairo · Alexandria · Minya · Assiut · Tanta"}
-                  </p>
-                </div>
-              </div>
             </div>
 
             {/* Contact Form (client component) */}
