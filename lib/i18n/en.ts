@@ -107,11 +107,6 @@ const en = {
       ],
       cta: "Explore Our Services",
     },
-    news: {
-      headline: "Latest News",
-      sub: "Stories of impact and transformation",
-      cta: "All News",
-    },
     cta: {
       headline: "Make Your Workplace a Center for Your Mission",
       body: "We believe your workplace is not just a place to earn a living — it becomes the place God has called you to serve, to witness, to influence, to build, and to be a blessing to others.",
