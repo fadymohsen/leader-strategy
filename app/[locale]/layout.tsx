@@ -3,8 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
 import { DirSync } from "@/components/DirSync";
-import { NavLinksDesktop, NavLinksMobile } from "@/components/NavLinks";
+import { NavLinksDesktop } from "@/components/NavLinks";
 import { LocaleSwitchLink } from "@/components/LocaleSwitchLink";
+import { MobileMenu } from "@/components/MobileMenu";
 
 // ── Navbar ────────────────────────────────────────────────────────────────
 
@@ -48,10 +49,10 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
 
           {/* Right side */}
           <div className="flex items-center gap-3">
-            {/* Language switcher */}
+            {/* Language switcher — desktop only */}
             <LocaleSwitchLink
               targetLocale={otherLocale}
-              className="hidden sm:inline-flex items-center px-3 py-1.5 text-xs font-semibold border border-border-strong rounded-md text-ink-muted hover:border-clay hover:text-clay transition-colors"
+              className="hidden md:inline-flex items-center px-3 py-1.5 text-xs font-semibold border border-border-strong rounded-md text-ink-muted hover:border-clay hover:text-clay transition-colors"
             >
               {nav.langSwitch}
             </LocaleSwitchLink>
@@ -59,23 +60,23 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
             {/* Donate CTA */}
             <Link
               href={`/${locale}/contact`}
-              className="px-4 py-2 text-sm font-semibold bg-clay hover:bg-clay-deep text-sand rounded-md transition-colors whitespace-nowrap"
+              className="hidden md:inline-flex px-4 py-2 text-sm font-semibold bg-clay hover:bg-clay-deep text-sand rounded-md transition-colors whitespace-nowrap"
             >
               {nav.donate}
             </Link>
-          </div>
-        </div>
 
-        {/* Mobile nav */}
-        <div className="md:hidden overflow-x-auto pb-3 pt-1 -mx-4 px-4">
-          <div className="flex items-center gap-1 w-max">
-            <NavLinksMobile links={links} />
-            <LocaleSwitchLink
-              targetLocale={otherLocale}
-              className="block px-3 py-1.5 text-xs font-medium text-ink-faint hover:text-clay transition-colors whitespace-nowrap"
-            >
-              {nav.langSwitch}
-            </LocaleSwitchLink>
+            {/* Mobile menu */}
+            <MobileMenu
+              links={links}
+              langSwitcher={
+                <LocaleSwitchLink
+                  targetLocale={otherLocale}
+                  className="flex items-center justify-center px-4 py-2.5 text-sm font-semibold border border-border-strong rounded-lg text-ink-muted hover:border-clay hover:text-clay transition-colors"
+                >
+                  {nav.langSwitch}
+                </LocaleSwitchLink>
+              }
+            />
           </div>
         </div>
       </nav>
