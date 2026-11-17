@@ -9,6 +9,7 @@ const en = {
 
   // ── Navigation ────────────────────────────────────────────────────────────
   nav: {
+    brandName: "",
     home: "Home",
     about: "About",
     services: "Sectors",
@@ -35,6 +36,7 @@ const en = {
   // ── Home Page ─────────────────────────────────────────────────────────────
   home: {
     hero: {
+      brandName: "Leader Strategies",
       badge: "Spiritual Service & Leadership Training — Egypt",
       headline: "We Develop People...\nand Equip Them to Influence",
       subheadline:
@@ -108,8 +110,8 @@ const en = {
       cta: "Explore Our Services",
     },
     cta: {
-      headline: "تمكين قادة .. لتغيير المجتمع",
-      body: "نعمل على إعداد القادة وتمكينهم وتطويرهم روحيًا ومهنيًا ونفسيًا، ليكتشفوا دعوة الله لهم في مجالات عملهم، ويصبحوا نورًا ومصدر تأثير حقيقي.",
+      headline: "Empowering Leaders... to Transform Society",
+      body: "We equip and develop leaders spiritually, professionally, and personally, so they discover God's calling in their workplaces and become a light and a real source of influence.",
       donate: "Join the Movement",
       volunteer: "Contact Us",
     },
@@ -167,6 +169,31 @@ const en = {
         desc: "The leader makes leaders — every trained leader becomes a leader-maker who multiplies the movement.",
       },
     ],
+    stats: [
+      { value: "50+", label: "Years of Ministry" },
+      { value: "5", label: "Cities" },
+      { value: "25+", label: "Active Groups" },
+      { value: "5", label: "Professional Sectors" },
+    ],
+    slogan: {
+      title: "Our Slogan",
+      body: '"Make your workplace a center for your mission"',
+      desc: "We believe your workplace is not just a place to earn a living — it becomes the place God has called you to serve, to witness, to influence, to build, and to be a blessing to others.",
+    },
+    valuesHeadline: "Core Values",
+    structure: {
+      title: "Matrix Structure",
+      explanation: "Our structure operates on two integrated dimensions for maximum impact",
+      geo: "Geographic dimension: Governorates",
+      sector: "Sectoral dimension: Professional categories",
+    },
+    sectorSectionTitle: "Professional Sectors We Serve",
+    cityBoardTitle: "City Board",
+    photoAlt: {
+      communityGathering: "A community gathering bringing religious and civic leaders together with the movement",
+      boardTeam: "Group portrait of the Leader Strategies team and board",
+      cityGathering: "Movement leaders at a city gathering",
+    },
     team: {
       headline: "Board of Leader Strategies",
       sub: "Dedicated leaders guiding the movement",
@@ -402,6 +429,12 @@ const en = {
             ]
       }
 ],
+    goalLabel: "Our Goal",
+    cta: {
+      headline: "Ready to Join Your Professional Group?",
+      body: "Make your workplace a center for your mission — join the movement today.",
+      link: "Get in Touch",
+    },
     sharedVision: {
       headline: "Our Shared Vision",
       intro: "Despite the different fields, all our programs share one goal: to help believers live out their faith wherever God has placed them.",
@@ -421,6 +454,24 @@ const en = {
       badge: "News & Stories",
       headline: "Stories of Impact & Transformation",
       sub: "Updates from the Leader Strategies movement, from Cairo to Alexandria, Minya to Assiut and Tanta.",
+    },
+    readMore: "Read more",
+    forum: {
+      badge: "4th Forum Edition",
+      headline: "Moments from the Forum",
+      desc: "The 4th Influential Leaders Forum — 5th edition coming March 2027",
+    },
+    gallery: {
+      strategyTeam: "Leader Strategies team",
+      leadershipSchool: "Leadership School",
+      gardenParticipants: "Participants in the garden",
+      teachersWorkshop: "ISP Teachers workshop — Developing the Classroom Learning Environment",
+      forumAudience: "Forum audience",
+      palmGarden: "Group photo in the palm garden",
+    },
+    newsletter: {
+      headline: "Subscribe to Our Newsletter",
+      desc: "Get the latest stories of service and impact delivered to your inbox.",
     },
     articles: [
       {
@@ -461,6 +512,7 @@ const en = {
       headline: "Equipping Leaders for Kingdom Impact",
       sub: "Faith-based leadership training programs designed for professionals — developing spiritual depth, character, and strategic influence.",
     },
+    topicsLabel: "Topics",
     items: [
       {
         icon: "✝️",

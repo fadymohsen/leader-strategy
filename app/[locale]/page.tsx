@@ -74,7 +74,7 @@ export default async function HomePage({
                 style={{ width: "auto" }}
               />
               <span className="font-display text-2xl sm:text-3xl text-sand/90">
-                {locale === "ar" ? "خدمة القادة المؤثرين" : "Leader Strategies"}
+                {home.hero.brandName}
               </span>
             </div>
             <h1 className="font-display text-hero leading-[1.15] tracking-tight mb-7 whitespace-pre-line">

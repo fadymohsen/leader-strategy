@@ -104,12 +104,9 @@ export default async function AboutPage({
   const cities = locale === "ar" ? cityBoard.ar : cityBoard.en;
   const sectorList = locale === "ar" ? sectors.ar : sectors.en;
 
-  const structureLabel = locale === "ar"
-    ? { title: "الهيكل المصفوفي", geo: "البُعد الجغرافي: المحافظات", sector: "البُعد القطاعي: الفئات المهنية" }
-    : { title: "Matrix Structure", geo: "Geographic dimension: Governorates", sector: "Sectoral dimension: Professional categories" };
-
-  const sectorSectionTitle = locale === "ar" ? "القطاعات المهنية التي نخدمها" : "Professional Sectors We Serve";
-  const cityBoardTitle = locale === "ar" ? "قيادة المحافظات — City Board" : "City Board — قيادة المحافظات";
+  const structureLabel = about.structure;
+  const sectorSectionTitle = about.sectorSectionTitle;
+  const cityBoardTitle = about.cityBoardTitle;
 
   return (
     <>
@@ -145,15 +142,10 @@ export default async function AboutPage({
               <p className="text-ink-muted leading-relaxed">{about.story.body2}</p>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              {[
-                { val: "50+", sub: locale === "ar" ? "عاماً من الخدمة" : "Years of Ministry" },
-                { val: "5", sub: locale === "ar" ? "مدن" : "Cities" },
-                { val: "25+", sub: locale === "ar" ? "مجموعة نشطة" : "Active Groups" },
-                { val: "5", sub: locale === "ar" ? "قطاعات مهنية" : "Professional Sectors" },
-              ].map((item) => (
-                <div key={item.sub} className="bg-sand-raised rounded-lg p-6 text-center border border-border">
-                  <p className="font-display text-2xl text-clay">{item.val}</p>
-                  <p className="text-xs text-ink-muted mt-1">{item.sub}</p>
+              {about.stats.map((item) => (
+                <div key={item.label} className="bg-sand-raised rounded-lg p-6 text-center border border-border">
+                  <p className="font-display text-2xl text-clay">{item.value}</p>
+                  <p className="text-xs text-ink-muted mt-1">{item.label}</p>
                 </div>
               ))}
             </div>
@@ -165,7 +157,7 @@ export default async function AboutPage({
       <section className="relative h-72 md:h-[28rem]">
         <Image
           src="/images/interfaith-nativity-event.jpg"
-          alt={locale === "ar" ? "لقاء مجتمعي يجمع قادة دينيين ومجتمعيين مع الحركة" : "A community gathering bringing religious and civic leaders together with the movement"}
+          alt={about.photoAlt.communityGathering}
           fill
           sizes="100vw"
           className="object-cover object-bottom"
@@ -192,17 +184,13 @@ export default async function AboutPage({
             <div className="bg-sand border border-border-strong rounded-lg p-8">
               <p className="text-xs uppercase tracking-widest text-clay font-semibold mb-3">03</p>
               <h3 className="font-display text-xl mb-3 text-ink">
-                {locale === "ar" ? "شعارنا" : "Our Slogan"}
+                {about.slogan.title}
               </h3>
               <p className="text-ink leading-relaxed font-semibold text-lg mb-2">
-                {locale === "ar"
-                  ? "«اجعل من مكان عملك مركزًا لإرساليتك»"
-                  : '"Make your workplace a center for your mission"'}
+                {about.slogan.body}
               </p>
               <p className="text-ink-muted leading-relaxed text-sm">
-                {locale === "ar"
-                  ? "نؤمن أن مكان عملك ليس مجرد مكان لكسب الرزق، بل يتحول للمكان الذي دعاك الله للخدمة ولتشهد عنه، وتؤثر، وتبني فيه، وتكون سبب بركة للآخرين."
-                  : "We believe your workplace is not just a place to earn a living — it becomes the place God has called you to serve, to witness, to influence, to build, and to be a blessing to others."}
+                {about.slogan.desc}
               </p>
             </div>
           </div>
@@ -213,7 +201,7 @@ export default async function AboutPage({
       <section className="bg-sand py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <h2 className="font-display text-3xl text-ink text-center mb-12">
-            {locale === "ar" ? "القيم الأساسية" : "Core Values"}
+            {about.valuesHeadline}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
             {about.values.map((val, i) => (
@@ -236,9 +224,7 @@ export default async function AboutPage({
             {structureLabel.title}
           </h2>
           <p className="text-center text-ink-muted mb-10">
-            {locale === "ar"
-              ? "يعمل هيكلنا على بُعدين متكاملين لتحقيق أقصى تأثير"
-              : "Our structure operates on two integrated dimensions for maximum impact"}
+            {structureLabel.explanation}
           </p>
           <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             <div className="bg-ink text-sand rounded-lg p-6 text-center">
@@ -285,7 +271,7 @@ export default async function AboutPage({
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-[0_1px_2px_rgba(42,36,32,0.06),0_8px_24px_rgba(42,36,32,0.06)]">
               <Image
                 src="/images/board-team-portrait.jpg"
-                alt={locale === "ar" ? "صورة جماعية لفريق ومجلس Leader Strategies" : "Group portrait of the Leader Strategies team and board"}
+                alt={about.photoAlt.boardTeam}
                 fill
                 sizes="(min-width: 768px) 40vw, 100vw"
                 className="object-cover object-bottom"
@@ -322,7 +308,7 @@ export default async function AboutPage({
           <div className="relative aspect-[16/9] rounded-lg overflow-hidden mb-10 shadow-[0_1px_2px_rgba(42,36,32,0.06),0_8px_24px_rgba(42,36,32,0.06)]">
             <Image
               src="/images/team-flag-launch-day.jpg"
-              alt={locale === "ar" ? "قادة الحركة في لقاء المحافظات" : "Movement leaders at a city gathering"}
+              alt={about.photoAlt.cityGathering}
               fill
               sizes="100vw"
               className="object-cover object-bottom"

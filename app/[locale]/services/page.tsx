@@ -134,7 +134,7 @@ export default async function ServicesPage({
             {/* Goal */}
             <div className="bg-ink rounded-lg p-6 text-center">
               <p className="text-xs uppercase tracking-widest text-clay-soft font-semibold mb-2">
-                {locale === "ar" ? "هدفنا" : "Our Goal"}
+                {services.goalLabel}
               </p>
               <p className="text-sand text-lg leading-relaxed max-w-3xl mx-auto">{item.goal}</p>
             </div>
@@ -169,18 +169,16 @@ export default async function ServicesPage({
       <section className="bg-sand-raised py-16 text-center">
         <div className="max-w-2xl mx-auto px-6">
           <h2 className="font-display text-2xl md:text-3xl text-ink mb-4">
-            {locale === "ar" ? "هل أنت مستعد للانضمام لمجموعتك المهنية؟" : "Ready to Join Your Professional Group?"}
+            {services.cta.headline}
           </h2>
           <p className="text-ink-muted mb-8">
-            {locale === "ar"
-              ? "اجعل من مكان عملك مركزًا لإرساليتك — انضم إلى الحركة اليوم."
-              : "Make your workplace a center for your mission — join the movement today."}
+            {services.cta.body}
           </p>
           <Link
             href={`/${locale}/contact`}
             className="inline-block px-8 py-3.5 bg-clay hover:bg-clay-deep text-sand font-semibold rounded-md transition-colors"
           >
-            {locale === "ar" ? "تواصل معنا" : "Get in Touch"}
+            {services.cta.link}
           </Link>
         </div>
       </section>

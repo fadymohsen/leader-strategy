@@ -37,9 +37,9 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
               style={{ width: "auto" }}
               priority
             />
-            {locale === "ar" && (
+            {nav.brandName && (
               <span className="hidden sm:inline font-display text-lg text-ink">
-                خدمة القادة المؤثرين
+                {nav.brandName}
               </span>
             )}
           </Link>

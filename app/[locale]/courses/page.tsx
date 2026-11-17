@@ -109,7 +109,7 @@ export default async function CoursesPage({
                   <p className="text-ink-muted text-sm leading-relaxed mb-4">{course.desc}</p>
                   <div className="mt-auto">
                     <p className="text-xs font-semibold text-ink-faint uppercase tracking-wide mb-2">
-                      {locale === "ar" ? "المحاور" : "Topics"}
+                      {courses.topicsLabel}
                     </p>
                     <ul className="space-y-1">
                       {course.topics.map((topic) => (

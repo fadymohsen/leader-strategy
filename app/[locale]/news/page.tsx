@@ -100,7 +100,7 @@ export default async function NewsPage({
                     type="button"
                     className="mt-5 text-sm font-semibold text-clay hover:underline text-start"
                   >
-                    {locale === "ar" ? "اقرأ المزيد" : "Read more"}
+                    {news.readMore}
                   </button>
                 </div>
               </article>
@@ -115,26 +115,24 @@ export default async function NewsPage({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10 max-w-xl">
             <span className="inline-block mb-3 text-clay text-xs font-semibold uppercase tracking-widest">
-              {locale === "ar" ? "المنتدى الرابع" : "4th Forum Edition"}
+              {news.forum.badge}
             </span>
             <h2 className="font-display text-section-heading text-ink mb-3">
-              {locale === "ar" ? "لحظات من المنتدى" : "Moments from the Forum"}
+              {news.forum.headline}
             </h2>
             <p className="text-ink-muted text-lg">
-              {locale === "ar"
-                ? "المنتدى الرابع للقادة المؤثرين — وبنجهّز الخامس في مارس ٢٠٢٧"
-                : "The 4th Influential Leaders Forum — 5th edition coming March 2027"}
+              {news.forum.desc}
             </p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
             {[
-              { src: "/images/strategy-team.jpeg", alt: locale === "ar" ? "فريق عمل الاستراتيجية" : "Leader Strategies team", span: "md:col-span-2" },
-              { src: "/images/leadership-school.jpeg", alt: locale === "ar" ? "مدرسة القيادة" : "Leadership School", span: "" },
-              { src: "/images/forum-4-group-garden.jpeg", alt: locale === "ar" ? "مشاركون في الحديقة" : "Participants in the garden", span: "" },
-              { src: "/images/isp-teachers-workshop.jpeg", alt: locale === "ar" ? "ورشة تدريب المدرسين — تطوير البيئة التعليمية" : "ISP Teachers workshop — Developing the Classroom Learning Environment", span: "" },
-              { src: "/images/forum-4-audience.jpeg", alt: locale === "ar" ? "حضور المنتدى" : "Forum audience", span: "" },
-              { src: "/images/forum-4-group-palms.jpeg", alt: locale === "ar" ? "صورة جماعية في الحديقة" : "Group photo in the palm garden", span: "md:col-span-2" },
+              { src: "/images/strategy-team.jpeg", alt: news.gallery.strategyTeam, span: "md:col-span-2" },
+              { src: "/images/leadership-school.jpeg", alt: news.gallery.leadershipSchool, span: "" },
+              { src: "/images/forum-4-group-garden.jpeg", alt: news.gallery.gardenParticipants, span: "" },
+              { src: "/images/isp-teachers-workshop.jpeg", alt: news.gallery.teachersWorkshop, span: "" },
+              { src: "/images/forum-4-audience.jpeg", alt: news.gallery.forumAudience, span: "" },
+              { src: "/images/forum-4-group-palms.jpeg", alt: news.gallery.palmGarden, span: "md:col-span-2" },
             ].map((img) => (
               <div key={img.src} className={`relative aspect-[4/3] rounded-lg overflow-hidden ${img.span}`}>
                 <Image src={img.src} alt={img.alt} fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover" />
@@ -148,12 +146,10 @@ export default async function NewsPage({
       <section className="bg-sand py-16">
         <div className="max-w-xl mx-auto px-4 text-center">
           <h2 className="font-display text-2xl text-ink mb-2">
-            {locale === "ar" ? "اشترك في نشرتنا الإخبارية" : "Subscribe to Our Newsletter"}
+            {news.newsletter.headline}
           </h2>
           <p className="text-ink-muted mb-6 text-sm">
-            {locale === "ar"
-              ? "احصل على آخر أخبار الخدمة والتأثير في صندوق بريدك."
-              : "Get the latest stories of service and impact delivered to your inbox."}
+            {news.newsletter.desc}
           </p>
           <NewsletterForm locale={locale} />
         </div>
