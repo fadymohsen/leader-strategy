@@ -66,7 +66,7 @@ export default async function HomePage({
           <div className="max-w-2xl hero-stagger">
             <div className="flex items-center gap-4 mb-8">
               <Image
-                src="/logo.webp"
+                src="/logo-new.jpeg"
                 alt="Leader Strategies"
                 width={80}
                 height={80}
@@ -109,7 +109,7 @@ export default async function HomePage({
             {home.stats.map((stat, i) => (
               <RevealScale key={stat.label} delay={i * 100}>
                 <div className="text-center">
-                  <p className="font-display text-3xl md:text-4xl text-clay mb-1">{stat.value}</p>
+                  <p className="font-display text-3xl md:text-4xl text-gold mb-1">{stat.value}</p>
                   <p className="text-sand/60 text-xs uppercase tracking-widest">{stat.label}</p>
                 </div>
               </RevealScale>
@@ -132,7 +132,7 @@ export default async function HomePage({
             {home.pillars.items.map((item, i) => (
               <RevealScale key={item.title} delay={i * 120}>
                 <div className="group p-6 rounded-xl border border-transparent hover:border-clay/20 hover:bg-sand/50 transition-all duration-300 hover-glow">
-                  <span className="font-display text-4xl text-clay/30 group-hover:text-clay block mb-3 transition-colors duration-300">
+                  <span className="font-display text-4xl text-gold/40 group-hover:text-gold block mb-3 transition-colors duration-300">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="font-semibold text-ink text-lg mb-2">{item.title}</h3>
@@ -193,7 +193,7 @@ export default async function HomePage({
       </section>
 
       {/* ── CTA: asymmetric close, one statement + one action ── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-clay via-clay-deep to-clay py-20 shimmer-bg">
+      <section className="relative overflow-hidden bg-gradient-to-br from-clay via-clay-deep to-clay py-20">
         <div
           aria-hidden
           className="pointer-events-none absolute -bottom-1/2 start-1/3 -translate-x-1/2 w-[700px] h-[700px] rounded-full opacity-[0.12] blur-3xl animate-float"

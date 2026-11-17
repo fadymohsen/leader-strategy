@@ -85,7 +85,7 @@ export default async function AboutPage({
             <div className="grid grid-cols-2 gap-4">
               {about.stats.map((item) => (
                 <div key={item.label} className="bg-sand-raised rounded-lg p-6 text-center border border-border">
-                  <p className="font-display text-2xl text-clay">{item.value}</p>
+                  <p className="font-display text-2xl text-gold">{item.value}</p>
                   <p className="text-xs text-ink-muted mt-1">{item.label}</p>
                 </div>
               ))}
@@ -141,7 +141,7 @@ export default async function AboutPage({
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
             {about.values.map((val, i) => (
               <div key={val.title} className="p-6 rounded-lg border border-border hover:shadow-[0_4px_12px_rgba(42,36,32,0.08),0_16px_32px_rgba(163,70,42,0.10)] transition-shadow text-center">
-                <span className="font-display text-3xl text-clay block mb-2">
+                <span className="font-display text-3xl text-gold/50 block mb-2">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="font-semibold text-ink text-base mb-2">{val.title}</h3>
