@@ -78,7 +78,7 @@ export default async function HomePage({
                 {locale === "ar" ? "خدمة القادة المؤثرين" : "Leader Strategies"}
               </span>
             </div>
-            <h1 className="font-display text-hero leading-[0.95] tracking-tight mb-7 whitespace-pre-line">
+            <h1 className="font-display text-hero leading-[1.15] tracking-tight mb-7 whitespace-pre-line">
               {home.hero.headline}
             </h1>
             <p className="text-lg md:text-xl text-sand/70 mb-10 max-w-2xl leading-relaxed">
