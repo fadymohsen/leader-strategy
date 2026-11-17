@@ -98,7 +98,7 @@ export function MobileMenu({
               }`}
             >
               {/* Top bar with close button */}
-              <div className="flex items-center justify-end h-16 px-4 sm:px-6">
+              <div className="flex items-center justify-end h-16 px-6 sm:px-8">
                 <button
                   type="button"
                   onClick={close}

@@ -57,7 +57,7 @@ export default async function ServicesPage({
           className="object-cover opacity-50"
         />
         <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink via-ink/90 to-ink/60" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest">
             {services.hero.badge}
           </span>
@@ -68,7 +68,7 @@ export default async function ServicesPage({
 
       {/* ── Intro ── */}
       <section className="bg-clay py-8">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
           <p className="text-sand text-lg font-semibold">{services.intro}</p>
         </div>
       </section>
@@ -82,7 +82,7 @@ export default async function ServicesPage({
           id={sectorAnchor(item.icon).slice(1) || undefined}
           className={idx % 2 === 0 ? "bg-sand py-20" : "bg-sand-raised py-20"}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
             {/* Service Header */}
             <div className="text-center mb-12">
               {logo ? (
@@ -154,7 +154,7 @@ export default async function ServicesPage({
           className="object-cover opacity-35"
         />
         <div className="absolute inset-0 bg-ink/70" />
-        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
           <h2 className="font-display text-3xl mb-6">{services.sharedVision.headline}</h2>
           <p className="text-sand/70 text-lg mb-8">{services.sharedVision.intro}</p>
           <div className="space-y-3">
@@ -167,7 +167,7 @@ export default async function ServicesPage({
 
       {/* ── CTA ── */}
       <section className="bg-sand-raised py-16 text-center">
-        <div className="max-w-2xl mx-auto px-4">
+        <div className="max-w-2xl mx-auto px-6">
           <h2 className="font-display text-2xl md:text-3xl text-ink mb-4">
             {locale === "ar" ? "هل أنت مستعد للانضمام لمجموعتك المهنية؟" : "Ready to Join Your Professional Group?"}
           </h2>

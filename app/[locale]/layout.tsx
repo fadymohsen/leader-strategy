@@ -24,7 +24,7 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
 
   return (
     <header className="sticky top-0 z-50 bg-sand/95 backdrop-blur-sm shadow-[0_1px_2px_rgba(42,36,32,0.06),0_8px_24px_rgba(42,36,32,0.06)]">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href={`/${locale}`} className="shrink-0 flex items-center gap-3">
@@ -100,7 +100,7 @@ function Footer({ locale, dict }: { locale: Locale; dict: Awaited<ReturnType<typ
 
   return (
     <footer className="bg-ink text-sand/80 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div>

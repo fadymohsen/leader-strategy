@@ -63,7 +63,7 @@ export default async function HomePage({
         <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink via-ink/90 to-ink/45" />
         <div className="absolute inset-0 bg-clay/10 mix-blend-multiply" />
 
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full">
+        <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 py-32 w-full">
           <div className="max-w-2xl hero-stagger">
             <div className="flex items-center gap-4 mb-8">
               <Image
@@ -105,7 +105,7 @@ export default async function HomePage({
 
       {/* ── Pillars: how we build leaders, three dimensions ── */}
       <section className="bg-sand-raised py-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
           <Reveal className="mb-14 max-w-2xl">
             <span className="inline-block mb-3 text-clay text-xs font-semibold uppercase tracking-widest">
               {home.pillars.badge}
@@ -133,7 +133,7 @@ export default async function HomePage({
 
       {/* ── Sectors: a ledger, not a card grid ── */}
       <section className="bg-sand-raised py-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
           <Reveal className="mb-12 max-w-xl">
             <h2 className="font-display text-section-heading text-ink mb-3">
               {home.services.headline}
@@ -191,7 +191,7 @@ export default async function HomePage({
           className="pointer-events-none absolute -bottom-1/2 start-1/3 -translate-x-1/2 w-[700px] h-[700px] rounded-full opacity-[0.15] blur-3xl"
           style={{ background: "radial-gradient(circle, var(--ink) 0%, transparent 70%)" }}
         />
-        <Reveal className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+        <Reveal className="relative max-w-5xl mx-auto px-6 sm:px-8 lg:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <div className="max-w-lg">
             <h2 className="font-display text-3xl md:text-4xl leading-tight text-sand mb-3">
               {home.cta.headline}

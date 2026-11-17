@@ -126,7 +126,7 @@ export default async function AboutPage({
           className="object-cover opacity-55"
         />
         <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink via-ink/90 to-ink/55" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest">
             {about.hero.badge}
           </span>
@@ -137,7 +137,7 @@ export default async function AboutPage({
 
       {/* ── Our Story ── */}
       <section className="bg-sand py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="font-display text-3xl text-ink mb-6">{about.story.headline}</h2>
@@ -174,7 +174,7 @@ export default async function AboutPage({
 
       {/* ── Mission, Vision & Slogan ── */}
       <section className="bg-sand-raised py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <h2 className="font-display text-3xl text-ink text-center mb-12">
             {about.mission.headline}
           </h2>
@@ -211,7 +211,7 @@ export default async function AboutPage({
 
       {/* ── Core Values ── */}
       <section className="bg-sand py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <h2 className="font-display text-3xl text-ink text-center mb-12">
             {locale === "ar" ? "القيم الأساسية" : "Core Values"}
           </h2>
@@ -231,7 +231,7 @@ export default async function AboutPage({
 
       {/* ── Matrix Structure ── */}
       <section className="bg-sand-raised py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <h2 className="font-display text-3xl text-ink text-center mb-4">
             {structureLabel.title}
           </h2>
@@ -253,7 +253,7 @@ export default async function AboutPage({
 
       {/* ── Professional Sectors ── */}
       <section className="bg-sand py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <h2 className="font-display text-3xl text-ink text-center mb-10">
             {sectorSectionTitle}
           </h2>
@@ -280,7 +280,7 @@ export default async function AboutPage({
 
       {/* ── Board of Leader Strategies ── */}
       <section className="bg-sand-raised py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="grid md:grid-cols-[1fr_1.3fr] gap-10 items-center mb-16">
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-[0_1px_2px_rgba(42,36,32,0.06),0_8px_24px_rgba(42,36,32,0.06)]">
               <Image
@@ -315,7 +315,7 @@ export default async function AboutPage({
 
       {/* ── City Board ── */}
       <section className="bg-sand py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <h2 className="font-display text-3xl text-ink text-center mb-10">
             {cityBoardTitle}
           </h2>

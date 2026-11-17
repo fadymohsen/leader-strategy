@@ -64,7 +64,7 @@ export default async function CoursesPage({
           className="object-cover opacity-50"
         />
         <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink via-ink/90 to-ink/60" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest">
             {courses.hero.badge}
           </span>
@@ -75,7 +75,7 @@ export default async function CoursesPage({
 
       {/* ── Courses Grid ── */}
       <section className="bg-sand-raised py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {courses.items.map((course) => {
               const logo = courseLogo(course.title);
@@ -151,7 +151,7 @@ export default async function CoursesPage({
 
       {/* ── Bottom CTA ── */}
       <section className="bg-clay py-16 text-center">
-        <div className="max-w-2xl mx-auto px-4">
+        <div className="max-w-2xl mx-auto px-6">
           <h2 className="font-display text-3xl text-sand mb-4">{courses.cta.headline}</h2>
           <p className="text-sand/80 mb-8">{courses.cta.body}</p>
           <div className="flex flex-wrap gap-4 justify-center">

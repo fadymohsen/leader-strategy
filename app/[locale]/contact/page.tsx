@@ -43,7 +43,7 @@ export default async function ContactPage({
           className="object-cover opacity-50"
         />
         <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink via-ink/90 to-ink/60" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest">
             {contact.hero.badge}
           </span>
@@ -54,7 +54,7 @@ export default async function ContactPage({
 
       {/* ── Content ── */}
       <section className="bg-sand-raised py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="max-w-2xl mx-auto">
             <ContactForm form={contact.form} />
           </div>
