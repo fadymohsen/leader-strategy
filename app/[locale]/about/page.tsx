@@ -70,6 +70,8 @@ export default async function AboutPage({
         </div>
       </section>
 
+      <div className="max-w-5xl mx-auto"><hr className="border-border" /></div>
+
       {/* ── Our Story ── */}
       <section className="bg-sand py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
@@ -91,6 +93,8 @@ export default async function AboutPage({
         </div>
       </section>
 
+      <div className="max-w-5xl mx-auto"><hr className="border-border" /></div>
+
       {/* ── Photo band ── */}
       <section className="relative h-72 md:h-[28rem]">
         <Image
@@ -101,6 +105,8 @@ export default async function AboutPage({
           className="object-cover object-bottom"
         />
       </section>
+
+      <div className="max-w-5xl mx-auto"><hr className="border-border" /></div>
 
       {/* ── Mission, Vision & Slogan ── */}
       <section className="bg-sand-raised py-20">
@@ -135,6 +141,8 @@ export default async function AboutPage({
         </div>
       </section>
 
+      <div className="max-w-5xl mx-auto"><hr className="border-border" /></div>
+
       {/* ── Core Values ── */}
       <section className="bg-sand py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
@@ -155,6 +163,8 @@ export default async function AboutPage({
         </div>
       </section>
 
+      <div className="max-w-5xl mx-auto"><hr className="border-border" /></div>
+
       {/* ── Matrix Structure ── */}
       <section className="bg-sand-raised py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
@@ -174,6 +184,8 @@ export default async function AboutPage({
           </div>
         </div>
       </section>
+
+      <div className="max-w-5xl mx-auto"><hr className="border-border" /></div>
 
       {/* ── Professional Sectors ── */}
       <section className="bg-sand py-20">
@@ -201,6 +213,8 @@ export default async function AboutPage({
           </div>
         </div>
       </section>
+
+      <div className="max-w-5xl mx-auto"><hr className="border-border" /></div>
 
       {/* ── Board of Leader Strategies ── */}
       <section className="bg-sand-raised py-20">
