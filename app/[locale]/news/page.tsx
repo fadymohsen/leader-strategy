@@ -142,8 +142,8 @@ export default async function NewsPage({
       </section>
 
       {/* ── Newsletter ── */}
-      <section className="bg-sand py-16">
-        <div className="max-w-xl mx-auto px-4 text-center">
+      <section className="bg-sand-raised py-16">
+        <div className="max-w-xl mx-auto px-6 text-center">
           <h2 className="font-display text-xl md:text-2xl text-ink mb-2">
             {news.newsletter.headline}
           </h2>
