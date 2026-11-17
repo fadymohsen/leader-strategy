@@ -84,11 +84,6 @@ export default async function ServicesPage({
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
             {/* Service Header */}
             <div className="text-center mb-12">
-              {logo ? (
-                <Image src={logo} alt="" width={160} height={54} className="h-12 w-auto object-contain mx-auto mb-5" />
-              ) : (
-                <p className="font-display text-3xl text-clay mb-3">{item.icon}</p>
-              )}
               <h2 className="font-display text-2xl md:text-3xl text-ink mb-3">{item.title}</h2>
               <p className="text-ink-muted text-base max-w-3xl mx-auto leading-relaxed">{item.intro}</p>
             </div>
@@ -141,28 +136,6 @@ export default async function ServicesPage({
         </section>
         );
       })}
-
-      {/* ── Shared Vision ── */}
-      <section className="grain relative overflow-hidden bg-ink py-20 text-sand">
-        <Image
-          src="/images/team-family-retreat.jpg"
-          alt=""
-          aria-hidden
-          fill
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-ink/40" />
-        <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
-          <h2 className="font-display text-2xl md:text-3xl mb-6">{services.sharedVision.headline}</h2>
-          <p className="text-sand/70 text-base md:text-lg mb-8">{services.sharedVision.intro}</p>
-          <div className="space-y-3">
-            {services.sharedVision.points.map((point) => (
-              <p key={point} className="text-clay-soft font-semibold text-base md:text-lg">{point}</p>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── CTA ── */}
       <section className="bg-sand-raised py-16 text-center">
