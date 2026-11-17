@@ -199,11 +199,6 @@ export default async function AboutPage({
                 key={s.tag}
                 className="flex items-center gap-3 px-5 py-3 bg-sand-raised border border-border rounded-lg hover:border-clay transition-colors"
               >
-                {s.logo ? (
-                  <Image src={s.logo} alt="" width={80} height={28} className="h-6 w-auto object-contain" />
-                ) : (
-                  <span className="font-display text-clay text-lg">{s.tag[0]}</span>
-                )}
                 <div>
                   <p className="font-semibold text-ink text-sm">{s.name}</p>
                   <p className="text-xs text-clay font-medium">{s.tag}</p>
