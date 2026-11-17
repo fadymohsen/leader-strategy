@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -18,12 +19,28 @@ export function MobileMenu({
   langSwitcher: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+
+  // Portal needs DOM — wait until mounted
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Close on route change
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  // Close on Escape key
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
 
   // Lock body scroll when open
   useEffect(() => {
@@ -68,56 +85,89 @@ export function MobileMenu({
         </div>
       </button>
 
-      {/* Backdrop */}
-      <div
-        className={`fixed inset-0 z-40 bg-ink/40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-          open ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-        onClick={close}
-        aria-hidden="true"
-      />
+      {/* Portal: render backdrop + drawer at document.body to escape header's backdrop-blur containing block */}
+      {mounted &&
+        createPortal(
+          <>
+            {/* Backdrop */}
+            <div
+              className={`fixed inset-0 z-40 bg-ink/40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+                open ? "opacity-100" : "opacity-0 pointer-events-none"
+              }`}
+              onClick={close}
+              aria-hidden="true"
+            />
 
-      {/* Drawer */}
-      <div
-        className={`fixed top-0 end-0 z-40 h-full w-72 max-w-[calc(100vw-3rem)] bg-sand shadow-2xl transition-transform duration-300 ease-out md:hidden ${
-          open ? "translate-x-0" : "ltr:translate-x-full rtl:-translate-x-full"
-        }`}
-      >
-        <div className="flex flex-col h-full pt-20 pb-8 px-6">
-          {/* Nav links */}
-          <nav className="flex-1">
-            <ul className="space-y-1">
-              {links.map((l) => {
-                const active = isActive(pathname, l.href);
-                return (
-                  <li key={l.href}>
-                    <Link
-                      href={l.href}
-                      onClick={close}
-                      aria-current={active ? "page" : undefined}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                        active
-                          ? "bg-clay/10 text-clay"
-                          : "text-ink-muted hover:bg-sand-raised hover:text-ink"
-                      }`}
-                    >
-                      {active && (
-                        <span className="w-1.5 h-1.5 rounded-full bg-clay shrink-0" />
-                      )}
-                      {l.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+            {/* Drawer */}
+            <div
+              className={`fixed top-0 end-0 z-50 h-full w-72 max-w-[calc(100vw-3rem)] bg-sand shadow-2xl transition-transform duration-300 ease-out md:hidden ${
+                open
+                  ? "translate-x-0"
+                  : "ltr:translate-x-full rtl:-translate-x-full"
+              }`}
+            >
+              {/* Close button inside drawer */}
+              <div className="absolute top-4 end-4">
+                <button
+                  type="button"
+                  onClick={close}
+                  aria-label="Close menu"
+                  className="flex items-center justify-center w-10 h-10 rounded-md text-ink-muted hover:text-ink transition-colors"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
 
-          {/* Bottom section */}
-          <div className="pt-4 border-t border-border space-y-3">
-            {langSwitcher}
-          </div>
-        </div>
-      </div>
+              <div className="flex flex-col h-full pt-20 pb-8 px-6">
+                {/* Nav links */}
+                <nav className="flex-1">
+                  <ul className="space-y-1">
+                    {links.map((l) => {
+                      const active = isActive(pathname, l.href);
+                      return (
+                        <li key={l.href}>
+                          <Link
+                            href={l.href}
+                            onClick={close}
+                            aria-current={active ? "page" : undefined}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                              active
+                                ? "bg-clay/10 text-clay"
+                                : "text-ink-muted hover:bg-sand-raised hover:text-ink"
+                            }`}
+                          >
+                            {active && (
+                              <span className="w-1.5 h-1.5 rounded-full bg-clay shrink-0" />
+                            )}
+                            {l.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </nav>
+
+                {/* Bottom section */}
+                <div className="pt-4 border-t border-border space-y-3">
+                  {langSwitcher}
+                </div>
+              </div>
+            </div>
+          </>,
+          document.body
+        )}
     </>
   );
 }
