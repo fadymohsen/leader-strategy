@@ -448,9 +448,9 @@ const en = {
     },
     readMore: "Read more",
     forum: {
-      badge: "4th Forum Edition",
-      headline: "Moments from the Forum",
-      desc: "The 4th Influential Leaders Forum — 5th edition coming March 2027",
+      badge: "Lawyers Conference",
+      headline: "Moments from the Lawyers Conference",
+      desc: "The Lawyers Conference — building a generation of influential legal professionals for justice and integrity",
     },
     gallery: {
       strategyTeam: "Leader Strategies team",
@@ -467,10 +467,10 @@ const en = {
     articles: [
       {
         date: "September 2026",
-        category: "Forum",
-        title: "4th Influential Leaders Forum Concludes Successfully — 5th Edition Coming March 2027",
+        category: "Lawyers Conference",
+        title: "Lawyers Conference Brings Together Legal Professionals from Across Egypt",
         excerpt:
-          "The 4th edition of the Influential Leaders Forum brought together leaders from across Egypt for days of training, fellowship, and vision-casting. With powerful sessions on leadership, faith in the workplace, and community impact, the forum continues to grow each year. We're already preparing the 5th edition, coming in March 2027 — bigger and bolder than ever.",
+          "The Lawyers Conference gathered Christian lawyers and legal professionals from multiple governorates for days of training, spiritual growth, and professional development. They discussed the challenges of the legal profession and how to be witnesses for Christ in courtrooms and law offices.",
       },
       {
         date: "August 2026",

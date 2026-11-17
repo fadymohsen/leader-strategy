@@ -8,8 +8,8 @@ import { NewsletterForm } from "./NewsletterForm";
 
 // Article title -> a real photo, where one exists. The rest stay text-only rather than reuse a stand-in.
 const ARTICLE_PHOTOS: [string, string][] = [
-  ["Forum", "/images/strategy-team.jpeg"],
-  ["المنتدى", "/images/strategy-team.jpeg"],
+  ["Lawyers Conference", "/images/strategy-team.jpeg"],
+  ["مؤتمر المحامين", "/images/strategy-team.jpeg"],
   ["Leadership School", "/images/leadership-school.jpeg"],
   ["مدرسة القيادة", "/images/leadership-school.jpeg"],
   ["ISP", "/images/team-lead-up-workshop.jpg"],
