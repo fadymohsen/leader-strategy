@@ -136,17 +136,6 @@ export default async function CoursesPage({
         </div>
       </section>
 
-      {/* ── Photo band ── */}
-      <section className="relative h-72 md:h-[28rem]">
-        <Image
-          src="/images/team-flag-launch-day.jpg"
-          alt={locale === "ar" ? "قادة الحركة في يوم إطلاق مسار FLAG" : "Movement leaders at a FLAG track launch day"}
-          fill
-          sizes="100vw"
-          className="object-cover object-bottom"
-        />
-      </section>
-
       {/* ── Bottom CTA ── */}
       <section className="bg-clay py-16 text-center">
         <div className="max-w-2xl mx-auto px-6">
