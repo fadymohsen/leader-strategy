@@ -57,11 +57,10 @@ export default async function HomePage({
             priority
             fill
             sizes="100vw"
-            className="hero-emblem-parallax object-cover opacity-70"
+            className="hero-emblem-parallax object-cover"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink via-ink/90 to-ink/45" />
-        <div className="absolute inset-0 bg-clay/10 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink/70 via-ink/50 to-ink/20" />
 
         <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 py-32 w-full">
           <div className="max-w-2xl hero-stagger">

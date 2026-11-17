@@ -54,9 +54,9 @@ export default async function ServicesPage({
           priority
           fill
           sizes="100vw"
-          className="object-cover opacity-50"
+          className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink via-ink/90 to-ink/60" />
+        <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink/70 via-ink/50 to-ink/20" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest">
             {services.hero.badge}
@@ -151,9 +151,9 @@ export default async function ServicesPage({
           aria-hidden
           fill
           sizes="100vw"
-          className="object-cover opacity-35"
+          className="object-cover"
         />
-        <div className="absolute inset-0 bg-ink/70" />
+        <div className="absolute inset-0 bg-ink/40" />
         <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
           <h2 className="font-display text-3xl mb-6">{services.sharedVision.headline}</h2>
           <p className="text-sand/70 text-lg mb-8">{services.sharedVision.intro}</p>
