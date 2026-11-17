@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { AboutJsonLd } from "@/components/JsonLd";
+import { NewsletterForm } from "../news/NewsletterForm";
 
 export async function generateMetadata({
   params,
@@ -211,38 +212,16 @@ export default async function AboutPage({
 
       <div className="max-w-5xl mx-auto"><hr className="border-border" /></div>
 
-      {/* ── Board of Leader Strategies ── */}
-      <section className="bg-sand-raised py-20">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-          <div className="grid md:grid-cols-[1fr_1.3fr] gap-10 items-center mb-16">
-            <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-[0_1px_2px_rgba(42,36,32,0.06),0_8px_24px_rgba(42,36,32,0.06)]">
-              <Image
-                src="/images/board-team-portrait.jpg"
-                alt={about.photoAlt.boardTeam}
-                fill
-                sizes="(min-width: 768px) 40vw, 100vw"
-                className="object-cover object-bottom"
-              />
-            </div>
-            <div>
-              <h2 className="font-display text-2xl md:text-3xl text-ink mb-3">{about.team.headline}</h2>
-              <p className="text-ink-muted text-base md:text-lg">{about.team.sub}</p>
-            </div>
-          </div>
-          <div className="flex flex-wrap justify-center gap-4">
-            {about.team.members.map((member) => (
-              <div
-                key={member.name}
-                className="bg-sand rounded-lg p-5 text-center border border-border hover:shadow-[0_4px_12px_rgba(42,36,32,0.08),0_16px_32px_rgba(163,70,42,0.10)] transition-shadow w-40"
-              >
-                <div className="w-14 h-14 rounded-full bg-clay-soft flex items-center justify-center text-clay-deep text-lg font-semibold mx-auto mb-3">
-                  {member.name.trim().split(" ")[0][0]}
-                </div>
-                <h3 className="font-semibold text-ink text-sm leading-snug">{member.name}</h3>
-                <p className="text-clay text-xs font-medium mt-1">{member.role}</p>
-              </div>
-            ))}
-          </div>
+      {/* ── Newsletter ── */}
+      <section className="bg-sand-raised py-16">
+        <div className="max-w-xl mx-auto px-6 text-center">
+          <h2 className="font-display text-xl md:text-2xl text-ink mb-2">
+            {dict.news.newsletter.headline}
+          </h2>
+          <p className="text-ink-muted mb-6 text-sm">
+            {dict.news.newsletter.desc}
+          </p>
+          <NewsletterForm locale={locale} />
         </div>
       </section>
 
