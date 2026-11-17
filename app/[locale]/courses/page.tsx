@@ -28,7 +28,6 @@ const levelStyles: Record<string, string> = {
 
 const COURSE_LOGOS: [string, string][] = [
   ["Leader Impact Next", "/images/leader-impact-next-logo.jpeg"],
-  ["Leader Impact", "/images/leader-impact-logo.jpeg"],
   ["ISP", "/images/isp-logo.jpeg"],
   ["FLAG", "/images/flag-logo.jpeg"],
 ];
