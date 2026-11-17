@@ -56,13 +56,12 @@ export default async function ServicesPage({
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink/70 via-ink/50 to-ink/20" />
+        <div className="absolute inset-0 bg-ink/30" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-          <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest">
+          <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
             {services.hero.badge}
           </span>
-          <h1 className="font-display text-4xl md:text-5xl mb-4">{services.hero.headline}</h1>
-          <p className="text-sand/70 text-xl max-w-3xl">{services.hero.sub}</p>
+          <h1 className="font-display text-4xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">{services.hero.headline}</h1>
         </div>
       </section>
 

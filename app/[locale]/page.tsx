@@ -60,7 +60,7 @@ export default async function HomePage({
             className="hero-emblem-parallax object-cover"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-ink/70 via-ink/50 to-ink/20" />
+        <div className="absolute inset-0 bg-ink/35" />
 
         <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 py-32 w-full">
           <div className="max-w-2xl hero-stagger">
@@ -70,17 +70,17 @@ export default async function HomePage({
                 alt="Leader Strategies"
                 width={80}
                 height={80}
-                className="h-16 sm:h-20 w-auto drop-shadow-lg"
+                className="h-16 sm:h-20 w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
                 style={{ width: "auto" }}
               />
-              <span className="font-display text-2xl sm:text-3xl text-sand/90">
+              <span className="font-display text-2xl sm:text-3xl text-sand drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]">
                 {home.hero.brandName}
               </span>
             </div>
-            <h1 className="font-display text-hero leading-[1.15] tracking-tight mb-7 whitespace-pre-line">
+            <h1 className="font-display text-hero leading-[1.15] tracking-tight mb-7 whitespace-pre-line drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
               {home.hero.headline}
             </h1>
-            <p className="text-lg md:text-xl text-sand/70 mb-10 max-w-2xl leading-relaxed">
+            <p className="text-lg md:text-xl text-sand/90 mb-10 max-w-2xl leading-relaxed drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
               {home.hero.subheadline}
             </p>
             <div className="flex flex-wrap items-center gap-8">
