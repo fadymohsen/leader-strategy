@@ -126,14 +126,14 @@ export default async function NewsPage({
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
             {[
-              { src: "/images/strategy-team.jpeg", alt: news.gallery.strategyTeam, span: "md:col-span-2" },
-              { src: "/images/leadership-school.jpeg", alt: news.gallery.leadershipSchool, span: "" },
-              { src: "/images/forum-4-group-garden.jpeg", alt: news.gallery.gardenParticipants, span: "" },
-              { src: "/images/isp-teachers-workshop.jpeg", alt: news.gallery.teachersWorkshop, span: "" },
-              { src: "/images/forum-4-audience.jpeg", alt: news.gallery.forumAudience, span: "" },
-              { src: "/images/forum-4-group-palms.jpeg", alt: news.gallery.palmGarden, span: "md:col-span-2" },
+              { src: "/images/strategy-team.jpeg", alt: news.gallery.strategyTeam },
+              { src: "/images/leadership-school.jpeg", alt: news.gallery.leadershipSchool },
+              { src: "/images/forum-4-group-garden.jpeg", alt: news.gallery.gardenParticipants },
+              { src: "/images/isp-teachers-workshop.jpeg", alt: news.gallery.teachersWorkshop },
+              { src: "/images/forum-4-audience.jpeg", alt: news.gallery.forumAudience },
+              { src: "/images/forum-4-group-palms.jpeg", alt: news.gallery.palmGarden },
             ].map((img) => (
-              <div key={img.src} className={`relative aspect-[4/3] rounded-lg overflow-hidden ${img.span}`}>
+              <div key={img.src} className="relative aspect-square rounded-lg overflow-hidden">
                 <Image src={img.src} alt={img.alt} fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover" />
               </div>
             ))}
