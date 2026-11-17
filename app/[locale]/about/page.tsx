@@ -94,18 +94,6 @@ export default async function AboutPage({
         </div>
       </section>
 
-      <div className="max-w-5xl mx-auto"><hr className="border-border" /></div>
-
-      {/* ── Photo band ── */}
-      <section className="relative h-72 md:h-[28rem]">
-        <Image
-          src="/images/interfaith-nativity-event.jpg"
-          alt={about.photoAlt.communityGathering}
-          fill
-          sizes="100vw"
-          className="object-cover object-bottom"
-        />
-      </section>
 
       <div className="max-w-5xl mx-auto"><hr className="border-border" /></div>
 

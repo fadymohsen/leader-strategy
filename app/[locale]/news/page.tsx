@@ -48,7 +48,7 @@ export default async function NewsPage({
       {/* ── Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-20">
         <Image
-          src="/images/interfaith-nativity-event.jpg"
+          src="/images/forum-4-group-palms.jpeg"
           alt=""
           aria-hidden
           priority
