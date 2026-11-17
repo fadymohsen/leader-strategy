@@ -61,7 +61,7 @@ export default async function NewsPage({
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
             {news.hero.badge}
           </span>
-          <h1 className="font-display text-4xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">{news.hero.headline}</h1>
+          <h1 className="font-display text-3xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">{news.hero.headline}</h1>
         </div>
       </section>
 
@@ -119,7 +119,7 @@ export default async function NewsPage({
             <h2 className="font-display text-section-heading text-ink mb-3">
               {news.forum.headline}
             </h2>
-            <p className="text-ink-muted text-lg">
+            <p className="text-ink-muted text-base md:text-lg">
               {news.forum.desc}
             </p>
           </div>
@@ -144,7 +144,7 @@ export default async function NewsPage({
       {/* ── Newsletter ── */}
       <section className="bg-sand py-16">
         <div className="max-w-xl mx-auto px-4 text-center">
-          <h2 className="font-display text-2xl text-ink mb-2">
+          <h2 className="font-display text-xl md:text-2xl text-ink mb-2">
             {news.newsletter.headline}
           </h2>
           <p className="text-ink-muted mb-6 text-sm">

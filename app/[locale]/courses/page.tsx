@@ -68,7 +68,7 @@ export default async function CoursesPage({
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
             {courses.hero.badge}
           </span>
-          <h1 className="font-display text-4xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">{courses.hero.headline}</h1>
+          <h1 className="font-display text-3xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">{courses.hero.headline}</h1>
         </div>
       </section>
 
@@ -151,7 +151,7 @@ export default async function CoursesPage({
       {/* ── Bottom CTA ── */}
       <section className="bg-clay py-16 text-center">
         <div className="max-w-2xl mx-auto px-6">
-          <h2 className="font-display text-3xl text-sand mb-4">{courses.cta.headline}</h2>
+          <h2 className="font-display text-2xl md:text-3xl text-sand mb-4">{courses.cta.headline}</h2>
           <p className="text-sand/80 mb-8">{courses.cta.body}</p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link

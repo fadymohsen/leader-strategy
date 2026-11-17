@@ -61,14 +61,14 @@ export default async function ServicesPage({
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
             {services.hero.badge}
           </span>
-          <h1 className="font-display text-4xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">{services.hero.headline}</h1>
+          <h1 className="font-display text-3xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">{services.hero.headline}</h1>
         </div>
       </section>
 
       {/* ── Intro ── */}
       <section className="bg-clay py-8">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
-          <p className="text-sand text-lg font-semibold">{services.intro}</p>
+          <p className="text-sand text-base md:text-lg font-semibold">{services.intro}</p>
         </div>
       </section>
 
@@ -89,8 +89,8 @@ export default async function ServicesPage({
               ) : (
                 <p className="font-display text-3xl text-clay mb-3">{item.icon}</p>
               )}
-              <h2 className="font-display text-3xl text-ink mb-3">{item.title}</h2>
-              <p className="text-ink-muted max-w-3xl mx-auto leading-relaxed">{item.intro}</p>
+              <h2 className="font-display text-2xl md:text-3xl text-ink mb-3">{item.title}</h2>
+              <p className="text-ink-muted text-base max-w-3xl mx-auto leading-relaxed">{item.intro}</p>
             </div>
 
             {/* Tags */}
@@ -135,7 +135,7 @@ export default async function ServicesPage({
               <p className="text-xs uppercase tracking-widest text-clay-soft font-semibold mb-2">
                 {services.goalLabel}
               </p>
-              <p className="text-sand text-lg leading-relaxed max-w-3xl mx-auto">{item.goal}</p>
+              <p className="text-sand text-base md:text-lg leading-relaxed max-w-3xl mx-auto">{item.goal}</p>
             </div>
           </div>
         </section>
@@ -154,11 +154,11 @@ export default async function ServicesPage({
         />
         <div className="absolute inset-0 bg-ink/40" />
         <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
-          <h2 className="font-display text-3xl mb-6">{services.sharedVision.headline}</h2>
-          <p className="text-sand/70 text-lg mb-8">{services.sharedVision.intro}</p>
+          <h2 className="font-display text-2xl md:text-3xl mb-6">{services.sharedVision.headline}</h2>
+          <p className="text-sand/70 text-base md:text-lg mb-8">{services.sharedVision.intro}</p>
           <div className="space-y-3">
             {services.sharedVision.points.map((point) => (
-              <p key={point} className="text-clay-soft font-semibold text-lg">{point}</p>
+              <p key={point} className="text-clay-soft font-semibold text-base md:text-lg">{point}</p>
             ))}
           </div>
         </div>
@@ -167,7 +167,7 @@ export default async function ServicesPage({
       {/* ── CTA ── */}
       <section className="bg-sand-raised py-16 text-center">
         <div className="max-w-2xl mx-auto px-6">
-          <h2 className="font-display text-2xl md:text-3xl text-ink mb-4">
+          <h2 className="font-display text-xl md:text-2xl text-ink mb-4">
             {services.cta.headline}
           </h2>
           <p className="text-ink-muted mb-8">

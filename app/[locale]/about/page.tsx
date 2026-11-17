@@ -15,65 +15,6 @@ export async function generateMetadata({
   return buildMetadata({ locale, slug: "about", ...pageMeta.about });
 }
 
-// ── City board data (bilingual) ───────────────────────────────────────────
-
-const cityBoard = {
-  en: [
-    {
-      city: "Cairo",
-      leader: "Alaa Wahba",
-      members: ["Nancy Fakhry", "Ihab Ezzat", "Seniora Farag", "Jacklin Gamal", "Jad Ratib", "Haidy Fouad", "Medhat Morris"],
-    },
-    {
-      city: "Alexandria",
-      leader: "Mira Halim",
-      members: ["Samuel Youssef", "John Monir", "Bahaa Karim", "Raouf Fayez", "Stephen Victor", "Nevine Hanna", "Martha Magdy", "Randa Ayad", "Majed Daniel", "Ireny Boles"],
-    },
-    {
-      city: "Minya",
-      leader: "Ihab Samuel",
-      members: ["Sally Ihab", "Wissam Youssef", "Amal Zaher", "Shirin Nabil", "Kamal Hanna", "Nabil Fakhry", "Ester Habib", "Tereza Taqi"],
-    },
-    {
-      city: "Assiut",
-      leader: "Lucas Fawzy",
-      members: ["Saeed Beshai", "Bahaa Israel", "Samia Hanna", "Marvet Ezzat", "Evelyn Amin", "Raouf Morris", "Majed Anwar", "Nancy Jaber", "Issa Ayad"],
-    },
-    {
-      city: "Social Media",
-      leader: "Ihab Ezzat",
-      members: ["Michael Magdy", "Roz Khiry", "Bahaa Monir", "Amany Taqi"],
-    },
-  ],
-  ar: [
-    {
-      city: "القاهرة",
-      leader: "علاء وهبه",
-      members: ["نانسى فخرى", "ايهاب عزت", "سنيوررة فرج", "جاكلين جمال", "جاد رتيب", "هايدى فؤاد", "مدحت موريس"],
-    },
-    {
-      city: "الإسكندرية",
-      leader: "ميرا حليم",
-      members: ["صمويل يوسف", "جون منير", "بهاء كريم", "رؤف فايز", "ستيفن فيكتور", "نيفين حنا", "مرثا مجدى", "راندا عياد", "ماجد دانيال", "ايرينى بولس"],
-    },
-    {
-      city: "المنيا",
-      leader: "ايهاب صموئيل",
-      members: ["سالى ايهاب", "وسام يوسف", "امل زاهر", "شيرين نبيل", "كمال حنا", "نبيل فخرى", "استر حبيب", "تريزا تقى"],
-    },
-    {
-      city: "أسيوط",
-      leader: "لوكاس فوزى",
-      members: ["سعيد بشاى", "بهاء اسرائيل", "ساميه حنا", "مرفت عزت", "ايفيلين امين", "رؤف موريس", "ماجد انور", "نانسى جابر", "عيسى عياد"],
-    },
-    {
-      city: "وسائل التواصل",
-      leader: "ايهاب عزت",
-      members: ["مايكل مجدي", "روز خيري", "بهاء منير", "اماني تقي"],
-    },
-  ],
-};
-
 const sectors = {
   en: [
     { logo: "/images/leader-impact-next-logo.jpeg", name: "Graduates", tag: "Leader Impact Next" },
@@ -101,12 +42,10 @@ export default async function AboutPage({
 
   const dict = await getDictionary(locale);
   const { about } = dict;
-  const cities = locale === "ar" ? cityBoard.ar : cityBoard.en;
   const sectorList = locale === "ar" ? sectors.ar : sectors.en;
 
   const structureLabel = about.structure;
   const sectorSectionTitle = about.sectorSectionTitle;
-  const cityBoardTitle = about.cityBoardTitle;
 
   return (
     <>
@@ -127,7 +66,7 @@ export default async function AboutPage({
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
             {about.hero.badge}
           </span>
-          <h1 className="font-display text-4xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">{about.hero.headline}</h1>
+          <h1 className="font-display text-3xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">{about.hero.headline}</h1>
         </div>
       </section>
 
@@ -136,7 +75,7 @@ export default async function AboutPage({
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-display text-3xl text-ink mb-6">{about.story.headline}</h2>
+              <h2 className="font-display text-2xl md:text-3xl text-ink mb-6">{about.story.headline}</h2>
               <p className="text-ink-muted leading-relaxed mb-4">{about.story.body1}</p>
               <p className="text-ink-muted leading-relaxed">{about.story.body2}</p>
             </div>
@@ -166,7 +105,7 @@ export default async function AboutPage({
       {/* ── Mission, Vision & Slogan ── */}
       <section className="bg-sand-raised py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-          <h2 className="font-display text-3xl text-ink text-center mb-12">
+          <h2 className="font-display text-2xl md:text-3xl text-ink text-center mb-12">
             {about.mission.headline}
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
@@ -185,7 +124,7 @@ export default async function AboutPage({
               <h3 className="font-display text-xl mb-3 text-ink">
                 {about.slogan.title}
               </h3>
-              <p className="text-ink leading-relaxed font-semibold text-lg mb-2">
+              <p className="text-ink leading-relaxed font-semibold text-base md:text-lg mb-2">
                 {about.slogan.body}
               </p>
               <p className="text-ink-muted leading-relaxed text-sm">
@@ -199,7 +138,7 @@ export default async function AboutPage({
       {/* ── Core Values ── */}
       <section className="bg-sand py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-          <h2 className="font-display text-3xl text-ink text-center mb-12">
+          <h2 className="font-display text-2xl md:text-3xl text-ink text-center mb-12">
             {about.valuesHeadline}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
@@ -219,7 +158,7 @@ export default async function AboutPage({
       {/* ── Matrix Structure ── */}
       <section className="bg-sand-raised py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-          <h2 className="font-display text-3xl text-ink text-center mb-4">
+          <h2 className="font-display text-2xl md:text-3xl text-ink text-center mb-4">
             {structureLabel.title}
           </h2>
           <p className="text-center text-ink-muted mb-10">
@@ -239,7 +178,7 @@ export default async function AboutPage({
       {/* ── Professional Sectors ── */}
       <section className="bg-sand py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-          <h2 className="font-display text-3xl text-ink text-center mb-10">
+          <h2 className="font-display text-2xl md:text-3xl text-ink text-center mb-10">
             {sectorSectionTitle}
           </h2>
           <div className="flex flex-wrap justify-center gap-4">
@@ -277,8 +216,8 @@ export default async function AboutPage({
               />
             </div>
             <div>
-              <h2 className="font-display text-3xl text-ink mb-3">{about.team.headline}</h2>
-              <p className="text-ink-muted text-lg">{about.team.sub}</p>
+              <h2 className="font-display text-2xl md:text-3xl text-ink mb-3">{about.team.headline}</h2>
+              <p className="text-ink-muted text-base md:text-lg">{about.team.sub}</p>
             </div>
           </div>
           <div className="flex flex-wrap justify-center gap-4">
@@ -298,42 +237,6 @@ export default async function AboutPage({
         </div>
       </section>
 
-      {/* ── City Board ── */}
-      <section className="bg-sand py-20">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-          <h2 className="font-display text-3xl text-ink text-center mb-10">
-            {cityBoardTitle}
-          </h2>
-          <div className="relative aspect-[16/9] rounded-lg overflow-hidden mb-10 shadow-[0_1px_2px_rgba(42,36,32,0.06),0_8px_24px_rgba(42,36,32,0.06)]">
-            <Image
-              src="/images/team-flag-launch-day.jpg"
-              alt={about.photoAlt.cityGathering}
-              fill
-              sizes="100vw"
-              className="object-cover object-bottom"
-            />
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-            {cities.map((city) => (
-              <div key={city.city} className="rounded-lg overflow-hidden border border-border">
-                <div className="bg-ink text-sand p-4 text-center">
-                  <p className="font-semibold text-lg">{city.city}</p>
-                  <p className="text-xs text-clay-soft mt-0.5">{city.leader}</p>
-                </div>
-                <div className="p-4 bg-sand-raised">
-                  <ul className="space-y-1">
-                    {city.members.map((m) => (
-                      <li key={m} className="text-xs text-ink-muted text-center">
-                        {m}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </>
   );
 }

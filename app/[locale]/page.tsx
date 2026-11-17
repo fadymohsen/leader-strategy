@@ -109,7 +109,7 @@ export default async function HomePage({
             <span className="inline-block mb-3 text-clay text-xs font-semibold uppercase tracking-widest">
               {home.pillars.badge}
             </span>
-            <p className="text-ink-muted text-lg leading-relaxed">{home.pillars.intro}</p>
+            <p className="text-ink-muted text-base md:text-lg leading-relaxed">{home.pillars.intro}</p>
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-10 md:gap-8 mb-12">
@@ -125,7 +125,7 @@ export default async function HomePage({
           </div>
 
           <Reveal className="border-t border-border pt-8">
-            <p className="font-display text-xl text-ink leading-relaxed max-w-2xl">{home.pillars.goal}</p>
+            <p className="font-display text-base md:text-xl text-ink leading-relaxed max-w-2xl">{home.pillars.goal}</p>
           </Reveal>
         </div>
       </section>
@@ -137,7 +137,7 @@ export default async function HomePage({
             <h2 className="font-display text-section-heading text-ink mb-3">
               {home.services.headline}
             </h2>
-            <p className="text-ink-muted text-lg">{home.services.sub}</p>
+            <p className="text-ink-muted text-base md:text-lg">{home.services.sub}</p>
           </Reveal>
 
           <div className="border-t border-border">
@@ -192,10 +192,10 @@ export default async function HomePage({
         />
         <Reveal className="relative max-w-5xl mx-auto px-6 sm:px-8 lg:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <div className="max-w-lg">
-            <h2 className="font-display text-3xl md:text-4xl leading-tight text-sand mb-3">
+            <h2 className="font-display text-2xl md:text-3xl leading-tight text-sand mb-3">
               {home.cta.headline}
             </h2>
-            <p className="text-sand/80 text-lg">
+            <p className="text-sand/80 text-base md:text-lg">
               {home.cta.body}
             </p>
           </div>

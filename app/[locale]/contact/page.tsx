@@ -47,7 +47,7 @@ export default async function ContactPage({
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
             {contact.hero.badge}
           </span>
-          <h1 className="font-display text-4xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">{contact.hero.headline}</h1>
+          <h1 className="font-display text-3xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">{contact.hero.headline}</h1>
         </div>
       </section>
 
