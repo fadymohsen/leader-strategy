@@ -161,8 +161,7 @@ export default async function HomePage({
                         <Image src={logo} alt="" width={100} height={32} className="h-6 w-auto object-contain opacity-70 mix-blend-multiply" />
                       )}
                     </div>
-                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-ink-faint group-hover:text-clay transition-colors">
-                      {home.services.readMore}
+                    <span className="inline-flex items-center text-sm font-semibold text-ink-faint group-hover:text-clay transition-colors">
                       <span className="rtl:-scale-x-100 transition-transform duration-200 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">→</span>
                     </span>
                   </Link>

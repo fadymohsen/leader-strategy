@@ -95,12 +95,6 @@ export default async function NewsPage({
                     {article.title}
                   </h2>
                   <p className="text-ink-muted text-sm leading-relaxed">{article.excerpt}</p>
-                  <button
-                    type="button"
-                    className="mt-5 text-sm font-semibold text-clay hover:underline text-start"
-                  >
-                    {news.readMore}
-                  </button>
                 </div>
               </article>
               );
