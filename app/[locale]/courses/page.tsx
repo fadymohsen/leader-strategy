@@ -84,13 +84,6 @@ export default async function CoursesPage({
               >
                 {/* Card header */}
                 <div className="bg-ink p-6 text-sand">
-                  <div className="h-10 flex items-center mb-3">
-                    {logo ? (
-                      <Image src={logo} alt="" width={120} height={40} className="h-8 w-auto object-contain" />
-                    ) : (
-                      <span className="font-display text-2xl text-clay-soft">{course.icon}</span>
-                    )}
-                  </div>
                   <div className="flex items-center gap-2 mb-2">
                     <span
                       className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${levelStyles[course.level] ?? "bg-sand text-ink-muted border-border-strong"}`}
