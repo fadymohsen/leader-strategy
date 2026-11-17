@@ -90,11 +90,9 @@ function Footer({ locale, dict }: { locale: Locale; dict: Awaited<ReturnType<typ
   const { footer, nav, meta } = dict;
 
   const links = [
-    { href: `/${locale}`, label: nav.home },
     { href: `/${locale}/about`, label: nav.about },
     { href: `/${locale}/services`, label: nav.services },
     { href: `/${locale}/news`, label: nav.news },
-    { href: `/${locale}/courses`, label: nav.courses },
     { href: `/${locale}/contact`, label: nav.contact },
   ];
 
@@ -152,7 +150,7 @@ function Footer({ locale, dict }: { locale: Locale; dict: Awaited<ReturnType<typ
 
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-sand/50">
           <p>© {new Date().getFullYear()} {meta.siteName}. {footer.rights}</p>
-          <p>{footer.madeWith}</p>
+          <p>Powered by <a href="https://veliq.co" target="_blank" rel="noopener noreferrer" className="text-sand/70 hover:text-sand transition-colors underline underline-offset-2">VELIQ</a></p>
         </div>
       </div>
     </footer>
