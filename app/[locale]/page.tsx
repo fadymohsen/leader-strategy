@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { HomeJsonLd } from "@/components/JsonLd";
-import { Reveal } from "@/components/Reveal";
+import { Reveal, RevealSlide, RevealScale } from "@/components/Reveal";
 import { sectorAnchor } from "@/lib/sectors";
 
 // Sector title -> real sub-brand mark, where one exists in public/images.
@@ -102,6 +102,22 @@ export default async function HomePage({
         </div>
       </section>
 
+      {/* ── Stats ribbon ── */}
+      <section className="bg-ink py-10">
+        <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            {home.stats.map((stat, i) => (
+              <RevealScale key={stat.label} delay={i * 100}>
+                <div className="text-center">
+                  <p className="font-display text-3xl md:text-4xl text-clay mb-1">{stat.value}</p>
+                  <p className="text-sand/60 text-xs uppercase tracking-widest">{stat.label}</p>
+                </div>
+              </RevealScale>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Pillars: how we build leaders, three dimensions ── */}
       <section className="bg-sand-raised py-24">
         <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
@@ -114,13 +130,15 @@ export default async function HomePage({
 
           <div className="grid md:grid-cols-3 gap-10 md:gap-8 mb-12">
             {home.pillars.items.map((item, i) => (
-              <Reveal key={item.title} delay={i * 80}>
-                <span className="font-display text-3xl text-clay block mb-3">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="font-semibold text-ink text-lg mb-2">{item.title}</h3>
-                <p className="text-ink-muted text-sm leading-relaxed">{item.desc}</p>
-              </Reveal>
+              <RevealScale key={item.title} delay={i * 120}>
+                <div className="group p-6 rounded-xl border border-transparent hover:border-clay/20 hover:bg-sand/50 transition-all duration-300 hover-glow">
+                  <span className="font-display text-4xl text-clay/30 group-hover:text-clay block mb-3 transition-colors duration-300">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="font-semibold text-ink text-lg mb-2">{item.title}</h3>
+                  <p className="text-ink-muted text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              </RevealScale>
             ))}
           </div>
 
@@ -141,33 +159,25 @@ export default async function HomePage({
           </Reveal>
 
           <div className="border-t border-border">
-            {home.services.items.map((item, i) => {
-              const logo = sectorLogo(item.title);
-              return (
-                <Reveal key={item.title} delay={i * 60}>
+            {home.services.items.map((item, i) => (
+                <RevealSlide key={item.title} delay={i * 100}>
                   <Link
                     href={`/${locale}/services${sectorAnchor(item.icon)}`}
-                    className="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3rem_1fr_7rem_auto] items-center gap-4 md:gap-8 py-7 border-b border-border hover:border-clay transition-colors"
+                    className="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3rem_1fr_auto] items-center gap-4 md:gap-8 py-7 border-b border-border hover:border-clay hover:ps-2 transition-all duration-300"
                   >
-                    <span className="font-display text-xl text-ink-faint group-hover:text-clay transition-colors">
+                    <span className="font-display text-xl text-ink-faint group-hover:text-clay transition-colors duration-300">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div>
-                      <h3 className="font-semibold text-ink text-lg mb-1">{item.title}</h3>
+                      <h3 className="font-semibold text-ink text-lg mb-1 group-hover:text-clay transition-colors duration-300">{item.title}</h3>
                       <p className="text-ink-muted text-sm leading-relaxed max-w-md hidden sm:block">{item.desc}</p>
                     </div>
-                    <div className="hidden md:flex items-center justify-center">
-                      {logo && (
-                        <Image src={logo} alt="" width={100} height={32} className="h-6 w-auto object-contain opacity-70 mix-blend-multiply" />
-                      )}
-                    </div>
-                    <span className="inline-flex items-center text-sm font-semibold text-ink-faint group-hover:text-clay transition-colors">
-                      <span className="rtl:-scale-x-100 transition-transform duration-200 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">→</span>
+                    <span className="inline-flex items-center text-sm font-semibold text-ink-faint group-hover:text-clay transition-all duration-300">
+                      <span className="rtl:-scale-x-100 transition-transform duration-300 group-hover:translate-x-2 rtl:group-hover:-translate-x-2">→</span>
                     </span>
                   </Link>
-                </Reveal>
-              );
-            })}
+                </RevealSlide>
+            ))}
           </div>
 
           <div className="mt-10">
@@ -183,10 +193,10 @@ export default async function HomePage({
       </section>
 
       {/* ── CTA: asymmetric close, one statement + one action ── */}
-      <section className="relative overflow-hidden bg-clay py-20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-clay via-clay-deep to-clay py-20 shimmer-bg">
         <div
           aria-hidden
-          className="pointer-events-none absolute -bottom-1/2 start-1/3 -translate-x-1/2 w-[700px] h-[700px] rounded-full opacity-[0.15] blur-3xl"
+          className="pointer-events-none absolute -bottom-1/2 start-1/3 -translate-x-1/2 w-[700px] h-[700px] rounded-full opacity-[0.12] blur-3xl animate-float"
           style={{ background: "radial-gradient(circle, var(--ink) 0%, transparent 70%)" }}
         />
         <Reveal className="relative max-w-5xl mx-auto px-6 sm:px-8 lg:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
