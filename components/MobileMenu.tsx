@@ -89,30 +89,21 @@ export function MobileMenu({
       {mounted &&
         createPortal(
           <>
-            {/* Backdrop */}
+            {/* Full-screen overlay */}
             <div
-              className={`fixed inset-0 z-40 bg-ink/40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-                open ? "opacity-100" : "opacity-0 pointer-events-none"
-              }`}
-              onClick={close}
-              aria-hidden="true"
-            />
-
-            {/* Drawer */}
-            <div
-              className={`fixed top-0 end-0 z-50 h-full w-72 max-w-[calc(100vw-3rem)] bg-sand shadow-2xl transition-transform duration-300 ease-out md:hidden ${
+              className={`fixed inset-0 z-50 bg-sand flex flex-col md:hidden transition-all duration-300 ease-out ${
                 open
-                  ? "translate-x-0"
-                  : "ltr:translate-x-full rtl:-translate-x-full"
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 -translate-y-4 pointer-events-none"
               }`}
             >
-              {/* Close button inside drawer */}
-              <div className="absolute top-4 end-4">
+              {/* Top bar with close button */}
+              <div className="flex items-center justify-end h-16 px-4 sm:px-6">
                 <button
                   type="button"
                   onClick={close}
                   aria-label="Close menu"
-                  className="flex items-center justify-center w-10 h-10 rounded-md text-ink-muted hover:text-ink transition-colors"
+                  className="flex items-center justify-center w-10 h-10 -me-2 rounded-md text-ink-muted hover:text-ink transition-colors"
                 >
                   <svg
                     className="w-5 h-5"
@@ -130,37 +121,37 @@ export function MobileMenu({
                 </button>
               </div>
 
-              <div className="flex flex-col h-full pt-20 pb-8 px-6">
-                {/* Nav links */}
-                <nav className="flex-1">
-                  <ul className="space-y-1">
-                    {links.map((l) => {
-                      const active = isActive(pathname, l.href);
-                      return (
-                        <li key={l.href}>
-                          <Link
-                            href={l.href}
-                            onClick={close}
-                            aria-current={active ? "page" : undefined}
-                            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                              active
-                                ? "bg-clay/10 text-clay"
-                                : "text-ink-muted hover:bg-sand-raised hover:text-ink"
-                            }`}
-                          >
-                            {active && (
-                              <span className="w-1.5 h-1.5 rounded-full bg-clay shrink-0" />
-                            )}
-                            {l.label}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </nav>
+              {/* Nav links — centered */}
+              <nav className="flex-1 flex items-center justify-center px-6">
+                <ul className="space-y-2 w-full max-w-sm">
+                  {links.map((l) => {
+                    const active = isActive(pathname, l.href);
+                    return (
+                      <li key={l.href}>
+                        <Link
+                          href={l.href}
+                          onClick={close}
+                          aria-current={active ? "page" : undefined}
+                          className={`flex items-center justify-center gap-3 px-4 py-3.5 rounded-lg text-base font-medium transition-colors ${
+                            active
+                              ? "bg-clay/10 text-clay"
+                              : "text-ink-muted hover:bg-sand-raised hover:text-ink"
+                          }`}
+                        >
+                          {active && (
+                            <span className="w-1.5 h-1.5 rounded-full bg-clay shrink-0" />
+                          )}
+                          {l.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
 
-                {/* Bottom section */}
-                <div className="pt-4 border-t border-border space-y-3">
+              {/* Bottom section */}
+              <div className="px-6 pb-8 pt-4 border-t border-border flex justify-center">
+                <div className="w-full max-w-sm space-y-3">
                   {langSwitcher}
                 </div>
               </div>
