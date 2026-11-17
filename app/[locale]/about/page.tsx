@@ -152,27 +152,6 @@ export default async function AboutPage({
         </div>
       </section>
 
-      <div className="max-w-5xl mx-auto"><hr className="border-border" /></div>
-
-      {/* ── Matrix Structure ── */}
-      <section className="bg-sand-raised py-20">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-          <h2 className="font-display text-2xl md:text-3xl text-ink text-center mb-4">
-            {structureLabel.title}
-          </h2>
-          <p className="text-center text-ink-muted mb-10">
-            {structureLabel.explanation}
-          </p>
-          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            <div className="bg-ink text-sand rounded-lg p-6 text-center">
-              <p className="font-semibold text-lg">{structureLabel.geo}</p>
-            </div>
-            <div className="bg-clay text-sand rounded-lg p-6 text-center">
-              <p className="font-semibold text-lg">{structureLabel.sector}</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <div className="max-w-5xl mx-auto"><hr className="border-border" /></div>
 
