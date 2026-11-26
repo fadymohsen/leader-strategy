@@ -52,7 +52,11 @@ async function Navbar({
             />
             {/* White logo — shown over hero images when navbar is transparent */}
             <Image
+<<<<<<< Updated upstream
               src={logoUrl}
+=======
+              src="/images/shield-emblem-transparent.png"
+>>>>>>> Stashed changes
               alt="Leader Strategies"
               width={160}
               height={48}
