@@ -52,16 +52,12 @@ async function Navbar({
             />
             {/* White logo — shown over hero images when navbar is transparent */}
             <Image
-<<<<<<< Updated upstream
-              src={logoUrl}
-=======
               src="/images/shield-emblem-transparent.png"
->>>>>>> Stashed changes
               alt="Leader Strategies"
               width={160}
               height={48}
               className="h-12 w-auto logo-white"
-              style={{ width: "auto", filter: "brightness(0) invert(1)" }}
+              style={{ width: "auto", filter: "invert(1)" }}
               priority
             />
             {nav.brandName && (

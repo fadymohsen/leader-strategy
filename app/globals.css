@@ -238,7 +238,7 @@ body {
 
 /* Logo swap: white version when transparent, original when scrolled */
 .nav-transparent .logo-original { display: none; }
-.nav-transparent .logo-white    { display: block; }
+.nav-transparent .logo-white    { display: block; mix-blend-mode: screen; }
 .nav-scrolled   .logo-original  { display: block; }
 .nav-scrolled   .logo-white     { display: none; }
 /* Fallback before JS hydrates (no class yet) */
