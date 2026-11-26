@@ -132,7 +132,48 @@ export default async function LawyersPage({
         </div>
       </section>
 
-      {/* ── 4. Gallery ── */}
+      {/* ── 4. Team / Speakers ── */}
+      <section className="bg-sand py-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
+          <div className="mb-10 text-center">
+            <span className="inline-block mb-3 text-clay text-xs font-semibold uppercase tracking-widest">
+              {isAr ? "المتحدثون والقادة" : "Speakers & Leaders"}
+            </span>
+            <h2 className="font-display text-2xl md:text-3xl text-ink">
+              {isAr ? "وجوه من الحركة" : "Faces of the Movement"}
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="flex flex-col items-center gap-3 text-center">
+                <div className="w-20 h-20 rounded-full bg-border overflow-hidden flex items-center justify-center">
+                  <svg
+                    viewBox="0 0 80 80"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-full h-full"
+                    aria-hidden
+                  >
+                    <rect width="80" height="80" fill="#E8E0D8" />
+                    <circle cx="40" cy="30" r="14" fill="#C4B8AC" />
+                    <ellipse cx="40" cy="68" rx="24" ry="18" fill="#C4B8AC" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-ink leading-tight">
+                    {isAr ? "الاسم هنا" : "Name Here"}
+                  </p>
+                  <p className="text-xs text-ink-faint mt-0.5">
+                    {isAr ? "المنصب" : "Role"}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5. Gallery ── */}
       <section className="bg-sand py-16">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
