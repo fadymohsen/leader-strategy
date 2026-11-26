@@ -35,18 +35,8 @@ export default async function LawyersPage({
   return (
     <>
       {/* ── 1. Hero ── */}
-      <section className="grain relative overflow-hidden bg-ink text-sand py-24">
-        <Image
-          src="/images/strategy-team.jpeg"
-          alt=""
-          aria-hidden
-          priority
-          fill
-          sizes="100vw"
-          className="object-cover object-top"
-        />
-        <div className="absolute inset-0 bg-ink/50" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
+      <section className="bg-ink text-sand py-24">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="flex items-center gap-3 mb-5">
             <Image
               src="/images/flag-logo.jpeg"
