@@ -41,7 +41,7 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
             />
             {/* White logo — shown over hero images when navbar is transparent */}
             <Image
-              src="/logo.png"
+              src="/logo-new.jpeg"
               alt="Leader Strategies"
               width={160}
               height={48}
