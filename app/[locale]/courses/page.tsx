@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { CoursesJsonLd } from "@/components/JsonLd";
+import { getCoursesVisible, getSiteMedia } from "@/lib/media";
 
 export async function generateMetadata({
   params,
@@ -44,8 +45,10 @@ export default async function CoursesPage({
 }) {
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
+  const visible = await getCoursesVisible();
+  if (!visible) notFound();
 
-  const dict = await getDictionary(locale);
+  const [dict, media] = await Promise.all([getDictionary(locale), getSiteMedia()]);
   const { courses } = dict;
 
   return (
@@ -54,7 +57,7 @@ export default async function CoursesPage({
       {/* ── Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-20">
         <Image
-          src="/images/graduates-gathering.jpg"
+          src={media["courses.hero"]}
           alt=""
           aria-hidden
           priority

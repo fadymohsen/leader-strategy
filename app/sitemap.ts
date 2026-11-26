@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { siteConfig, pageSlugs, type SupportedLocale, type PageSlug } from "@/lib/seo/config";
 
+// Pages hidden from the site: excluded from the sitemap.
+const hiddenSlugs: PageSlug[] = ["courses"];
+
 const changeFreq: Record<PageSlug, MetadataRoute.Sitemap[number]["changeFrequency"]> = {
   "":         "weekly",
   about:      "monthly",
@@ -33,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
 
   for (const locale of [...siteConfig.locales] as SupportedLocale[]) {
-    for (const slug of [...pageSlugs] as PageSlug[]) {
+    for (const slug of [...pageSlugs].filter((s) => !hiddenSlugs.includes(s)) as PageSlug[]) {
       const path = slug ? `/${locale}/${slug}` : `/${locale}`;
       entries.push({
         url: `${siteConfig.baseUrl}${path}`,

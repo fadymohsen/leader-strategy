@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
+import { getSiteMedia } from "@/lib/media";
 
 export async function generateMetadata({
   params,
@@ -27,7 +28,7 @@ export default async function LeadershipSchoolPage({
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
 
-  const dict = await getDictionary(locale);
+  const [dict, media] = await Promise.all([getDictionary(locale), getSiteMedia()]);
   const { leadershipSchool, goalLabel } = dict.services;
   const isAr = locale === "ar";
 
@@ -36,7 +37,7 @@ export default async function LeadershipSchoolPage({
       {/* ── 1. Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-24">
         <Image
-          src="/images/leadership-school.jpeg"
+          src={media["subpages.leadershipSchool.hero"]}
           alt=""
           aria-hidden
           priority
@@ -72,7 +73,7 @@ export default async function LeadershipSchoolPage({
             </div>
             <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
               <Image
-                src="/images/forum-4-group-garden.jpeg"
+                src={media["subpages.leadershipSchool.about"]}
                 alt=""
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
@@ -111,11 +112,11 @@ export default async function LeadershipSchoolPage({
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
             {[
-              "/images/leadership-school.jpeg",
-              "/images/board-team-portrait.jpg",
-              "/images/forum-4-group-garden.jpeg",
-            ].map((src) => (
-              <div key={src} className="relative aspect-square rounded-lg overflow-hidden">
+              media["subpages.leadershipSchool.gallery1"],
+              media["subpages.leadershipSchool.gallery2"],
+              media["subpages.leadershipSchool.gallery3"],
+            ].map((src, idx) => (
+              <div key={`${src}-${idx}`} className="relative aspect-square rounded-lg overflow-hidden">
                 <Image src={src} alt="" fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover" />
               </div>
             ))}

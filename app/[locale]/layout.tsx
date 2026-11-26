@@ -7,10 +7,21 @@ import { NavLinksDesktop } from "@/components/NavLinks";
 import { LocaleSwitchLink } from "@/components/LocaleSwitchLink";
 import { MobileMenu } from "@/components/MobileMenu";
 import { NavbarClient } from "@/components/NavbarClient";
+import { getCoursesVisible, getSiteMedia } from "@/lib/media";
 
 // ── Navbar ────────────────────────────────────────────────────────────────
 
-async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnType<typeof getDictionary>> }) {
+async function Navbar({
+  locale,
+  dict,
+  logoUrl,
+  coursesVisible,
+}: {
+  locale: Locale;
+  dict: Awaited<ReturnType<typeof getDictionary>>;
+  logoUrl: string;
+  coursesVisible: boolean;
+}) {
   const otherLocale = locale === "en" ? "ar" : "en";
   const { nav } = dict;
 
@@ -18,8 +29,8 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
     { href: `/${locale}`, label: nav.home },
     { href: `/${locale}/about`, label: nav.about },
     { href: `/${locale}/services`, label: nav.services },
+    ...(coursesVisible ? [{ href: `/${locale}/courses`, label: nav.courses }] : []),
     { href: `/${locale}/news`, label: nav.news },
-    { href: `/${locale}/courses`, label: nav.courses },
     { href: `/${locale}/contact`, label: nav.contact },
   ];
 
@@ -31,7 +42,7 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
           <Link href={`/${locale}`} className="shrink-0 flex items-center gap-3">
             {/* Original logo — shown when navbar has a background */}
             <Image
-              src="/logo-new.jpeg"
+              src={logoUrl}
               alt="Leader Strategies"
               width={160}
               height={48}
@@ -41,7 +52,7 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
             />
             {/* White logo — shown over hero images when navbar is transparent */}
             <Image
-              src="/logo-new.jpeg"
+              src={logoUrl}
               alt="Leader Strategies"
               width={160}
               height={48}
@@ -98,7 +109,15 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
 
 // ── Footer ────────────────────────────────────────────────────────────────
 
-function Footer({ locale, dict }: { locale: Locale; dict: Awaited<ReturnType<typeof getDictionary>> }) {
+function Footer({
+  locale,
+  dict,
+  logoUrl,
+}: {
+  locale: Locale;
+  dict: Awaited<ReturnType<typeof getDictionary>>;
+  logoUrl: string;
+}) {
   const { footer, nav, meta } = dict;
 
   const links = [
@@ -116,7 +135,7 @@ function Footer({ locale, dict }: { locale: Locale; dict: Awaited<ReturnType<typ
           <div>
             <div className="mb-4">
               <Image
-                src="/logo-new.jpeg"
+                src={logoUrl}
                 alt={meta.siteName}
                 width={180}
                 height={54}
@@ -184,14 +203,19 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const dict = await getDictionary(locale);
+  const [dict, media, coursesVisible] = await Promise.all([
+    getDictionary(locale),
+    getSiteMedia(),
+    getCoursesVisible(),
+  ]);
+  const logoUrl = media["logo"];
 
   return (
     <div className="flex flex-col min-h-screen">
       <DirSync locale={locale} />
-      <Navbar locale={locale} dict={dict} />
+      <Navbar locale={locale} dict={dict} logoUrl={logoUrl} coursesVisible={coursesVisible} />
       <main className="flex-1">{children}</main>
-      <Footer locale={locale} dict={dict} />
+      <Footer locale={locale} dict={dict} logoUrl={logoUrl} />
     </div>
   );
 }

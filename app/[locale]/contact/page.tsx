@@ -5,6 +5,7 @@ import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { ContactJsonLd } from "@/components/JsonLd";
 import { ContactForm } from "./ContactForm";
+import { getSiteMedia } from "@/lib/media";
 
 export async function generateMetadata({
   params,
@@ -24,7 +25,7 @@ export default async function ContactPage({
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
 
-  const dict = await getDictionary(locale);
+  const [dict, media] = await Promise.all([getDictionary(locale), getSiteMedia()]);
   const { contact } = dict;
 
   return (
@@ -34,7 +35,7 @@ export default async function ContactPage({
       {/* ── Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-20">
         <Image
-          src="/images/board-team-portrait.jpg"
+          src={media["contact.hero"]}
           alt=""
           aria-hidden
           priority

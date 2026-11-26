@@ -6,6 +6,7 @@ import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { AboutJsonLd } from "@/components/JsonLd";
 import { Reveal, RevealSlide, RevealScale } from "@/components/Reveal";
 import { NewsletterForm } from "../news/NewsletterForm";
+import { getSiteMedia } from "@/lib/media";
 
 export async function generateMetadata({
   params,
@@ -42,7 +43,7 @@ export default async function AboutPage({
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
 
-  const dict = await getDictionary(locale);
+  const [dict, media] = await Promise.all([getDictionary(locale), getSiteMedia()]);
   const { about } = dict;
   const sectorList = locale === "ar" ? sectors.ar : sectors.en;
 
@@ -56,7 +57,7 @@ export default async function AboutPage({
       <section className="grain relative overflow-hidden bg-ink text-sand py-24">
         <div className="absolute -inset-y-16 inset-x-0">
           <Image
-            src="/images/team-family-retreat.jpg"
+            src={media["about.hero"]}
             alt=""
             aria-hidden
             priority

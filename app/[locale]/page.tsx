@@ -7,6 +7,7 @@ import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { HomeJsonLd } from "@/components/JsonLd";
 import { Reveal, RevealSlide, RevealScale } from "@/components/Reveal";
 import { sectorAnchor } from "@/lib/sectors";
+import { getSiteMedia } from "@/lib/media";
 
 // Sector title -> real sub-brand mark, where one exists in public/images.
 // Sectors without a confirmed mark fall back to a plain numbered label.
@@ -40,7 +41,7 @@ export default async function HomePage({
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
 
-  const dict = await getDictionary(locale);
+  const [dict, media] = await Promise.all([getDictionary(locale), getSiteMedia()]);
   const { home } = dict;
 
   return (
@@ -50,7 +51,7 @@ export default async function HomePage({
       {/* ── Hero: editorial masthead, bottom-anchored, one CTA + one text link ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand min-h-screen flex items-center">
         <Image
-          src="/images/strategy-team.jpeg"
+          src={media["home.hero"]}
           alt={dict.news.gallery.strategyTeam}
           priority
           fill
@@ -146,7 +147,11 @@ export default async function HomePage({
             {home.services.items.map((item, i) => (
                 <RevealSlide key={item.title} delay={i * 100}>
                   <Link
-                    href={`/${locale}/services${sectorAnchor(item.icon)}`}
+                    href={
+                      item.slug
+                        ? `/${locale}/services/${item.slug}`
+                        : `/${locale}/services${sectorAnchor(item.icon)}`
+                    }
                     className="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3rem_1fr_auto] items-center gap-4 md:gap-8 py-7 border-b border-border hover:border-clay hover:ps-2 transition-all duration-300"
                   >
                     <span className="font-display text-xl text-ink-faint group-hover:text-clay transition-colors duration-300">

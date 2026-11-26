@@ -618,4 +618,33 @@ type DeepString<T> = T extends string
   ? DeepString<U>[]
   : { [K in keyof T]: DeepString<T[K]> };
 
-export type Dictionary = DeepString<typeof en>;
+type BaseDictionary = DeepString<typeof en>;
+
+export type ServiceItem = BaseDictionary["services"]["items"][number] & {
+  image?: string;
+  logo?: string;
+  slug?: string;
+};
+
+export type NewsArticle = BaseDictionary["news"]["articles"][number] & {
+  image?: string;
+};
+
+export type HomeServiceItem = BaseDictionary["home"]["services"]["items"][number] & {
+  logo?: string;
+  slug?: string;
+};
+
+export type Dictionary = Omit<BaseDictionary, "services" | "news" | "home"> & {
+  home: Omit<BaseDictionary["home"], "services"> & {
+    services: Omit<BaseDictionary["home"]["services"], "items"> & {
+      items: HomeServiceItem[];
+    };
+  };
+  services: Omit<BaseDictionary["services"], "items"> & {
+    items: ServiceItem[];
+  };
+  news: Omit<BaseDictionary["news"], "articles"> & {
+    articles: NewsArticle[];
+  };
+};

@@ -18,11 +18,30 @@ interface ContactFormDict {
 
 export function ContactForm({ form }: { form: ContactFormDict }) {
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [data, setData] = useState({ name: "", email: "", subject: "", message: "" });
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSent(true);
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        const j = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(j.error || "Failed to send message");
+      }
+      setSent(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to send message");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -36,6 +55,11 @@ export function ContactForm({ form }: { form: ContactFormDict }) {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
+          {error && (
+            <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+              {error}
+            </p>
+          )}
           <div>
             <label className="block text-xs font-semibold text-ink-muted mb-1.5 uppercase tracking-wide">
               {form.name}
@@ -90,9 +114,10 @@ export function ContactForm({ form }: { form: ContactFormDict }) {
           </div>
           <button
             type="submit"
-            className="w-full py-3.5 bg-clay hover:bg-clay-deep text-sand font-semibold rounded-md transition-colors"
+            disabled={loading}
+            className="w-full py-3.5 bg-clay hover:bg-clay-deep disabled:opacity-60 text-sand font-semibold rounded-md transition-colors"
           >
-            {form.send}
+            {loading ? "..." : form.send}
           </button>
         </form>
       )}

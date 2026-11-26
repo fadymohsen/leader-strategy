@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
+import { getSiteMedia } from "@/lib/media";
 
 export async function generateMetadata({
   params,
@@ -27,7 +28,7 @@ export default async function LawyersPage({
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
 
-  const dict = await getDictionary(locale);
+  const [dict, media] = await Promise.all([getDictionary(locale), getSiteMedia()]);
   const service = dict.services.items.find((s) => s.icon === "⚖️")!;
   const { goalLabel } = dict.services;
   const isAr = locale === "ar";
@@ -39,7 +40,7 @@ export default async function LawyersPage({
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="flex items-center gap-3 mb-5">
             <Image
-              src="/images/flag-logo.jpeg"
+              src={media["subpages.lawyers.logo"]}
               alt="FLAG logo"
               width={48}
               height={48}
@@ -82,7 +83,7 @@ export default async function LawyersPage({
             </div>
             <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
               <Image
-                src="/images/team-flag-launch-day.jpg"
+                src={media["subpages.lawyers.about"]}
                 alt=""
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
@@ -168,11 +169,11 @@ export default async function LawyersPage({
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
             {[
-              "/images/strategy-team.jpeg",
-              "/images/forum-4-group-palms.jpeg",
-              "/images/forum-4-audience.jpeg",
-            ].map((src) => (
-              <div key={src} className="relative aspect-square rounded-lg overflow-hidden">
+              media["subpages.lawyers.gallery1"],
+              media["subpages.lawyers.gallery2"],
+              media["subpages.lawyers.gallery3"],
+            ].map((src, idx) => (
+              <div key={`${src}-${idx}`} className="relative aspect-square rounded-lg overflow-hidden">
                 <Image src={src} alt="" fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover" />
               </div>
             ))}

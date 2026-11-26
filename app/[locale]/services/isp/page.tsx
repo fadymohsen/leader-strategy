@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
+import { getSiteMedia } from "@/lib/media";
 
 export async function generateMetadata({
   params,
@@ -27,7 +28,7 @@ export default async function IspPage({
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
 
-  const dict = await getDictionary(locale);
+  const [dict, media] = await Promise.all([getDictionary(locale), getSiteMedia()]);
   const service = dict.services.items.find((s) => s.icon === "🏫")!;
   const { goalLabel } = dict.services;
   const isAr = locale === "ar";
@@ -37,7 +38,7 @@ export default async function IspPage({
       {/* ── 1. Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-24">
         <Image
-          src="/images/isp-teachers-workshop.jpeg"
+          src={media["subpages.isp.hero"]}
           alt=""
           aria-hidden
           priority
@@ -49,7 +50,7 @@ export default async function IspPage({
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="flex items-center gap-3 mb-5">
             <Image
-              src="/images/isp-logo.jpeg"
+              src={media["subpages.isp.logo"]}
               alt="ISP logo"
               width={48}
               height={48}
@@ -92,7 +93,7 @@ export default async function IspPage({
             </div>
             <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
               <Image
-                src="/images/team-lead-up-workshop.jpg"
+                src={media["subpages.isp.about"]}
                 alt=""
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
@@ -137,11 +138,11 @@ export default async function IspPage({
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
             {[
-              "/images/isp-teachers-workshop.jpeg",
-              "/images/team-lead-up-workshop.jpg",
-              "/images/forum-4-group-garden.jpeg",
-            ].map((src) => (
-              <div key={src} className="relative aspect-square rounded-lg overflow-hidden">
+              media["subpages.isp.gallery1"],
+              media["subpages.isp.gallery2"],
+              media["subpages.isp.gallery3"],
+            ].map((src, idx) => (
+              <div key={`${src}-${idx}`} className="relative aspect-square rounded-lg overflow-hidden">
                 <Image src={src} alt="" fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover" />
               </div>
             ))}

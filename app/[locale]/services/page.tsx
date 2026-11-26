@@ -6,6 +6,7 @@ import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { ServicesJsonLd } from "@/components/JsonLd";
 import { sectorAnchor } from "@/lib/sectors";
+import { getSiteMedia } from "@/lib/media";
 
 const SECTOR_LOGOS: Record<string, string> = {
   Teachers: "/images/isp-logo.jpeg",
@@ -38,7 +39,7 @@ export default async function ServicesPage({
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
 
-  const dict = await getDictionary(locale);
+  const [dict, media] = await Promise.all([getDictionary(locale), getSiteMedia()]);
   const { services } = dict;
 
   return (
@@ -48,7 +49,7 @@ export default async function ServicesPage({
       {/* ── Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-20">
         <Image
-          src="/images/team-lead-up-workshop.jpg"
+          src={media["services.hero"]}
           alt=""
           aria-hidden
           priority

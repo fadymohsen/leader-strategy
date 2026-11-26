@@ -6,6 +6,7 @@ import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { NewsJsonLd } from "@/components/JsonLd";
 import { NewsletterForm } from "./NewsletterForm";
+import { getNewsGallery, getSiteMedia } from "@/lib/media";
 
 // Article title -> a real photo, where one exists. The rest stay text-only rather than reuse a stand-in.
 const ARTICLE_PHOTOS: [string, string][] = [
@@ -40,7 +41,11 @@ export default async function NewsPage({
   const { locale } = await params;
   if (!isValidLocale(locale)) notFound();
 
-  const dict = await getDictionary(locale);
+  const [dict, media, gallery] = await Promise.all([
+    getDictionary(locale),
+    getSiteMedia(),
+    getNewsGallery(),
+  ]);
   const { news } = dict;
 
   return (
@@ -49,7 +54,7 @@ export default async function NewsPage({
       {/* ── Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-20">
         <Image
-          src="/images/forum-4-group-palms.jpeg"
+          src={media["news.hero"]}
           alt=""
           aria-hidden
           priority
@@ -71,7 +76,7 @@ export default async function NewsPage({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {news.articles.map((article, i) => {
-              const photo = articlePhoto(article.title, article.category);
+              const photo = article.image || articlePhoto(article.title, article.category);
               const featured = i === 0 && photo;
               return (
               <article
@@ -147,16 +152,15 @@ export default async function NewsPage({
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-            {[
-              { src: "/images/strategy-team.jpeg", alt: news.gallery.strategyTeam },
-              { src: "/images/leadership-school.jpeg", alt: news.gallery.leadershipSchool },
-              { src: "/images/forum-4-group-garden.jpeg", alt: news.gallery.gardenParticipants },
-              { src: "/images/isp-teachers-workshop.jpeg", alt: news.gallery.teachersWorkshop },
-              { src: "/images/forum-4-audience.jpeg", alt: news.gallery.forumAudience },
-              { src: "/images/forum-4-group-palms.jpeg", alt: news.gallery.palmGarden },
-            ].map((img) => (
-              <div key={img.src} className="relative aspect-square rounded-lg overflow-hidden">
-                <Image src={img.src} alt={img.alt} fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover" />
+            {gallery.map((img) => (
+              <div key={img.id || img.src} className="relative aspect-square rounded-lg overflow-hidden">
+                <Image
+                  src={img.src}
+                  alt={locale === "ar" ? img.altAr : img.altEn}
+                  fill
+                  sizes="(min-width: 768px) 33vw, 50vw"
+                  className="object-cover"
+                />
               </div>
             ))}
           </div>
