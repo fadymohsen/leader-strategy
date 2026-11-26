@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Reveal, RevealSlide, RevealScale } from "@/components/Reveal";
 import { VideoGrid } from "@/components/VideoGrid";
+import { galleryFromMedia } from "@/lib/services";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { getSiteMedia } from "@/lib/media";
 
@@ -33,9 +34,7 @@ export default async function LeadershipSchoolPage({
   const [dict, media] = await Promise.all([getDictionary(locale), getSiteMedia()]);
   const { leadershipSchool, goalLabel } = dict.services;
   const isAr = locale === "ar";
-  const galleryPhotos = [1, 2, 3]
-    .map((n) => media[`subpages.leadershipSchool.gallery${n}`])
-    .filter(Boolean);
+  const galleryPhotos = galleryFromMedia(media, "subpages.leadershipSchool");
 
   return (
     <>

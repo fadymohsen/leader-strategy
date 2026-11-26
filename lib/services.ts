@@ -24,6 +24,15 @@ const SERVICE_META: Record<string, ServiceMeta> = {
   "💼": { slug: "business", slotPrefix: "business", logoSlot: "sectors.businessLogo" },
 };
 
+/** Every `<prefix>.gallery<N>` photo in the media map, in numeric order, skipping removed ones. */
+export function galleryFromMedia(media: MediaMap, prefix: string): string[] {
+  const start = `${prefix}.gallery`;
+  return Object.keys(media)
+    .filter((k) => k.startsWith(start) && /^[0-9]+$/.test(k.slice(start.length)) && media[k])
+    .sort((a, b) => Number(a.slice(start.length)) - Number(b.slice(start.length)))
+    .map((k) => media[k]);
+}
+
 export function serviceSlug(item: Pick<ServiceItem, "icon" | "slug">): string | null {
   return item.slug || SERVICE_META[item.icon]?.slug || null;
 }
@@ -71,7 +80,9 @@ export function resolveServiceView(
   const own = item.gallery ?? enItem?.gallery;
   const gallery = own
     ? own.filter((u) => u && u.trim() && u !== NO_PHOTO)
-    : [1, 2, 3].map((n) => slot(`gallery${n}`)).filter((u): u is string => Boolean(u));
+    : meta
+      ? galleryFromMedia(media, `subpages.${meta.slotPrefix}`)
+      : [];
 
   return {
     hero,

@@ -37,6 +37,7 @@ export function MediaManager({
     | { type: "slot"; slot: string; label: string }
     | { type: "gallery"; index: number }
     | { type: "gallery-add" }
+    | { type: "slot-gallery-add"; prefix: string }
     | null
   >(null);
 
@@ -189,10 +190,39 @@ export function MediaManager({
       {subTab === "slots" && (
         <div className="space-y-8">
           {groups.map((group) => {
-            const items = mediaSlots.filter((s) => s.group === group);
+            const defined = mediaSlots.filter((s) => s.group === group);
+            // Groups with `<prefix>.gallery1` slots can grow: extra photos live in slots gallery4, gallery5, ...
+            const prefix = defined
+              .map((s) => s.slot.match(/^(.*)\.gallery1$/)?.[1])
+              .find(Boolean);
+            const definedKeys = new Set(mediaSlots.map((s) => s.slot));
+            const extras = prefix
+              ? Object.keys(media)
+                  .filter((k) => k.startsWith(`${prefix}.gallery`) && !definedKeys.has(k) && media[k])
+                  .sort((a, b) => Number(a.split("gallery")[1]) - Number(b.split("gallery")[1]))
+                  .map((k) => ({
+                    slot: k,
+                    label: `${t("Gallery photo")} ${k.split("gallery")[1]}`,
+                    group,
+                    defaultUrl: "",
+                    extra: true as const,
+                  }))
+              : [];
+            const items: (MediaSlotDefinition & { extra?: true })[] = [...defined, ...extras];
             return (
               <div key={group} className="bg-sand border border-border rounded-xl p-6">
-                <h3 className="font-display text-lg text-ink mb-4">{group}</h3>
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                  <h3 className="font-display text-lg text-ink">{t(group)}</h3>
+                  {prefix && (
+                    <button
+                      type="button"
+                      onClick={() => setPickerTarget({ type: "slot-gallery-add", prefix })}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg"
+                    >
+                      <Plus className="w-4 h-4" /> {t("Add more photos")}
+                    </button>
+                  )}
+                </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {items.map((item) => {
                     const current = media[item.slot] ?? item.defaultUrl;
@@ -218,8 +248,8 @@ export function MediaManager({
                         </div>
                         <div className="p-4 flex-1 flex flex-col justify-between gap-3">
                           <div>
-                            <p className="text-sm font-semibold text-ink">{item.label}</p>
-                            <p className="text-xs text-ink-faint truncate mt-0.5">{removed ? "No photo" : current}</p>
+                            <p className="text-sm font-semibold text-ink">{item.extra ? item.label : t(item.label)}</p>
+                            <p className="text-xs text-ink-faint truncate mt-0.5">{removed ? t("No photo") : current}</p>
                           </div>
                           <div className="flex items-center gap-2">
                             <button
@@ -246,14 +276,14 @@ export function MediaManager({
                                 {t("Remove")}
                               </button>
                             )}
-                            {current !== item.defaultUrl && (
+                            {!item.extra && current !== item.defaultUrl && (
                               <button
                                 type="button"
                                 onClick={() => onMediaChange({ ...media, [item.slot]: item.defaultUrl })}
                                 className="px-2.5 py-2 border border-border-strong rounded-lg text-sm text-ink-muted hover:text-ink"
                                 title={t("Go back to the original photo")}
                               >
-                                {removed ? "Restore" : "Reset"}
+                                {removed ? t("Restore") : t("Reset")}
                               </button>
                             )}
                           </div>
@@ -552,8 +582,27 @@ export function MediaManager({
             ? gallery[pickerTarget.index]?.src
             : undefined
         }
-        multiple={pickerTarget?.type === "gallery-add"}
+        multiple={pickerTarget?.type === "gallery-add" || pickerTarget?.type === "slot-gallery-add"}
         onSelectMany={(urls) => {
+          if (pickerTarget?.type === "slot-gallery-add") {
+            const start = `${pickerTarget.prefix}.gallery`;
+            const used = Object.keys(media)
+              .filter((k) => k.startsWith(start) && /^[0-9]+$/.test(k.slice(start.length)))
+              .map((k) => Number(k.slice(start.length)));
+            const defined = mediaSlots
+              .filter((s) => s.slot.startsWith(start))
+              .map((s) => Number(s.slot.slice(start.length)));
+            let next = Math.max(3, ...used, ...defined) + 1;
+            const patch: Record<string, string> = {};
+            // Fill removed/empty slots first, then append new numbers.
+            const free = [...new Set([...used, ...defined])].filter((n) => !media[`${start}${n}`]).sort((a, b) => a - b);
+            for (const url of urls) {
+              const n = free.length ? (free.shift() as number) : next++;
+              patch[`${start}${n}`] = url;
+            }
+            onMediaChange({ ...media, ...patch });
+            return;
+          }
           const stamp = Date.now();
           onGalleryChange([
             ...gallery,
