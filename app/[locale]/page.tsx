@@ -48,26 +48,24 @@ export default async function HomePage({
       <HomeJsonLd locale={locale} />
 
       {/* ── Hero: editorial masthead, bottom-anchored, one CTA + one text link ── */}
-      <section className="grain relative overflow-hidden bg-ink text-sand min-h-screen flex items-center">
-        <div className="absolute -inset-y-16 inset-x-0">
-          <Image
-            src="/images/hero-stock-composite.jpg"
-            alt=""
-            aria-hidden
-            priority
-            fill
-            sizes="100vw"
-            className="hero-emblem-parallax object-cover"
-          />
-        </div>
-        <div className="absolute inset-0 bg-ink/35" />
+      <section className="grain relative overflow-hidden bg-ink text-sand min-h-screen flex items-end">
+        <Image
+          src="/images/strategy-team.jpeg"
+          alt={dict.news.gallery.strategyTeam}
+          priority
+          fill
+          sizes="100vw"
+          className="object-cover object-[50%_35%]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-transparent to-transparent h-40" />
 
-        <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 py-32 w-full">
+        <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-8 pt-40 pb-16 md:pb-20 w-full">
           <div className="max-w-2xl hero-stagger">
-            <h1 className="font-display text-hero leading-[1.15] tracking-tight mb-7 whitespace-pre-line drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
+            <h1 className="font-display text-hero leading-[1.15] tracking-tight mb-6 whitespace-pre-line drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
               {home.hero.headline}
             </h1>
-            <p className="text-lg md:text-xl text-sand/90 mb-10 max-w-2xl leading-relaxed drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
+            <p className="text-lg md:text-xl text-sand/90 mb-8 max-w-2xl leading-relaxed drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
               {home.hero.subheadline}
             </p>
             <div className="flex flex-wrap items-center gap-8">
