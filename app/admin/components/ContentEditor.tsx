@@ -5,8 +5,9 @@ import { Plus, Trash2, ArrowUp, ArrowDown, Image as ImageIcon, Eye, EyeOff } fro
 import type { Dictionary, NewsArticle, ServiceItem } from "@/lib/i18n/en";
 import type { Locale } from "@/lib/i18n";
 import { MediaPickerModal } from "./MediaPickerModal";
+import { Panel, Tabs } from "./ui";
 
-type SectionKey = "global" | "home" | "about" | "services" | "news" | "courses" | "contact";
+export type SectionKey = "global" | "home" | "about" | "services" | "news" | "courses" | "contact";
 
 function Field({
   label,
@@ -25,17 +26,15 @@ function Field({
 }) {
   return (
     <div>
-      <label className="block text-[11px] font-semibold uppercase tracking-wider text-ink-muted mb-1">
-        {label}
-      </label>
+      <label className="block text-sm font-medium text-ink mb-1.5">{label}</label>
       {multiline ? (
         <textarea
-          rows={3}
+          rows={4}
           dir={dir}
           value={value}
           placeholder={placeholder}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full px-3 py-2 text-sm bg-white border border-border-strong rounded-lg focus:outline-none focus:border-clay resize-y"
+          className="w-full px-3.5 py-2.5 text-[15px] leading-relaxed bg-white border border-border-strong rounded-lg focus:outline-none focus:border-clay focus:ring-2 focus:ring-clay/20 resize-y"
         />
       ) : (
         <input
@@ -44,28 +43,67 @@ function Field({
           value={value}
           placeholder={placeholder}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full px-3 py-2 text-sm bg-white border border-border-strong rounded-lg focus:outline-none focus:border-clay"
+          className="w-full px-3.5 py-2.5 text-[15px] bg-white border border-border-strong rounded-lg focus:outline-none focus:border-clay focus:ring-2 focus:ring-clay/20"
         />
       )}
     </div>
   );
 }
 
+function ImageField({
+  label,
+  value,
+  onChange,
+  onPick,
+}: {
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  onPick: () => void;
+}) {
+  return (
+    <div className="flex items-end gap-2">
+      <div className="flex-1">
+        <Field label={label} value={value} placeholder="/images/..." onChange={onChange} />
+      </div>
+      <button
+        type="button"
+        onClick={onPick}
+        className="px-3 py-2 bg-clay text-sand text-sm font-semibold rounded-lg inline-flex items-center gap-1 shrink-0"
+      >
+        <ImageIcon className="w-3.5 h-3.5" /> Pick / Upload
+      </button>
+    </div>
+  );
+}
+
+export const CONTENT_SECTIONS: { key: SectionKey; label: string; hint: string; path: string }[] = [
+  { key: "home", label: "Home", hint: "Hero, stats, pillars, sectors", path: "" },
+  { key: "about", label: "About", hint: "Story, mission, values", path: "/about" },
+  { key: "services", label: "Services", hint: "Service cards and their pages", path: "/services" },
+  { key: "news", label: "News", hint: "Articles and photo gallery", path: "/news" },
+  { key: "courses", label: "Courses", hint: "Training courses", path: "/courses" },
+  { key: "contact", label: "Contact", hint: "Contact page and form labels", path: "/contact" },
+  { key: "global", label: "Menu, Footer & SEO", hint: "Navigation, footer, search metadata", path: "" },
+];
+
 export function ContentEditor({
+  locale,
+  section,
   en,
   ar,
   coursesVisible,
   onChangeDict,
   onChangeCoursesVisible,
 }: {
+  locale: Locale;
+  section: SectionKey;
   en: Dictionary;
   ar: Dictionary;
   coursesVisible: boolean;
   onChangeDict: (locale: Locale, next: Dictionary) => void;
   onChangeCoursesVisible: (visible: boolean) => void;
 }) {
-  const [locale, setLocale] = useState<Locale>("en");
-  const [section, setSection] = useState<SectionKey>("home");
   const [picker, setPicker] = useState<{
     current?: string;
     title: string;
@@ -76,15 +114,6 @@ export function ContentEditor({
   const dir = locale === "ar" ? "rtl" : "ltr";
   const update = (next: Dictionary) => onChangeDict(locale, next);
 
-  const sections: { key: SectionKey; label: string }[] = [
-    { key: "global", label: "Global (Nav, Footer, SEO)" },
-    { key: "home", label: "Home Page" },
-    { key: "about", label: "About Page" },
-    { key: "services", label: "Services & Sectors" },
-    { key: "news", label: "News & Stories" },
-    { key: "courses", label: "Courses" },
-    { key: "contact", label: "Contact Page" },
-  ];
 
   function moveItem<T>(arr: T[], idx: number, d: -1 | 1): T[] {
     const target = idx + d;
@@ -96,51 +125,19 @@ export function ContentEditor({
 
   return (
     <div className="space-y-6">
-      {/* Top bar: Language Switch + Section Tabs */}
-      <div className="bg-sand border border-border rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex flex-wrap gap-1.5">
-          {sections.map((s) => (
-            <button
-              key={s.key}
-              type="button"
-              onClick={() => setSection(s.key)}
-              className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                section === s.key
-                  ? "bg-clay text-sand"
-                  : "bg-sand-raised text-ink-muted hover:text-ink"
-              }`}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-1 bg-sand-raised p-1 rounded-lg border border-border">
-          <button
-            type="button"
-            onClick={() => setLocale("en")}
-            className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
-              locale === "en" ? "bg-ink text-sand" : "text-ink-muted hover:text-ink"
-            }`}
-          >
-            English (EN)
-          </button>
-          <button
-            type="button"
-            onClick={() => setLocale("ar")}
-            className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
-              locale === "ar" ? "bg-ink text-sand" : "text-ink-muted hover:text-ink"
-            }`}
-          >
-            العربية (AR)
-          </button>
-        </div>
-      </div>
+      {locale === "ar" && (
+        <p className="text-sm text-ink-muted bg-sand border border-border rounded-lg px-4 py-3">
+          You are editing the <strong>Arabic</strong> version. Switch language at the top to edit English.
+        </p>
+      )}
+      <p className="text-sm text-ink-muted">
+        Click a block to open it. Changes stay on this screen until you press <strong>Save &amp; Publish</strong>.
+      </p>
 
       {/* ── GLOBAL ── */}
       {section === "global" && (
         <div className="space-y-6">
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <h3 className="font-display text-lg text-ink">Site Metadata (SEO)</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
@@ -163,9 +160,9 @@ export function ContentEditor({
               value={dict.meta.description}
               onChange={(v) => update({ ...dict, meta: { ...dict.meta, description: v } })}
             />
-          </div>
+          </Panel>
 
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <h3 className="font-display text-lg text-ink">Navigation Bar</h3>
             <div className="grid sm:grid-cols-3 gap-4">
               {(Object.keys(dict.nav) as (keyof Dictionary["nav"])[]).map((k) => (
@@ -178,9 +175,9 @@ export function ContentEditor({
                 />
               ))}
             </div>
-          </div>
+          </Panel>
 
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <h3 className="font-display text-lg text-ink">Footer</h3>
             <Field
               label="Description"
@@ -202,14 +199,14 @@ export function ContentEditor({
                 )
               )}
             </div>
-          </div>
+          </Panel>
         </div>
       )}
 
       {/* ── HOME ── */}
       {section === "home" && (
         <div className="space-y-6">
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <h3 className="font-display text-lg text-ink">Hero Section</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
@@ -268,9 +265,9 @@ export function ContentEditor({
                 }
               />
             </div>
-          </div>
+          </Panel>
 
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <div className="flex items-center justify-between">
               <h3 className="font-display text-lg text-ink">Stats Ribbon</h3>
               <button
@@ -281,7 +278,7 @@ export function ContentEditor({
                     home: { ...dict.home, stats: [...dict.home.stats, { value: "0", label: "New Stat" }] },
                   })
                 }
-                className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-xs font-semibold rounded-lg"
+                className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg"
               >
                 <Plus className="w-3.5 h-3.5" /> Add Stat
               </button>
@@ -290,7 +287,7 @@ export function ContentEditor({
               {dict.home.stats.map((st, idx) => (
                 <div key={idx} className="p-4 bg-sand-raised rounded-lg border border-border space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs font-bold text-ink-muted">Stat #{idx + 1}</span>
+                    <span className="text-sm font-bold text-ink-muted">Stat #{idx + 1}</span>
                     <button
                       type="button"
                       onClick={() =>
@@ -330,9 +327,9 @@ export function ContentEditor({
                 </div>
               ))}
             </div>
-          </div>
+          </Panel>
 
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <div className="flex items-center justify-between">
               <h3 className="font-display text-lg text-ink">How We Build Leaders (Pillars)</h3>
               <button
@@ -349,7 +346,7 @@ export function ContentEditor({
                     },
                   })
                 }
-                className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-xs font-semibold rounded-lg"
+                className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg"
               >
                 <Plus className="w-3.5 h-3.5" /> Add Pillar
               </button>
@@ -394,7 +391,7 @@ export function ContentEditor({
               {dict.home.pillars.items.map((p, idx) => (
                 <div key={idx} className="p-4 bg-sand-raised rounded-lg border border-border space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs font-bold text-ink-muted">Pillar #{idx + 1}</span>
+                    <span className="text-sm font-bold text-ink-muted">Pillar #{idx + 1}</span>
                     <button
                       type="button"
                       onClick={() =>
@@ -456,9 +453,9 @@ export function ContentEditor({
                 })
               }
             />
-          </div>
+          </Panel>
 
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <div className="flex items-center justify-between">
               <h3 className="font-display text-lg text-ink">Home Sectors List</h3>
               <button
@@ -478,7 +475,7 @@ export function ContentEditor({
                     },
                   })
                 }
-                className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-xs font-semibold rounded-lg"
+                className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg"
               >
                 <Plus className="w-3.5 h-3.5" /> Add Home Sector
               </button>
@@ -522,7 +519,7 @@ export function ContentEditor({
               {dict.home.services.items.map((item, idx) => (
                 <div key={idx} className="p-4 bg-sand-raised rounded-lg border border-border space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-ink-muted">Sector #{idx + 1}</span>
+                    <span className="text-sm font-bold text-ink-muted">Sector #{idx + 1}</span>
                     <button
                       type="button"
                       onClick={() =>
@@ -599,9 +596,9 @@ export function ContentEditor({
                 </div>
               ))}
             </div>
-          </div>
+          </Panel>
 
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <h3 className="font-display text-lg text-ink">Bottom CTA Banner</h3>
             <Field
               label="Headline"
@@ -641,14 +638,14 @@ export function ContentEditor({
                 }
               />
             </div>
-          </div>
+          </Panel>
         </div>
       )}
 
       {/* ── ABOUT ── */}
       {section === "about" && (
         <div className="space-y-6">
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <h3 className="font-display text-lg text-ink">About Hero & Story</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
@@ -706,9 +703,9 @@ export function ContentEditor({
                 })
               }
             />
-          </div>
+          </Panel>
 
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <h3 className="font-display text-lg text-ink">Mission, Vision & Slogan</h3>
             <Field
               label="Section Headline"
@@ -833,9 +830,9 @@ export function ContentEditor({
                 />
               </div>
             </div>
-          </div>
+          </Panel>
 
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <div className="flex items-center justify-between">
               <h3 className="font-display text-lg text-ink">Core Values</h3>
               <button
@@ -849,7 +846,7 @@ export function ContentEditor({
                     },
                   })
                 }
-                className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-xs font-semibold rounded-lg"
+                className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg"
               >
                 <Plus className="w-3.5 h-3.5" /> Add Value
               </button>
@@ -864,7 +861,7 @@ export function ContentEditor({
               {dict.about.values.map((val, idx) => (
                 <div key={idx} className="p-4 bg-sand-raised rounded-lg border border-border space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs font-bold text-ink-muted">Value #{idx + 1}</span>
+                    <span className="text-sm font-bold text-ink-muted">Value #{idx + 1}</span>
                     <button
                       type="button"
                       onClick={() =>
@@ -905,9 +902,9 @@ export function ContentEditor({
                 </div>
               ))}
             </div>
-          </div>
+          </Panel>
 
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <div className="flex items-center justify-between">
               <h3 className="font-display text-lg text-ink">About Stats & Board Team</h3>
               <button
@@ -927,7 +924,7 @@ export function ContentEditor({
                     },
                   })
                 }
-                className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-xs font-semibold rounded-lg"
+                className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg"
               >
                 <Plus className="w-3.5 h-3.5" /> Add Team Member
               </button>
@@ -944,7 +941,7 @@ export function ContentEditor({
               {dict.about.team.members.map((m, idx) => (
                 <div key={idx} className="p-4 bg-sand-raised rounded-lg border border-border space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs font-bold text-ink-muted">Member #{idx + 1}</span>
+                    <span className="text-sm font-bold text-ink-muted">Member #{idx + 1}</span>
                     <button
                       type="button"
                       onClick={() =>
@@ -1007,14 +1004,14 @@ export function ContentEditor({
                 </div>
               ))}
             </div>
-          </div>
+          </Panel>
         </div>
       )}
 
       {/* ── SERVICES ── */}
       {section === "services" && (
         <div className="space-y-6">
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <h3 className="font-display text-lg text-ink">Services Page Header & CTA</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
@@ -1088,16 +1085,16 @@ export function ContentEditor({
                 }
               />
             </div>
-          </div>
+          </Panel>
 
           {/* Services Items Manager */}
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-5">
+          <Panel defaultOpen>
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h3 className="font-display text-lg text-ink">
                   Services & Sectors ({dict.services.items.length})
                 </h3>
-                <p className="text-xs text-ink-muted">
+                <p className="text-sm text-ink-muted">
                   Add new services, edit sections & points, or attach a custom slug and photo.
                 </p>
               </div>
@@ -1118,7 +1115,7 @@ export function ContentEditor({
                     services: { ...dict.services, items: [...dict.services.items, newService] },
                   });
                 }}
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-xs font-semibold rounded-lg"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg"
               >
                 <Plus className="w-4 h-4" /> Add New Service
               </button>
@@ -1133,49 +1130,52 @@ export function ContentEditor({
                 };
 
                 return (
-                  <div
-                    key={idx}
-                    className="border border-border-strong rounded-xl p-5 bg-sand-raised space-y-4"
-                  >
-                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
-                      <span className="font-semibold text-ink text-sm">
-                        {item.icon} {item.title}
-                      </span>
+                  <Panel key={idx} variant="item">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-clay-soft text-2xl">
+                          {item.icon || "•"}
+                        </span>
+                        <div className="min-w-0">
+                          <p className="font-semibold text-ink text-base truncate">{item.title || "Untitled service"}</p>
+                          <p className="text-sm text-ink-muted truncate">
+                            {item.sections.length} sections
+                            {item.slug ? ` · /services/${item.slug}` : ""}
+                          </p>
+                        </div>
+                      </div>
                       <div className="flex items-center gap-1.5">
                         <button
                           type="button"
+                          title="Move up"
                           onClick={() =>
                             update({
                               ...dict,
-                              services: {
-                                ...dict.services,
-                                items: moveItem(dict.services.items, idx, -1),
-                              },
+                              services: { ...dict.services, items: moveItem(dict.services.items, idx, -1) },
                             })
                           }
                           disabled={idx === 0}
-                          className="p-1.5 border border-border-strong rounded bg-sand disabled:opacity-40"
+                          className="p-2 border border-border-strong rounded-lg bg-sand disabled:opacity-40"
                         >
-                          <ArrowUp className="w-3.5 h-3.5" />
+                          <ArrowUp className="w-4 h-4" />
                         </button>
                         <button
                           type="button"
+                          title="Move down"
                           onClick={() =>
                             update({
                               ...dict,
-                              services: {
-                                ...dict.services,
-                                items: moveItem(dict.services.items, idx, 1),
-                              },
+                              services: { ...dict.services, items: moveItem(dict.services.items, idx, 1) },
                             })
                           }
                           disabled={idx === dict.services.items.length - 1}
-                          className="p-1.5 border border-border-strong rounded bg-sand disabled:opacity-40"
+                          className="p-2 border border-border-strong rounded-lg bg-sand disabled:opacity-40"
                         >
-                          <ArrowDown className="w-3.5 h-3.5" />
+                          <ArrowDown className="w-4 h-4" />
                         </button>
                         <button
                           type="button"
+                          title="Delete service"
                           onClick={() => {
                             if (!confirm(`Delete service "${item.title}"?`)) return;
                             update({
@@ -1186,174 +1186,319 @@ export function ContentEditor({
                               },
                             });
                           }}
-                          className="p-1.5 text-red-600 hover:bg-red-50 rounded"
+                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
 
-                    <div className="grid sm:grid-cols-3 gap-3">
-                      <Field
-                        label="Icon (emoji)"
-                        value={item.icon}
-                        onChange={(v) => updateService({ icon: v })}
-                      />
-                      <Field
-                        label="Title"
-                        dir={dir}
-                        value={item.title}
-                        onChange={(v) => updateService({ title: v })}
-                      />
-                      <Field
-                        label="Dedicated Page Slug (optional)"
-                        placeholder="e.g. youth-ministry"
-                        value={item.slug ?? ""}
-                        onChange={(v) => updateService({ slug: v })}
-                      />
-                    </div>
+                    <Tabs
+                      tabs={[
+                        {
+                          key: "basics",
+                          label: "Basics",
+                          content: (
+                            <>
+                              <div className="grid sm:grid-cols-[6rem_1fr] gap-4">
+                                <Field
+                                  label="Icon"
+                                  value={item.icon}
+                                  onChange={(v) => updateService({ icon: v })}
+                                />
+                                <Field
+                                  label="Title"
+                                  dir={dir}
+                                  value={item.title}
+                                  onChange={(v) => updateService({ title: v })}
+                                />
+                              </div>
+                              <Field
+                                label="Intro (top of the service page)"
+                                dir={dir}
+                                multiline
+                                value={item.intro}
+                                onChange={(v) => updateService({ intro: v })}
+                              />
+                              <Field
+                                label="Goal (bottom of the service page)"
+                                dir={dir}
+                                multiline
+                                value={item.goal}
+                                onChange={(v) => updateService({ goal: v })}
+                              />
+                              <Field
+                                label="Tags (comma separated)"
+                                dir={dir}
+                                value={item.tags.join(", ")}
+                                onChange={(v) =>
+                                  updateService({
+                                    tags: v
+                                      .split(",")
+                                      .map((t) => t.trim())
+                                      .filter(Boolean),
+                                  })
+                                }
+                              />
+                            </>
+                          ),
+                        },
+                        {
+                          key: "card",
+                          label: "Card & page text",
+                          content: (
+                            <>
+                              <Field
+                                label="Card summary (shown on the Services page)"
+                                dir={dir}
+                                multiline
+                                value={item.brief ?? ""}
+                                placeholder="Short summary. Empty = uses the Intro"
+                                onChange={(v) => updateService({ brief: v })}
+                              />
+                              <div className="grid sm:grid-cols-2 gap-4">
+                                <Field
+                                  label="Small label above the page title"
+                                  dir={dir}
+                                  value={item.badge ?? ""}
+                                  placeholder="Empty = default"
+                                  onChange={(v) => updateService({ badge: v })}
+                                />
+                                <Field
+                                  label="Heading above the overview text"
+                                  dir={dir}
+                                  value={item.aboutHeading ?? ""}
+                                  placeholder="Empty = default"
+                                  onChange={(v) => updateService({ aboutHeading: v })}
+                                />
+                              </div>
+                              <Field
+                                label="Page address (slug)"
+                                placeholder="e.g. youth-ministry"
+                                value={item.slug ?? ""}
+                                onChange={(v) => updateService({ slug: v })}
+                              />
+                              <p className="text-sm text-ink-muted">
+                                Leave the address unchanged for the built-in services, or their page will stop working.
+                              </p>
+                            </>
+                          ),
+                        },
+                        {
+                          key: "photos",
+                          label: "Photos",
+                          content: (
+                            <>
+                              <p className="text-sm text-ink-muted">
+                                Set photos once in the English version and they also apply to Arabic. Empty = the
+                                default photo from the Photos library.
+                              </p>
+                              <div className="grid sm:grid-cols-2 gap-4">
+                                <ImageField
+                                  label="Main photo (card + page top)"
+                                  value={item.image ?? ""}
+                                  onChange={(v) => updateService({ image: v })}
+                                  onPick={() =>
+                                    setPicker({
+                                      current: item.image,
+                                      title: `Main photo for ${item.title}`,
+                                      onSelect: (url) => updateService({ image: url }),
+                                    })
+                                  }
+                                />
+                                <ImageField
+                                  label="Logo"
+                                  value={item.logo ?? ""}
+                                  onChange={(v) => updateService({ logo: v })}
+                                  onPick={() =>
+                                    setPicker({
+                                      current: item.logo,
+                                      title: `Logo for ${item.title}`,
+                                      onSelect: (url) => updateService({ logo: url }),
+                                    })
+                                  }
+                                />
+                                <ImageField
+                                  label="Overview photo"
+                                  value={item.aboutImage ?? ""}
+                                  onChange={(v) => updateService({ aboutImage: v })}
+                                  onPick={() =>
+                                    setPicker({
+                                      current: item.aboutImage,
+                                      title: `Overview photo for ${item.title}`,
+                                      onSelect: (url) => updateService({ aboutImage: url }),
+                                    })
+                                  }
+                                />
+                              </div>
 
-                    <Field
-                      label="Intro"
-                      dir={dir}
-                      multiline
-                      value={item.intro}
-                      onChange={(v) => updateService({ intro: v })}
-                    />
-
-                    <div className="grid sm:grid-cols-2 gap-3">
-                      <Field
-                        label="Tags (comma separated)"
-                        dir={dir}
-                        value={item.tags.join(", ")}
-                        onChange={(v) =>
-                          updateService({
-                            tags: v
-                              .split(",")
-                              .map((t) => t.trim())
-                              .filter(Boolean),
-                          })
-                        }
-                      />
-                      <div className="flex items-end gap-2">
-                        <div className="flex-1">
-                          <Field
-                            label="Cover Photo URL (optional)"
-                            value={item.image ?? ""}
-                            placeholder="/images/..."
-                            onChange={(v) => updateService({ image: v })}
-                          />
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setPicker({
-                              current: item.image,
-                              title: `Cover Photo for ${item.title}`,
-                              onSelect: (url) => updateService({ image: url }),
-                            })
-                          }
-                          className="px-3 py-2 bg-clay text-sand text-xs font-semibold rounded-lg inline-flex items-center gap-1"
-                        >
-                          <ImageIcon className="w-3.5 h-3.5" /> Pick / Upload
-                        </button>
-                      </div>
-                    </div>
-
-                    <Field
-                      label="Goal"
-                      dir={dir}
-                      multiline
-                      value={item.goal}
-                      onChange={(v) => updateService({ goal: v })}
-                    />
-
-                    {/* Sub-sections */}
-                    <div className="space-y-3 pt-2 border-t border-border">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold uppercase tracking-wider text-ink-muted">
-                          Sub-Sections ({item.sections.length})
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            updateService({
-                              sections: [
-                                ...item.sections,
-                                { title: "New Section", desc: "", points: [] },
-                              ],
-                            })
-                          }
-                          className="text-xs font-semibold text-clay hover:underline inline-flex items-center gap-1"
-                        >
-                          <Plus className="w-3.5 h-3.5" /> Add Sub-Section
-                        </button>
-                      </div>
-                      <div className="grid md:grid-cols-2 gap-3">
-                        {item.sections.map((sec, sIdx) => (
-                          <div key={sIdx} className="bg-sand p-3.5 rounded-lg border border-border space-y-2">
-                            <div className="flex justify-between items-center">
-                              <span className="text-[11px] font-semibold text-ink-faint">
-                                Section #{sIdx + 1}
-                              </span>
+                              <div className="rounded-lg border border-dashed border-border-strong bg-sand-raised p-4 space-y-3">
+                                <div className="flex flex-wrap items-center justify-between gap-2">
+                                  <div>
+                                    <p className="text-sm font-semibold text-ink">
+                                      Gallery photos ({(item.gallery ?? []).length})
+                                    </p>
+                                    <p className="text-sm text-ink-muted">
+                                      Add as many as you like. Empty = the default photos.
+                                    </p>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      setPicker({
+                                        title: `Add gallery photo to ${item.title}`,
+                                        onSelect: (url) =>
+                                          updateService({ gallery: [...(item.gallery ?? []), url] }),
+                                      })
+                                    }
+                                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg"
+                                  >
+                                    <Plus className="w-4 h-4" /> Add photo
+                                  </button>
+                                </div>
+                                {(item.gallery ?? []).length > 0 && (
+                                  <ul className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                    {(item.gallery ?? []).map((src, gIdx) => {
+                                      const list = item.gallery ?? [];
+                                      return (
+                                        <li
+                                          key={`${src}-${gIdx}`}
+                                          className="relative group aspect-square rounded-lg overflow-hidden border border-border bg-white"
+                                        >
+                                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                                          <img src={src} alt="" className="w-full h-full object-cover" />
+                                          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-1 p-1.5 bg-ink/70">
+                                            <div className="flex gap-1">
+                                              <button
+                                                type="button"
+                                                title="Move earlier"
+                                                disabled={gIdx === 0}
+                                                onClick={() => updateService({ gallery: moveItem(list, gIdx, -1) })}
+                                                className="p-1 rounded bg-sand/90 disabled:opacity-40"
+                                              >
+                                                <ArrowUp className="w-3.5 h-3.5 -rotate-90 rtl:rotate-90" />
+                                              </button>
+                                              <button
+                                                type="button"
+                                                title="Move later"
+                                                disabled={gIdx === list.length - 1}
+                                                onClick={() => updateService({ gallery: moveItem(list, gIdx, 1) })}
+                                                className="p-1 rounded bg-sand/90 disabled:opacity-40"
+                                              >
+                                                <ArrowDown className="w-3.5 h-3.5 -rotate-90 rtl:rotate-90" />
+                                              </button>
+                                            </div>
+                                            <button
+                                              type="button"
+                                              title="Remove photo"
+                                              onClick={() =>
+                                                updateService({ gallery: list.filter((_, i) => i !== gIdx) })
+                                              }
+                                              className="p-1 rounded bg-red-600 text-white"
+                                            >
+                                              <Trash2 className="w-3.5 h-3.5" />
+                                            </button>
+                                          </div>
+                                        </li>
+                                      );
+                                    })}
+                                  </ul>
+                                )}
+                              </div>
+                            </>
+                          ),
+                        },
+                        {
+                          key: "sections",
+                          label: "Sections",
+                          count: item.sections.length,
+                          content: (
+                            <>
+                              <div className="grid gap-4">
+                                {item.sections.map((sec, sIdx) => (
+                                  <div
+                                    key={sIdx}
+                                    className="bg-sand-raised p-4 rounded-lg border border-dashed border-border-strong space-y-3"
+                                  >
+                                    <div className="flex justify-between items-center">
+                                      <span className="text-sm font-semibold text-ink-muted">
+                                        Section {sIdx + 1}
+                                      </span>
+                                      <button
+                                        type="button"
+                                        title="Delete section"
+                                        onClick={() =>
+                                          updateService({
+                                            sections: item.sections.filter((_, i) => i !== sIdx),
+                                          })
+                                        }
+                                        className="text-red-600 p-1.5 hover:bg-red-50 rounded"
+                                      >
+                                        <Trash2 className="w-4 h-4" />
+                                      </button>
+                                    </div>
+                                    <Field
+                                      label="Title"
+                                      dir={dir}
+                                      value={sec.title}
+                                      onChange={(v) => {
+                                        const nextSecs = [...item.sections];
+                                        nextSecs[sIdx] = { ...sec, title: v };
+                                        updateService({ sections: nextSecs });
+                                      }}
+                                    />
+                                    <Field
+                                      label="Description"
+                                      dir={dir}
+                                      multiline
+                                      value={sec.desc}
+                                      onChange={(v) => {
+                                        const nextSecs = [...item.sections];
+                                        nextSecs[sIdx] = { ...sec, desc: v };
+                                        updateService({ sections: nextSecs });
+                                      }}
+                                    />
+                                    <Field
+                                      label="Bullet points (one per line)"
+                                      dir={dir}
+                                      multiline
+                                      value={sec.points.join("\n")}
+                                      onChange={(v) => {
+                                        const nextSecs = [...item.sections];
+                                        nextSecs[sIdx] = {
+                                          ...sec,
+                                          points: v.split("\n").filter((p) => p.trim().length > 0),
+                                        };
+                                        updateService({ sections: nextSecs });
+                                      }}
+                                    />
+                                  </div>
+                                ))}
+                              </div>
                               <button
                                 type="button"
                                 onClick={() =>
                                   updateService({
-                                    sections: item.sections.filter((_, i) => i !== sIdx),
+                                    sections: [...item.sections, { title: "New Section", desc: "", points: [] }],
                                   })
                                 }
-                                className="text-red-600 p-1 hover:bg-red-50 rounded"
+                                className="w-full py-3 border-2 border-dashed border-border-strong rounded-lg text-sm font-semibold text-clay hover:border-clay hover:bg-clay-soft/40 inline-flex items-center justify-center gap-1.5"
                               >
-                                <Trash2 className="w-3 h-3" />
+                                <Plus className="w-4 h-4" /> Add section
                               </button>
-                            </div>
-                            <Field
-                              label="Section Title"
-                              dir={dir}
-                              value={sec.title}
-                              onChange={(v) => {
-                                const nextSecs = [...item.sections];
-                                nextSecs[sIdx] = { ...sec, title: v };
-                                updateService({ sections: nextSecs });
-                              }}
-                            />
-                            <Field
-                              label="Section Description"
-                              dir={dir}
-                              value={sec.desc}
-                              onChange={(v) => {
-                                const nextSecs = [...item.sections];
-                                nextSecs[sIdx] = { ...sec, desc: v };
-                                updateService({ sections: nextSecs });
-                              }}
-                            />
-                            <Field
-                              label="Bullet Points (one per line)"
-                              dir={dir}
-                              multiline
-                              value={sec.points.join("\n")}
-                              onChange={(v) => {
-                                const nextSecs = [...item.sections];
-                                nextSecs[sIdx] = {
-                                  ...sec,
-                                  points: v.split("\n").filter((p) => p.trim().length > 0),
-                                };
-                                updateService({ sections: nextSecs });
-                              }}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+                            </>
+                          ),
+                        },
+                      ]}
+                    />
+                  </Panel>
                 );
               })}
             </div>
-          </div>
+          </Panel>
 
           {/* Leadership School */}
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <h3 className="font-display text-lg text-ink">Leadership School Sub-page</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
@@ -1430,14 +1575,82 @@ export function ContentEditor({
                 })
               }
             />
-          </div>
+
+            <div className="space-y-3 pt-2 border-t border-border">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-bold uppercase tracking-wider text-ink-muted">
+                  Program Sections ({dict.services.leadershipSchool.sections.length})
+                </span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    update({
+                      ...dict,
+                      services: {
+                        ...dict.services,
+                        leadershipSchool: {
+                          ...dict.services.leadershipSchool,
+                          sections: [
+                            ...dict.services.leadershipSchool.sections,
+                            { title: "New Section", desc: "" },
+                          ],
+                        },
+                      },
+                    })
+                  }
+                  className="text-sm font-semibold text-clay hover:underline inline-flex items-center gap-1"
+                >
+                  <Plus className="w-3.5 h-3.5" /> Add Section
+                </button>
+              </div>
+              {dict.services.leadershipSchool.sections.map((sec, i) => {
+                const setSections = (sections: typeof dict.services.leadershipSchool.sections) =>
+                  update({
+                    ...dict,
+                    services: {
+                      ...dict.services,
+                      leadershipSchool: { ...dict.services.leadershipSchool, sections },
+                    },
+                  });
+                const list = dict.services.leadershipSchool.sections;
+                return (
+                  <div key={i} className="rounded-lg border border-border bg-sand-raised p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-semibold text-ink-muted">Section {i + 1}</span>
+                      <button
+                        type="button"
+                        onClick={() => setSections(list.filter((_, k) => k !== i))}
+                        className="p-1.5 text-red-600 hover:bg-red-50 rounded"
+                        aria-label="Delete section"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <Field
+                      label="Title"
+                      dir={dir}
+                      value={sec.title}
+                      onChange={(v) => setSections(list.map((x, k) => (k === i ? { ...x, title: v } : x)))}
+                    />
+                    <Field
+                      label="Description"
+                      dir={dir}
+                      multiline
+                      value={sec.desc}
+                      onChange={(v) => setSections(list.map((x, k) => (k === i ? { ...x, desc: v } : x)))}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </Panel>
         </div>
       )}
 
       {/* ── NEWS ── */}
       {section === "news" && (
         <div className="space-y-6">
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <h3 className="font-display text-lg text-ink">News Page Headers</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
@@ -1501,15 +1714,15 @@ export function ContentEditor({
                 }
               />
             </div>
-          </div>
+          </Panel>
 
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-5">
+          <Panel defaultOpen>
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h3 className="font-display text-lg text-ink">
                   News Articles ({dict.news.articles.length})
                 </h3>
-                <p className="text-xs text-ink-muted">
+                <p className="text-sm text-ink-muted">
                   Add news stories, upload cover photos, reorder, or delete articles.
                 </p>
               </div>
@@ -1529,7 +1742,7 @@ export function ContentEditor({
                     news: { ...dict.news, articles: [newArticle, ...dict.news.articles] },
                   });
                 }}
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-xs font-semibold rounded-lg"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg"
               >
                 <Plus className="w-4 h-4" /> Add News Article
               </button>
@@ -1544,12 +1757,9 @@ export function ContentEditor({
                 };
 
                 return (
-                  <div
-                    key={idx}
-                    className="border border-border-strong rounded-xl p-5 bg-sand-raised space-y-3"
-                  >
+                  <Panel key={idx} variant="item">
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <span className="text-xs font-bold text-ink-muted">
+                      <span className="text-sm font-bold text-ink-muted">
                         Article #{idx + 1} {idx === 0 ? "(Featured)" : ""}
                       </span>
                       <div className="flex items-center gap-1.5">
@@ -1651,16 +1861,16 @@ export function ContentEditor({
                             onSelect: (url) => updateArt({ image: url }),
                           })
                         }
-                        className="px-3.5 py-2 bg-clay text-sand text-xs font-semibold rounded-lg inline-flex items-center gap-1.5"
+                        className="px-3.5 py-2 bg-clay text-sand text-sm font-semibold rounded-lg inline-flex items-center gap-1.5"
                       >
                         <ImageIcon className="w-3.5 h-3.5" /> Upload / Pick Photo
                       </button>
                     </div>
-                  </div>
+                  </Panel>
                 );
               })}
             </div>
-          </div>
+          </Panel>
         </div>
       )}
 
@@ -1670,14 +1880,14 @@ export function ContentEditor({
           <div className="bg-sand border border-border rounded-xl p-6 flex flex-wrap items-center justify-between gap-4">
             <div>
               <h3 className="font-display text-lg text-ink">Courses Page Visibility</h3>
-              <p className="text-xs text-ink-muted">
+              <p className="text-sm text-ink-muted">
                 Toggle whether the Courses page & navigation link are visible on the public website.
               </p>
             </div>
             <button
               type="button"
               onClick={() => onChangeCoursesVisible(!coursesVisible)}
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-colors ${
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
                 coursesVisible
                   ? "bg-green-700 text-white"
                   : "bg-sand-raised border border-border-strong text-ink-muted"
@@ -1688,7 +1898,7 @@ export function ContentEditor({
             </button>
           </div>
 
-          <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+          <Panel>
             <div className="flex items-center justify-between">
               <h3 className="font-display text-lg text-ink">Courses ({dict.courses.items.length})</h3>
               <button
@@ -1712,7 +1922,7 @@ export function ContentEditor({
                     },
                   })
                 }
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-clay text-sand text-xs font-semibold rounded-lg"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg"
               >
                 <Plus className="w-3.5 h-3.5" /> Add Course
               </button>
@@ -1721,7 +1931,7 @@ export function ContentEditor({
               {dict.courses.items.map((c, idx) => (
                 <div key={idx} className="p-4 bg-sand-raised rounded-xl border border-border space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs font-bold text-ink-muted">Course #{idx + 1}</span>
+                    <span className="text-sm font-bold text-ink-muted">Course #{idx + 1}</span>
                     <button
                       type="button"
                       onClick={() =>
@@ -1809,13 +2019,13 @@ export function ContentEditor({
                 </div>
               ))}
             </div>
-          </div>
+          </Panel>
         </div>
       )}
 
       {/* ── CONTACT ── */}
       {section === "contact" && (
-        <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
+        <Panel>
           <h3 className="font-display text-lg text-ink">Contact Page & Form Labels</h3>
           <div className="grid md:grid-cols-2 gap-4">
             <Field
@@ -1869,7 +2079,7 @@ export function ContentEditor({
               />
             ))}
           </div>
-        </div>
+        </Panel>
       )}
 
       <MediaPickerModal

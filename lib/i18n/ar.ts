@@ -423,6 +423,7 @@ const ar: Dictionary = {
       }
 ],
     goalLabel: "هدفنا",
+    seeMore: "اعرف المزيد",
     leadershipSchool: {
       badge: "مدرسة القيادة",
       headline: "مدرسة القيادة",

@@ -119,7 +119,7 @@ export function MediaPickerModal({
             <button
               type="button"
               onClick={() => setTab("blob")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
                 tab === "blob"
                   ? "bg-ink text-sand"
                   : "bg-sand border border-border text-ink-muted hover:text-ink"
@@ -130,7 +130,7 @@ export function MediaPickerModal({
             <button
               type="button"
               onClick={() => setTab("local")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
                 tab === "local"
                   ? "bg-ink text-sand"
                   : "bg-sand border border-border text-ink-muted hover:text-ink"
@@ -189,7 +189,7 @@ export function MediaPickerModal({
                       )}
                     </div>
                     <div className="p-2 bg-sand">
-                      <p className="text-xs text-ink truncate font-medium">{item.filename}</p>
+                      <p className="text-sm text-ink truncate font-medium">{item.filename}</p>
                     </div>
                   </button>
                 );

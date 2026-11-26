@@ -421,6 +421,7 @@ const en = {
       }
 ],
     goalLabel: "Our Goal",
+    seeMore: "See more",
     leadershipSchool: {
       badge: "Leadership School",
       headline: "Leadership School",
@@ -621,9 +622,19 @@ type DeepString<T> = T extends string
 type BaseDictionary = DeepString<typeof en>;
 
 export type ServiceItem = BaseDictionary["services"]["items"][number] & {
+  /** Hero / cover photo. Falls back to the matching Media slot. */
   image?: string;
   logo?: string;
   slug?: string;
+  /** Short text on the /services card. Falls back to `intro`. */
+  brief?: string;
+  /** Small label above the page title. */
+  badge?: string;
+  /** Heading above the overview text. */
+  aboutHeading?: string;
+  aboutImage?: string;
+  /** Gallery photos, any number. */
+  gallery?: string[];
 };
 
 export type NewsArticle = BaseDictionary["news"]["articles"][number] & {

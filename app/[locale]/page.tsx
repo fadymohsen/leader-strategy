@@ -6,7 +6,7 @@ import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { HomeJsonLd } from "@/components/JsonLd";
 import { Reveal, RevealSlide, RevealScale } from "@/components/Reveal";
-import { sectorAnchor } from "@/lib/sectors";
+import { serviceSlug } from "@/lib/services";
 import { getSiteMedia } from "@/lib/media";
 
 // Sector title -> real sub-brand mark, where one exists in public/images.
@@ -148,9 +148,9 @@ export default async function HomePage({
                 <RevealSlide key={item.title} delay={i * 100}>
                   <Link
                     href={
-                      item.slug
-                        ? `/${locale}/services/${item.slug}`
-                        : `/${locale}/services${sectorAnchor(item.icon)}`
+                      serviceSlug(item)
+                        ? `/${locale}/services/${serviceSlug(item)}`
+                        : `/${locale}/services`
                     }
                     className="group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3rem_1fr_auto] items-center gap-4 md:gap-8 py-7 border-b border-border hover:border-clay hover:ps-2 transition-all duration-300"
                   >

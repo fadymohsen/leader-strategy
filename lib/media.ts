@@ -29,6 +29,7 @@ export const MEDIA_SLOTS: MediaSlotDefinition[] = [
   { slot: "subpages.isp.gallery2", label: "ISP Gallery Photo 2", group: "ISP Sub-page", defaultUrl: "/images/team-lead-up-workshop.jpg" },
   { slot: "subpages.isp.gallery3", label: "ISP Gallery Photo 3", group: "ISP Sub-page", defaultUrl: "/images/forum-4-group-garden.jpeg" },
 
+  { slot: "subpages.lawyers.hero", label: "Lawyers Hero Image", group: "Lawyers Sub-page", defaultUrl: "/images/team-flag-launch-day.jpg" },
   { slot: "subpages.lawyers.logo", label: "Lawyers (FLAG) Logo", group: "Lawyers Sub-page", defaultUrl: "/images/flag-logo.jpeg" },
   { slot: "subpages.lawyers.about", label: "Lawyers About Image", group: "Lawyers Sub-page", defaultUrl: "/images/team-flag-launch-day.jpg" },
   { slot: "subpages.lawyers.gallery1", label: "Lawyers Gallery Photo 1", group: "Lawyers Sub-page", defaultUrl: "/images/strategy-team.jpeg" },
@@ -41,6 +42,18 @@ export const MEDIA_SLOTS: MediaSlotDefinition[] = [
   { slot: "subpages.leaderImpactNext.gallery1", label: "Leader Impact Next Gallery 1", group: "Leader Impact Next", defaultUrl: "/images/graduates-gathering.jpg" },
   { slot: "subpages.leaderImpactNext.gallery2", label: "Leader Impact Next Gallery 2", group: "Leader Impact Next", defaultUrl: "/images/community-celebration.jpg" },
   { slot: "subpages.leaderImpactNext.gallery3", label: "Leader Impact Next Gallery 3", group: "Leader Impact Next", defaultUrl: "/images/staff-family-gathering.jpg" },
+
+  { slot: "subpages.doctors.hero", label: "Doctors Hero Image", group: "Doctors Sub-page", defaultUrl: "/images/staff-family-gathering.jpg" },
+  { slot: "subpages.doctors.about", label: "Doctors About Image", group: "Doctors Sub-page", defaultUrl: "/images/community-celebration.jpg" },
+  { slot: "subpages.doctors.gallery1", label: "Doctors Gallery Photo 1", group: "Doctors Sub-page", defaultUrl: "/images/staff-family-gathering.jpg" },
+  { slot: "subpages.doctors.gallery2", label: "Doctors Gallery Photo 2", group: "Doctors Sub-page", defaultUrl: "/images/community-celebration.jpg" },
+  { slot: "subpages.doctors.gallery3", label: "Doctors Gallery Photo 3", group: "Doctors Sub-page", defaultUrl: "/images/interfaith-nativity-event.jpg" },
+
+  { slot: "subpages.business.hero", label: "Business Hero Image", group: "Business Sub-page", defaultUrl: "/images/board-team-portrait.jpg" },
+  { slot: "subpages.business.about", label: "Business About Image", group: "Business Sub-page", defaultUrl: "/images/team-lead-up-workshop.jpg" },
+  { slot: "subpages.business.gallery1", label: "Business Gallery Photo 1", group: "Business Sub-page", defaultUrl: "/images/board-team-portrait.jpg" },
+  { slot: "subpages.business.gallery2", label: "Business Gallery Photo 2", group: "Business Sub-page", defaultUrl: "/images/forum-4-group-palms.jpeg" },
+  { slot: "subpages.business.gallery3", label: "Business Gallery Photo 3", group: "Business Sub-page", defaultUrl: "/images/forum-4-audience.jpeg" },
 
   { slot: "subpages.leadershipSchool.hero", label: "Leadership School Hero", group: "Leadership School", defaultUrl: "/images/leadership-school.jpeg" },
   { slot: "subpages.leadershipSchool.about", label: "Leadership School About", group: "Leadership School", defaultUrl: "/images/forum-4-group-garden.jpeg" },

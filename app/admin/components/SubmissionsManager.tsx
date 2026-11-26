@@ -133,7 +133,7 @@ export function SubmissionsManager() {
                 <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
                   <div>
                     <h4 className="font-semibold text-ink text-base">{msg.subject}</h4>
-                    <p className="text-xs text-ink-muted">
+                    <p className="text-sm text-ink-muted">
                       From <span className="font-medium text-ink">{msg.name}</span> ({msg.email}) •{" "}
                       {new Date(msg.created_at).toLocaleString()}
                     </p>
@@ -142,7 +142,7 @@ export function SubmissionsManager() {
                     <button
                       type="button"
                       onClick={() => toggleRead(msg)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border border-border-strong rounded-lg hover:bg-sand-raised"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold border border-border-strong rounded-lg hover:bg-sand-raised"
                     >
                       {msg.is_read ? (
                         <>
@@ -182,7 +182,7 @@ export function SubmissionsManager() {
               <button
                 type="button"
                 onClick={copyAllEmails}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border border-border-strong rounded-lg hover:bg-sand-raised"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold border border-border-strong rounded-lg hover:bg-sand-raised"
               >
                 {copied ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copied ? "Copied!" : "Copy All Emails"}</span>
@@ -197,7 +197,7 @@ export function SubmissionsManager() {
                 <div key={sub.id} className="py-3 flex items-center justify-between gap-4">
                   <div>
                     <p className="text-sm font-medium text-ink">{sub.email}</p>
-                    <p className="text-xs text-ink-faint">
+                    <p className="text-sm text-ink-faint">
                       Locale: {sub.locale.toUpperCase()} •{" "}
                       {new Date(sub.created_at).toLocaleDateString()}
                     </p>

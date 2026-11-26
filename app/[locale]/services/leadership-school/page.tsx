@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { Reveal, RevealSlide, RevealScale } from "@/components/Reveal";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { getSiteMedia } from "@/lib/media";
 
@@ -36,18 +37,20 @@ export default async function LeadershipSchoolPage({
     <>
       {/* ── 1. Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-24">
-        <Image
-          src={media["subpages.leadershipSchool.hero"]}
-          alt=""
-          aria-hidden
-          priority
-          fill
-          sizes="100vw"
-          className="object-cover object-center"
-        />
+        <div className="absolute -inset-y-16 inset-x-0">
+          <Image
+            src={media["subpages.leadershipSchool.hero"]}
+            alt=""
+            aria-hidden
+            priority
+            fill
+            sizes="100vw"
+            className="hero-emblem-parallax object-cover object-center"
+          />
+        </div>
         <div className="absolute inset-0 bg-ink/50" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-          <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 hero-stagger">
+          <span className="block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
             {leadershipSchool.badge}
           </span>
           <h1 className="font-display text-3xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] max-w-3xl">
@@ -63,23 +66,25 @@ export default async function LeadershipSchoolPage({
       <section className="bg-sand py-16">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
+            <RevealSlide>
               <h2 className="font-display text-2xl md:text-3xl text-ink mb-4">
                 {isAr ? "ما هي مدرسة القيادة؟" : "What is the Leadership School?"}
               </h2>
               <p className="text-ink-muted leading-relaxed text-base md:text-lg">
                 {leadershipSchool.about}
               </p>
-            </div>
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+            </RevealSlide>
+            <RevealScale delay={150}>
+            <div className="group relative aspect-[4/3] rounded-xl overflow-hidden">
               <Image
                 src={media["subpages.leadershipSchool.about"]}
                 alt=""
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
             </div>
+            </RevealScale>
           </div>
         </div>
       </section>
@@ -87,21 +92,22 @@ export default async function LeadershipSchoolPage({
       {/* ── 3. Program Sections ── */}
       <section className="bg-sand-raised py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-          <h2 className="font-display text-2xl md:text-3xl text-ink text-center mb-12">
-            {isAr ? "ما الذي ستختبره؟" : "What You'll Experience"}
-          </h2>
+          <Reveal>
+            <h2 className="font-display text-2xl md:text-3xl text-ink text-center mb-12">
+              {isAr ? "ما الذي ستختبره؟" : "What You'll Experience"}
+            </h2>
+          </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {leadershipSchool.sections.map((section, i) => (
-              <div
-                key={section.title}
-                className="bg-sand rounded-lg p-6 border border-border"
-              >
+              <RevealScale key={section.title} delay={i * 100} className="h-full">
+              <div className="h-full bg-sand rounded-lg p-6 border border-border transition-all duration-300 hover:-translate-y-1 hover:border-clay hover:shadow-[0_4px_12px_rgba(42,36,32,0.08),0_16px_32px_rgba(163,70,42,0.12)]">
                 <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-clay-soft text-clay-deep font-bold text-sm mb-4">
                   {i + 1}
                 </span>
                 <h3 className="font-semibold text-ink text-base mb-2">{section.title}</h3>
                 <p className="text-ink-muted text-sm leading-relaxed">{section.desc}</p>
               </div>
+              </RevealScale>
             ))}
           </div>
         </div>
@@ -116,9 +122,11 @@ export default async function LeadershipSchoolPage({
               media["subpages.leadershipSchool.gallery2"],
               media["subpages.leadershipSchool.gallery3"],
             ].map((src, idx) => (
-              <div key={`${src}-${idx}`} className="relative aspect-square rounded-lg overflow-hidden">
-                <Image src={src} alt="" fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover" />
-              </div>
+              <RevealScale key={`${src}-${idx}`} delay={(idx % 3) * 120}>
+                <div className="group relative aspect-square rounded-lg overflow-hidden">
+                  <Image src={src} alt="" fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                </div>
+              </RevealScale>
             ))}
           </div>
         </div>
@@ -126,7 +134,7 @@ export default async function LeadershipSchoolPage({
 
       {/* ── 5. Goal + CTA ── */}
       <section className="bg-ink py-20">
-        <div className="max-w-3xl mx-auto px-6 text-center">
+        <Reveal className="max-w-3xl mx-auto px-6 text-center">
           <p className="text-xs uppercase tracking-widest text-clay-soft font-semibold mb-4">
             {goalLabel}
           </p>
@@ -135,11 +143,11 @@ export default async function LeadershipSchoolPage({
           </p>
           <Link
             href={`/${locale}/contact`}
-            className="inline-block px-8 py-3.5 bg-clay hover:bg-clay-deep text-sand font-semibold rounded-md transition-colors"
+            className="inline-block px-8 py-3.5 bg-clay hover:bg-clay-deep text-sand font-semibold rounded-md transition-all duration-200 hover:-translate-y-0.5"
           >
             {isAr ? "انضم إلينا" : "Join Us"}
           </Link>
-        </div>
+        </Reveal>
       </section>
     </>
   );

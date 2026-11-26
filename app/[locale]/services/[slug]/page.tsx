@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
+import { findServiceBySlug, getServiceView } from "@/lib/services";
+import { Reveal, RevealSlide, RevealScale } from "@/components/Reveal";
 
 export async function generateMetadata({
   params,
@@ -12,7 +14,7 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   if (!isValidLocale(locale)) return {};
   const dict = await getDictionary(locale);
-  const service = dict.services.items.find((s) => s.slug === slug);
+  const service = findServiceBySlug(dict.services.items, slug);
   if (!service) return {};
   return {
     title: `${service.title} | Leader Strategies`,
@@ -20,7 +22,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function CustomServicePage({
+export default async function ServiceDetailPage({
   params,
 }: {
   params: Promise<{ locale: string; slug: string }>;
@@ -28,33 +30,37 @@ export default async function CustomServicePage({
   const { locale, slug } = await params;
   if (!isValidLocale(locale)) notFound();
 
-  const dict = await getDictionary(locale);
-  const service = dict.services.items.find((s) => s.slug === slug);
-  if (!service) notFound();
+  const data = await getServiceView(locale, slug);
+  if (!data) notFound();
+  const { dict, service, view } = data;
 
   const { goalLabel } = dict.services;
   const isAr = locale === "ar";
+  const { hero, logo, about, gallery } = view;
 
   return (
     <>
+      {/* ── Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-24">
-        {service.image && (
-          <Image
-            src={service.image}
-            alt=""
-            aria-hidden
-            priority
-            fill
-            sizes="100vw"
-            className="object-cover object-center"
-          />
+        {hero && (
+          <div className="absolute -inset-y-16 inset-x-0">
+            <Image
+              src={hero}
+              alt=""
+              aria-hidden
+              priority
+              fill
+              sizes="100vw"
+              className="hero-emblem-parallax object-cover object-center"
+            />
+          </div>
         )}
         <div className="absolute inset-0 bg-ink/50" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 hero-stagger">
           <div className="flex items-center gap-3 mb-5">
-            {service.logo && (
+            {logo && (
               <Image
-                src={service.logo}
+                src={logo}
                 alt={service.title}
                 width={48}
                 height={48}
@@ -62,7 +68,7 @@ export default async function CustomServicePage({
               />
             )}
             <span className="text-clay-soft text-xs font-semibold uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
-              {service.icon} {dict.services.hero.badge}
+              {view.badge || service.badge || dict.services.hero.badge}
             </span>
           </div>
           <h1 className="font-display text-3xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] max-w-3xl">
@@ -74,62 +80,109 @@ export default async function CustomServicePage({
         </div>
       </section>
 
+      {/* ── Tags & overview ── */}
       <section className="bg-sand py-16">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           {service.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-10">
-              {service.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs px-3 py-1.5 bg-clay-soft text-clay-deep font-medium rounded-full"
-                >
-                  {tag}
-                </span>
+              {service.tags.map((tag, ti) => (
+                <RevealScale key={tag} delay={ti * 70}>
+                  <span className="block text-xs px-3 py-1.5 bg-clay-soft text-clay-deep font-medium rounded-full">
+                    {tag}
+                  </span>
+                </RevealScale>
               ))}
             </div>
           )}
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <RevealSlide>
+              <h2 className="font-display text-2xl md:text-3xl text-ink mb-4">
+                {service.aboutHeading || (isAr ? "نبذة عن الخدمة" : "About this service")}
+              </h2>
+              <p className="text-ink-muted leading-relaxed">{service.sections[0]?.desc || service.intro}</p>
+            </RevealSlide>
+            {about && (
+              <RevealScale delay={150}>
+                <div className="group relative aspect-[4/3] rounded-xl overflow-hidden">
+                  <Image
+                    src={about}
+                    alt=""
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
+              </RevealScale>
+            )}
+          </div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-2 gap-6 mb-10">
-            {service.sections.map((section) => (
-              <div
-                key={section.title}
-                className="bg-sand-raised rounded-lg p-6 border border-border"
-              >
-                <h2 className="font-semibold text-ink text-lg mb-2">{section.title}</h2>
-                {section.desc && (
-                  <p className="text-ink-muted text-sm leading-relaxed mb-3">{section.desc}</p>
-                )}
-                {section.points.length > 0 && (
-                  <ul className="space-y-1.5">
-                    {section.points.map((point) => (
-                      <li key={point} className="flex items-start gap-2 text-sm text-ink-muted">
-                        <span className="text-clay mt-0.5 shrink-0">&#9679;</span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+      {/* ── Program sections ── */}
+      <section className="bg-sand-raised py-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-6">
+            {service.sections.map((section, i) => (
+              <RevealScale key={section.title} delay={(i % 2) * 100} className="h-full">
+                <div className="h-full bg-sand rounded-lg p-6 border border-border transition-all duration-300 hover:-translate-y-1 hover:border-clay hover:shadow-[0_4px_12px_rgba(42,36,32,0.08),0_16px_32px_rgba(163,70,42,0.12)]">
+                  <h3 className="font-semibold text-ink text-lg mb-2">{section.title}</h3>
+                  {section.desc && (
+                    <p className="text-ink-muted text-sm leading-relaxed mb-3">{section.desc}</p>
+                  )}
+                  {section.points.length > 0 && (
+                    <ul className="space-y-2">
+                      {section.points.map((point) => (
+                        <li key={point} className="flex items-start gap-2 text-sm text-ink-muted">
+                          <span className="text-clay mt-0.5 shrink-0">&#9679;</span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </RevealScale>
             ))}
           </div>
         </div>
       </section>
 
+      {/* ── Gallery ── */}
+      {gallery.length > 0 && (
+        <section className="bg-sand py-16">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+              {gallery.map((src, idx) => (
+                <RevealScale key={`${src}-${idx}`} delay={(idx % 3) * 120}>
+                  <div className="group relative aspect-square rounded-lg overflow-hidden">
+                    <Image
+                      src={src}
+                      alt=""
+                      fill
+                      sizes="(min-width: 768px) 33vw, 50vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                  </div>
+                </RevealScale>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Goal + CTA ── */}
       <section className="bg-ink py-20">
-        <div className="max-w-3xl mx-auto px-6 text-center">
+        <Reveal className="max-w-3xl mx-auto px-6 text-center">
           <p className="text-xs uppercase tracking-widest text-clay-soft font-semibold mb-4">
             {goalLabel}
           </p>
-          <p className="text-sand text-lg md:text-xl leading-relaxed mb-10">
-            {service.goal}
-          </p>
+          <p className="text-sand text-lg md:text-xl leading-relaxed mb-10">{service.goal}</p>
           <Link
             href={`/${locale}/contact`}
-            className="inline-block px-8 py-3.5 bg-clay hover:bg-clay-deep text-sand font-semibold rounded-md transition-colors"
+            className="inline-block px-8 py-3.5 bg-clay hover:bg-clay-deep text-sand font-semibold rounded-md transition-all duration-200 hover:-translate-y-0.5"
           >
             {isAr ? "انضم إلينا" : "Join Us"}
           </Link>
-        </div>
+        </Reveal>
       </section>
     </>
   );
