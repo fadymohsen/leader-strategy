@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { findServiceBySlug, getServiceView } from "@/lib/services";
 import { Reveal, RevealSlide, RevealScale } from "@/components/Reveal";
+import { VideoGrid } from "@/components/VideoGrid";
 
 export async function generateMetadata({
   params,
@@ -168,6 +169,13 @@ export default async function ServiceDetailPage({
           </div>
         </section>
       )}
+
+      <VideoGrid
+        videos={view.videos}
+        badge={isAr ? "فيديو" : "Videos"}
+        headline={isAr ? "شاهد المزيد" : "Watch"}
+        className="bg-sand-raised py-16"
+      />
 
       {/* ── Goal + CTA ── */}
       <section className="bg-ink py-20">

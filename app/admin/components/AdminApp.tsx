@@ -1,5 +1,7 @@
 "use client";
 
+
+import { useT, LangToggle, AdminLangProvider, type AdminLang } from "../i18n";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
@@ -42,6 +44,37 @@ const SECTION_ICONS: Record<SectionKey, React.ComponentType<{ className?: string
 };
 
 export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boolean }) {
+  const [lang, setLangState] = useState<AdminLang>("ar");
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("admin-lang");
+      if (saved === "en" || saved === "ar") setLangState(saved);
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  function setLang(next: AdminLang) {
+    setLangState(next);
+    try {
+      localStorage.setItem("admin-lang", next);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  return (
+    <AdminLangProvider value={{ lang, setLang }}>
+      <div dir={lang === "ar" ? "rtl" : "ltr"} lang={lang}>
+        <AdminShell initialAuthenticated={initialAuthenticated} />
+      </div>
+    </AdminLangProvider>
+  );
+}
+
+function AdminShell({ initialAuthenticated }: { initialAuthenticated: boolean }) {
+  const t = useT();
   const [authenticated, setAuthenticated] = useState(initialAuthenticated);
   const [view, setView] = useState<View>("home");
   const [locale, setLocale] = useState<Locale>("en");
@@ -177,7 +210,8 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
   }
 
   async function handleReset(target: string) {
-    if (!confirm(`Reset ${target} back to original defaults? This cannot be undone.`)) return;
+    if (!confirm(t("Reset to original defaults? This cannot be undone.") + `
+${target}`)) return;
     try {
       const res = await fetch("/api/admin/content", {
         method: "POST",
@@ -186,7 +220,7 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
       });
       if (!res.ok) throw new Error("Reset failed");
       await loadAll();
-      showToast("ok", `Reset ${target} to defaults`);
+      showToast("ok", "Reset to defaults");
     } catch (err) {
       showToast("err", err instanceof Error ? err.message : "Reset failed");
     }
@@ -198,16 +232,18 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
 
   const isContent = CONTENT_SECTIONS.some((c) => c.key === view);
   const currentSection = CONTENT_SECTIONS.find((c) => c.key === view);
-  const title =
+  const title = t(
     currentSection?.label ??
-    (view === "media" ? "Photos" : view === "inbox" ? "Messages & Subscribers" : "Settings");
-  const subtitle =
+      (view === "media" ? "Photos" : view === "inbox" ? "Messages & Subscribers" : "Settings")
+  );
+  const subtitle = t(
     currentSection?.hint ??
-    (view === "media"
-      ? "Replace the photos used across the website"
-      : view === "inbox"
-        ? "Contact messages and newsletter sign-ups"
-        : "Password and reset options");
+      (view === "media"
+        ? "Replace the photos used across the website"
+        : view === "inbox"
+          ? "Contact messages and newsletter sign-ups"
+          : "Password and reset options")
+  );
 
   const navBtn = (active: boolean) =>
     `w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[15px] font-medium text-start transition-colors whitespace-nowrap ${
@@ -220,14 +256,14 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
       <aside className="bg-ink text-sand lg:w-64 lg:shrink-0 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto">
         <div className="px-5 py-4 lg:py-6 flex items-center justify-between lg:block">
           <div>
-            <p className="font-display text-lg leading-tight">Leader Strategies</p>
-            <p className="text-xs text-sand/60 mt-0.5">Website admin</p>
+            <p className="font-display text-lg leading-tight">{t("Leader Strategies")}</p>
+            <p className="text-xs text-sand/60 mt-0.5">{t("Website admin")}</p>
           </div>
           <button
             type="button"
             onClick={handleLogout}
             className="lg:hidden p-2 text-sand/70 hover:text-sand rounded-lg hover:bg-white/10"
-            title="Sign out"
+            title={t("Sign out")}
           >
             <LogOut className="w-4 h-4" />
           </button>
@@ -235,34 +271,34 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
 
         <nav className="px-3 pb-3 lg:pb-6 flex lg:block gap-1 overflow-x-auto lg:overflow-visible">
           <p className="hidden lg:block px-3.5 pt-2 pb-1.5 text-[11px] font-semibold uppercase tracking-wider text-sand/40">
-            Edit pages
+            {t("Edit pages")}
           </p>
           {CONTENT_SECTIONS.map((c) => {
             const Icon = SECTION_ICONS[c.key];
             return (
               <button key={c.key} type="button" onClick={() => setView(c.key)} className={navBtn(view === c.key)}>
                 <Icon className="w-[18px] h-[18px] shrink-0" />
-                <span>{c.label}</span>
+                <span>{t(c.label)}</span>
               </button>
             );
           })}
           <p className="hidden lg:block px-3.5 pt-5 pb-1.5 text-[11px] font-semibold uppercase tracking-wider text-sand/40">
-            Library & inbox
+            {t("Library & inbox")}
           </p>
           <button type="button" onClick={() => setView("media")} className={navBtn(view === "media")}>
             <ImageIcon className="w-[18px] h-[18px] shrink-0" />
-            <span>Photos</span>
+            <span>{t("Photos")}</span>
           </button>
           <button type="button" onClick={() => setView("inbox")} className={navBtn(view === "inbox")}>
             <Inbox className="w-[18px] h-[18px] shrink-0" />
-            <span>Messages</span>
+            <span>{t("Messages")}</span>
           </button>
           <p className="hidden lg:block px-3.5 pt-5 pb-1.5 text-[11px] font-semibold uppercase tracking-wider text-sand/40">
-            Account
+            {t("Account")}
           </p>
           <button type="button" onClick={() => setView("settings")} className={navBtn(view === "settings")}>
             <Settings className="w-[18px] h-[18px] shrink-0" />
-            <span>Settings</span>
+            <span>{t("Settings")}</span>
           </button>
           <button
             type="button"
@@ -270,8 +306,11 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
             className={`hidden lg:flex ${navBtn(false)}`}
           >
             <LogOut className="w-[18px] h-[18px] shrink-0" />
-            <span>Sign out</span>
+            <span>{t("Sign out")}</span>
           </button>
+          <div className="px-3.5 pt-4">
+            <LangToggle />
+          </div>
         </nav>
       </aside>
 
@@ -286,7 +325,7 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
 
             <div className="flex flex-wrap items-center gap-3">
               {isContent && (
-                <div className="flex items-center gap-1 bg-sand-raised p-1 rounded-lg border border-border" role="group" aria-label="Language">
+                <div className="flex items-center gap-1 bg-sand-raised p-1 rounded-lg border border-border" role="group" aria-label={t("Language")}>
                   {(["en", "ar"] as const).map((l) => (
                     <button
                       key={l}
@@ -307,11 +346,11 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
                   target="_blank"
                   className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-ink-muted hover:text-ink border border-border-strong rounded-lg"
                 >
-                  <span>View page</span>
+                  <span>{t("View page")}</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </Link>
               )}
-              {dirty && <span className="text-sm text-clay font-medium">● Unsaved changes</span>}
+              {dirty && <span className="text-sm text-clay font-medium">{t("● Unsaved changes")}</span>}
               <button
                 type="button"
                 onClick={handleSaveAll}
@@ -319,14 +358,14 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-clay hover:bg-clay-deep disabled:opacity-50 disabled:cursor-not-allowed text-sand text-sm font-semibold rounded-lg transition-colors"
               >
                 {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                <span>{saving ? "Saving..." : "Save & Publish"}</span>
+                <span>{saving ? t("Saving...") : t("Save & Publish")}</span>
               </button>
             </div>
           </div>
         </header>
 
         {toast && (
-          <div className="fixed bottom-6 right-6 z-50">
+          <div className="fixed bottom-6 end-6 z-50">
             <div
               className={`flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-xl text-sm font-semibold ${
                 toast.type === "ok" ? "bg-ink text-sand" : "bg-red-700 text-white"
@@ -337,7 +376,7 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
               ) : (
                 <AlertCircle className="w-4 h-4" />
               )}
-              <span>{toast.msg}</span>
+              <span>{t(toast.msg)}</span>
             </div>
           </div>
         )}
@@ -346,7 +385,7 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
           {loading || !en || !ar ? (
             <div className="flex items-center justify-center py-24 text-ink-muted gap-2">
               <Loader2 className="w-6 h-6 animate-spin" />
-              <span>Loading website data...</span>
+              <span>{t("Loading website data...")}</span>
             </div>
           ) : (
             <>
@@ -394,9 +433,9 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
                 onSubmit={handlePasswordChange}
                 className="bg-sand border border-border rounded-xl p-6 space-y-4"
               >
-                <h3 className="font-display text-lg text-ink">Change Admin Password</h3>
+                <h3 className="font-display text-lg text-ink">{t("Change Admin Password")}</h3>
                 <p className="text-xs text-ink-muted">
-                  Update the password used to sign in to this Admin Panel.
+                  {t("Update the password used to sign in to this Admin Panel.")}
                 </p>
                 <input
                   type="password"
@@ -404,7 +443,7 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
                   minLength={6}
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="New password (min 6 characters)"
+                  placeholder={t("New password (min 6 characters)")}
                   className="w-full px-3.5 py-2.5 bg-white border border-border-strong rounded-lg text-sm"
                 />
                 <button
@@ -412,14 +451,14 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
                   disabled={pwSaving}
                   className="px-4 py-2.5 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg"
                 >
-                  {pwSaving ? "Updating..." : "Update Password"}
+                  {pwSaving ? t("Updating...") : t("Update Password")}
                 </button>
               </form>
 
               <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
-                <h3 className="font-display text-lg text-ink">Reset to Defaults</h3>
+                <h3 className="font-display text-lg text-ink">{t("Reset to Defaults")}</h3>
                 <p className="text-xs text-ink-muted">
-                  Restore any section back to the original repository content if needed.
+                  {t("Restore any section back to the original repository content if needed.")}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {[
@@ -436,7 +475,7 @@ export function AdminApp({ initialAuthenticated }: { initialAuthenticated: boole
                       className="inline-flex items-center gap-1.5 px-3 py-2 border border-border-strong rounded-lg text-xs font-semibold text-ink-muted hover:text-red-700 hover:border-red-300"
                     >
                       <RotateCcw className="w-3.5 h-3.5" />
-                      <span>{r.label}</span>
+                      <span>{t(r.label)}</span>
                     </button>
                   ))}
                 </div>

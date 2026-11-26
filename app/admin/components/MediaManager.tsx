@@ -1,5 +1,7 @@
 "use client";
 
+
+import { useT } from "../i18n";
 import { useEffect, useState } from "react";
 import {
   Image as ImageIcon,
@@ -11,9 +13,10 @@ import {
   ArrowUp,
   ArrowDown,
   Loader2,
+  Film,
 } from "lucide-react";
 import type { GalleryItem, MediaSlotDefinition } from "@/lib/media";
-import { MediaPickerModal, type MediaAsset } from "./MediaPickerModal";
+import { MediaPickerModal, uploadVideo, isVideoAsset, type MediaAsset } from "./MediaPickerModal";
 
 export function MediaManager({
   media,
@@ -28,6 +31,7 @@ export function MediaManager({
   onMediaChange: (next: Record<string, string>) => void;
   onGalleryChange: (next: GalleryItem[]) => void;
 }) {
+  const t = useT();
   const [subTab, setSubTab] = useState<"slots" | "gallery" | "library">("slots");
   const [pickerTarget, setPickerTarget] = useState<
     | { type: "slot"; slot: string; label: string }
@@ -40,6 +44,7 @@ export function MediaManager({
   const [local, setLocal] = useState<MediaAsset[]>([]);
   const [loadingLib, setLoadingLib] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [videoProgress, setVideoProgress] = useState<number | null>(null);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
   const [libError, setLibError] = useState("");
 
@@ -90,7 +95,7 @@ export function MediaManager({
   }
 
   async function handleDeleteAsset(asset: MediaAsset) {
-    if (!confirm(`Delete "${asset.filename}" from Vercel Blob?`)) return;
+    if (!confirm(`${t("Delete")} "${asset.filename}"?`)) return;
     try {
       const res = await fetch("/api/admin/upload", {
         method: "DELETE",
@@ -101,6 +106,26 @@ export function MediaManager({
       await loadLibrary();
     } catch (err) {
       setLibError(err instanceof Error ? err.message : "Delete failed");
+    }
+  }
+
+  async function handleLibraryVideoUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files ?? []);
+    e.target.value = "";
+    if (files.length === 0) return;
+    setUploading(true);
+    setLibError("");
+    try {
+      for (const file of files) {
+        if (!file.type.startsWith("video/")) throw new Error(`Not a video file: ${file.name}`);
+        await uploadVideo(file, setVideoProgress);
+      }
+      await loadLibrary();
+    } catch (err) {
+      setLibError(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setUploading(false);
+      setVideoProgress(null);
     }
   }
 
@@ -134,7 +159,7 @@ export function MediaManager({
               : "bg-sand border border-border text-ink-muted hover:text-ink"
           }`}
         >
-          Website Photo Slots ({mediaSlots.length})
+          {t("Website Photo Slots (")}{mediaSlots.length})
         </button>
         <button
           type="button"
@@ -145,7 +170,7 @@ export function MediaManager({
               : "bg-sand border border-border text-ink-muted hover:text-ink"
           }`}
         >
-          News Forum Gallery ({gallery.length})
+          {t("News Forum Gallery (")}{gallery.length})
         </button>
         <button
           type="button"
@@ -156,7 +181,7 @@ export function MediaManager({
               : "bg-sand border border-border text-ink-muted hover:text-ink"
           }`}
         >
-          Media Library (Vercel Blob)
+          {t("Media Library (Vercel Blob)")}
         </button>
       </div>
 
@@ -180,7 +205,7 @@ export function MediaManager({
                         <div className="aspect-[16/10] bg-ink/5 relative overflow-hidden">
                           {removed ? (
                             <div className="w-full h-full flex items-center justify-center text-sm font-medium text-red-700 bg-red-50">
-                              Photo removed: nothing is shown
+                              {t("Photo removed: nothing is shown")}
                             </div>
                           ) : (
                             // eslint-disable-next-line @next/next/no-img-element
@@ -209,16 +234,16 @@ export function MediaManager({
                               className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg transition-colors"
                             >
                               <Upload className="w-3.5 h-3.5" />
-                              <span>Change / Upload</span>
+                              <span>{t("Change / Upload")}</span>
                             </button>
                             {!removed && (
                               <button
                                 type="button"
                                 onClick={() => onMediaChange({ ...media, [item.slot]: "" })}
                                 className="px-2.5 py-2 border border-red-200 text-red-700 hover:bg-red-50 rounded-lg text-sm font-medium"
-                                title="Remove this photo (nothing will be shown)"
+                                title={t("Remove this photo (nothing will be shown)")}
                               >
-                                Remove
+                                {t("Remove")}
                               </button>
                             )}
                             {current !== item.defaultUrl && (
@@ -226,7 +251,7 @@ export function MediaManager({
                                 type="button"
                                 onClick={() => onMediaChange({ ...media, [item.slot]: item.defaultUrl })}
                                 className="px-2.5 py-2 border border-border-strong rounded-lg text-sm text-ink-muted hover:text-ink"
-                                title="Go back to the original photo"
+                                title={t("Go back to the original photo")}
                               >
                                 {removed ? "Restore" : "Reset"}
                               </button>
@@ -248,9 +273,9 @@ export function MediaManager({
         <div className="bg-sand border border-border rounded-xl p-6 space-y-5">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-display text-lg text-ink">News Forum Gallery Photos</h3>
+              <h3 className="font-display text-lg text-ink">{t("News Forum Gallery Photos")}</h3>
               <p className="text-sm text-ink-muted">
-                Add, upload, reorder, or remove photos displayed in the News page gallery.
+                {t("Add, upload, reorder, or remove photos displayed in the News page gallery.")}
               </p>
             </div>
             <button
@@ -259,7 +284,7 @@ export function MediaManager({
               className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg transition-colors"
             >
               <Plus className="w-4 h-4" />
-              <span>Add Gallery Photos</span>
+              <span>{t("Add Gallery Photos")}</span>
             </button>
           </div>
 
@@ -276,7 +301,7 @@ export function MediaManager({
                 <div className="flex-1 space-y-2.5 min-w-0">
                   <div>
                     <label className="block text-xs font-semibold text-ink-muted uppercase">
-                      English Caption
+                      {t("English Caption")}
                     </label>
                     <input
                       type="text"
@@ -291,7 +316,7 @@ export function MediaManager({
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-ink-muted uppercase">
-                      Arabic Caption
+                      {t("Arabic Caption")}
                     </label>
                     <input
                       type="text"
@@ -311,7 +336,7 @@ export function MediaManager({
                       onClick={() => setPickerTarget({ type: "gallery", index: idx })}
                       className="px-2.5 py-1.5 bg-clay text-sand text-sm font-semibold rounded-md hover:bg-clay-deep"
                     >
-                      Change Photo
+                      {t("Change Photo")}
                     </button>
                     <button
                       type="button"
@@ -349,11 +374,24 @@ export function MediaManager({
         <div className="bg-sand border border-border rounded-xl p-6 space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h3 className="font-display text-lg text-ink">Vercel Blob Media Library</h3>
+              <h3 className="font-display text-lg text-ink">{t("Vercel Blob Media Library")}</h3>
               <p className="text-sm text-ink-muted">
-                Upload photos to Vercel Blob storage and reuse them anywhere on the site.
+                {t("Upload photos and videos to Vercel Blob storage and reuse them anywhere on the site.")}
               </p>
             </div>
+            <div className="flex flex-wrap gap-2">
+            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-ink hover:bg-ink/90 text-sand text-sm font-semibold rounded-lg cursor-pointer transition-colors">
+              <Film className="w-4 h-4" />
+              <span>{videoProgress !== null ? `${t("Uploading...")} ${videoProgress}%` : t("Upload Videos")}</span>
+              <input
+                type="file"
+                accept="video/*"
+                multiple
+                className="hidden"
+                disabled={uploading}
+                onChange={handleLibraryVideoUpload}
+              />
+            </label>
             <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg cursor-pointer transition-colors">
               {uploading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -370,29 +408,30 @@ export function MediaManager({
                 onChange={handleLibraryUpload}
               />
             </label>
+            </div>
           </div>
 
           {libError && (
             <div className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-3.5 py-2">
-              {libError}
+              {t(libError)}
             </div>
           )}
 
           {loadingLib ? (
             <div className="flex items-center justify-center py-12 text-ink-muted gap-2">
               <Loader2 className="w-5 h-5 animate-spin" />
-              <span className="text-sm">Loading media library...</span>
+              <span className="text-sm">{t("Loading media library...")}</span>
             </div>
           ) : (
             <>
               <div>
                 <h4 className="text-sm font-semibold uppercase tracking-wider text-ink-muted mb-3">
-                  Uploaded to Vercel Blob ({uploaded.length})
+                  {t("Uploaded to Vercel Blob (")}{uploaded.length})
                 </h4>
                 {uploaded.length === 0 ? (
                   <div className="border border-dashed border-border-strong rounded-xl p-8 text-center text-sm text-ink-muted">
                     <ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-40" />
-                    No photos uploaded yet. Click &ldquo;Upload Photos&rdquo; above.
+                    {t("No photos uploaded yet. Click “Upload Photos” above.")}
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -402,12 +441,23 @@ export function MediaManager({
                         className="border border-border rounded-xl overflow-hidden bg-sand-raised flex flex-col"
                       >
                         <div className="aspect-square relative">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={asset.url}
-                            alt={asset.filename}
-                            className="w-full h-full object-cover"
-                          />
+                          {isVideoAsset(asset) ? (
+                            <video
+                              src={`${asset.url}#t=0.1`}
+                              preload="metadata"
+                              muted
+                              playsInline
+                              controls
+                              className="w-full h-full object-cover bg-ink"
+                            />
+                          ) : (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={asset.url}
+                              alt={asset.filename}
+                              className="w-full h-full object-cover"
+                            />
+                          )}
                         </div>
                         <div className="p-2.5 space-y-2">
                           <p className="text-sm font-medium text-ink truncate">{asset.filename}</p>
@@ -420,12 +470,12 @@ export function MediaManager({
                               {copiedUrl === asset.url ? (
                                 <>
                                   <Check className="w-3 h-3 text-green-600" />
-                                  <span>Copied</span>
+                                  <span>{t("Copied")}</span>
                                 </>
                               ) : (
                                 <>
                                   <Copy className="w-3 h-3" />
-                                  <span>Copy URL</span>
+                                  <span>{t("Copy URL")}</span>
                                 </>
                               )}
                             </button>
@@ -433,7 +483,7 @@ export function MediaManager({
                               type="button"
                               onClick={() => handleDeleteAsset(asset)}
                               className="p-1 text-red-600 hover:bg-red-50 rounded"
-                              title="Delete from Blob"
+                              title={t("Delete from Blob")}
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -447,7 +497,7 @@ export function MediaManager({
 
               <div>
                 <h4 className="text-sm font-semibold uppercase tracking-wider text-ink-muted mb-3">
-                  Built-in Repository Photos ({local.length})
+                  {t("Built-in Repository Photos (")}{local.length})
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
                   {local.map((asset) => (
@@ -469,7 +519,7 @@ export function MediaManager({
                           type="button"
                           onClick={() => copyUrl(asset.url)}
                           className="p-1 text-ink-muted hover:text-ink shrink-0"
-                          title="Copy URL"
+                          title={t("Copy URL")}
                         >
                           {copiedUrl === asset.url ? (
                             <Check className="w-3 h-3 text-green-600" />
@@ -492,8 +542,8 @@ export function MediaManager({
         onClose={() => setPickerTarget(null)}
         title={
           pickerTarget?.type === "slot"
-            ? `Select Photo: ${pickerTarget.label}`
-            : "Select Gallery Photo"
+            ? `${t("Select Photo")}: ${pickerTarget.label}`
+            : t("Select Gallery Photo")
         }
         currentUrl={
           pickerTarget?.type === "slot"

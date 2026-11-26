@@ -635,6 +635,8 @@ export type ServiceItem = BaseDictionary["services"]["items"][number] & {
   aboutImage?: string;
   /** Gallery photos, any number. */
   gallery?: string[];
+  /** Videos: uploaded file URLs or YouTube / Vimeo links, any number. */
+  videos?: string[];
 };
 
 export type NewsArticle = BaseDictionary["news"]["articles"][number] & {
@@ -652,6 +654,10 @@ export type HomeServiceItem = BaseDictionary["home"]["services"]["items"][number
   slug?: string;
 };
 
+export type LeadershipSchoolContent = BaseDictionary["services"]["leadershipSchool"] & {
+  videos?: string[];
+};
+
 export type Dictionary = Omit<BaseDictionary, "services" | "news" | "home" | "courses"> & {
   courses: Omit<BaseDictionary["courses"], "items"> & {
     items: CourseItem[];
@@ -661,10 +667,13 @@ export type Dictionary = Omit<BaseDictionary, "services" | "news" | "home" | "co
       items: HomeServiceItem[];
     };
   };
-  services: Omit<BaseDictionary["services"], "items"> & {
+  services: Omit<BaseDictionary["services"], "items" | "leadershipSchool"> & {
     items: ServiceItem[];
+    leadershipSchool: LeadershipSchoolContent;
   };
   news: Omit<BaseDictionary["news"], "articles"> & {
     articles: NewsArticle[];
+    /** Videos shown on the News page. */
+    videos?: string[];
   };
 };

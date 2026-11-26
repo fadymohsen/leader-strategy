@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Reveal, RevealSlide, RevealScale } from "@/components/Reveal";
+import { VideoGrid } from "@/components/VideoGrid";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { getSiteMedia } from "@/lib/media";
 
@@ -136,6 +137,13 @@ export default async function LeadershipSchoolPage({
         </div>
       </section>
       )}
+
+      <VideoGrid
+        videos={(leadershipSchool.videos ?? []).filter(Boolean)}
+        badge={isAr ? "فيديو" : "Videos"}
+        headline={isAr ? "شاهد المزيد" : "Watch"}
+        className="bg-sand-raised py-16"
+      />
 
       {/* ── 5. Goal + CTA ── */}
       <section className="bg-ink py-20">

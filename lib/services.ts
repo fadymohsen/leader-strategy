@@ -38,6 +38,7 @@ export interface ServiceView {
   about: string | null;
   gallery: string[];
   badge: string | null;
+  videos: string[];
 }
 
 /**
@@ -78,6 +79,7 @@ export function resolveServiceView(
     about,
     gallery,
     badge: item.badge || meta?.defaultBadge || null,
+    videos: (item.videos ?? enItem?.videos ?? []).filter((u) => u && u.trim()),
   };
 }
 

@@ -1,5 +1,7 @@
 "use client";
 
+
+import { useT } from "../i18n";
 import { useEffect, useState } from "react";
 import { Mail, Users, Trash2, CheckCircle, Circle, Copy, Check, Loader2 } from "lucide-react";
 
@@ -21,6 +23,7 @@ interface Subscriber {
 }
 
 export function SubmissionsManager() {
+  const t = useT();
   const [messages, setMessages] = useState<ContactMessage[]>([]);
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [loading, setLoading] = useState(true);
@@ -59,7 +62,7 @@ export function SubmissionsManager() {
   }
 
   async function deleteItem(type: "message" | "subscriber", id: number) {
-    if (!confirm("Are you sure you want to delete this item?")) return;
+    if (!confirm(t("Are you sure you want to delete this item?"))) return;
     await fetch("/api/admin/submissions", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -82,7 +85,7 @@ export function SubmissionsManager() {
     return (
       <div className="flex items-center justify-center py-16 text-ink-muted gap-2">
         <Loader2 className="w-5 h-5 animate-spin" />
-        <span className="text-sm">Loading submissions...</span>
+        <span className="text-sm">{t("Loading submissions...")}</span>
       </div>
     );
   }
@@ -100,7 +103,7 @@ export function SubmissionsManager() {
           }`}
         >
           <Mail className="w-4 h-4" />
-          <span>Contact Messages ({messages.length})</span>
+          <span>{t("Contact Messages (")}{messages.length})</span>
         </button>
         <button
           type="button"
@@ -112,7 +115,7 @@ export function SubmissionsManager() {
           }`}
         >
           <Users className="w-4 h-4" />
-          <span>Newsletter Subscribers ({subscribers.length})</span>
+          <span>{t("Newsletter Subscribers (")}{subscribers.length})</span>
         </button>
       </div>
 
@@ -120,7 +123,7 @@ export function SubmissionsManager() {
         <div className="space-y-3">
           {messages.length === 0 ? (
             <div className="bg-sand border border-border rounded-xl p-10 text-center text-sm text-ink-muted">
-              No contact messages yet.
+              {t("No contact messages yet.")}
             </div>
           ) : (
             messages.map((msg) => (
@@ -134,7 +137,7 @@ export function SubmissionsManager() {
                   <div>
                     <h4 className="font-semibold text-ink text-base">{msg.subject}</h4>
                     <p className="text-sm text-ink-muted">
-                      From <span className="font-medium text-ink">{msg.name}</span> ({msg.email}) •{" "}
+                      {t("From")} <span className="font-medium text-ink">{msg.name}</span> ({msg.email}) •{" "}
                       {new Date(msg.created_at).toLocaleString()}
                     </p>
                   </div>
@@ -147,12 +150,12 @@ export function SubmissionsManager() {
                       {msg.is_read ? (
                         <>
                           <CheckCircle className="w-3.5 h-3.5 text-green-600" />
-                          <span>Read</span>
+                          <span>{t("Read")}</span>
                         </>
                       ) : (
                         <>
                           <Circle className="w-3.5 h-3.5 text-clay" />
-                          <span>Mark Read</span>
+                          <span>{t("Mark Read")}</span>
                         </>
                       )}
                     </button>
@@ -177,7 +180,7 @@ export function SubmissionsManager() {
       {tab === "subscribers" && (
         <div className="bg-sand border border-border rounded-xl p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="font-display text-lg text-ink">Subscribers</h3>
+            <h3 className="font-display text-lg text-ink">{t("Subscribers")}</h3>
             {subscribers.length > 0 && (
               <button
                 type="button"
@@ -190,7 +193,7 @@ export function SubmissionsManager() {
             )}
           </div>
           {subscribers.length === 0 ? (
-            <p className="text-sm text-ink-muted text-center py-8">No subscribers yet.</p>
+            <p className="text-sm text-ink-muted text-center py-8">{t("No subscribers yet.")}</p>
           ) : (
             <div className="divide-y divide-border">
               {subscribers.map((sub) => (
@@ -198,7 +201,7 @@ export function SubmissionsManager() {
                   <div>
                     <p className="text-sm font-medium text-ink">{sub.email}</p>
                     <p className="text-sm text-ink-faint">
-                      Locale: {sub.locale.toUpperCase()} •{" "}
+                      {t("Locale:")} {sub.locale.toUpperCase()} •{" "}
                       {new Date(sub.created_at).toLocaleDateString()}
                     </p>
                   </div>

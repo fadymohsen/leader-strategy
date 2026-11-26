@@ -6,6 +6,7 @@ import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { NewsJsonLd } from "@/components/JsonLd";
 import { NewsletterForm } from "./NewsletterForm";
+import { VideoGrid } from "@/components/VideoGrid";
 import { getNewsGallery, getSiteMedia } from "@/lib/media";
 import { photoOr } from "@/lib/photo";
 
@@ -171,6 +172,13 @@ export default async function NewsPage({
         </div>
       </section>
       )}
+
+      <VideoGrid
+        videos={(news.videos ?? []).filter(Boolean)}
+        badge={locale === "ar" ? "فيديو" : "Videos"}
+        headline={locale === "ar" ? "شاهد الفيديوهات" : "Watch our videos"}
+        className="bg-sand-raised py-20"
+      />
 
       {/* ── Newsletter ── */}
       <section className="bg-sand-raised py-16">

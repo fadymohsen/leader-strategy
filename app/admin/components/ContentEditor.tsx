@@ -1,12 +1,15 @@
 "use client";
 
+
+import { useT } from "../i18n";
 import { useState } from "react";
-import { Plus, Trash2, ArrowUp, ArrowDown, Image as ImageIcon, Eye, EyeOff } from "lucide-react";
+import { Plus, Trash2, ArrowUp, ArrowDown, Image as ImageIcon, Eye, EyeOff, Film, Link2 } from "lucide-react";
 import type { Dictionary, NewsArticle, ServiceItem } from "@/lib/i18n/en";
 import type { Locale } from "@/lib/i18n";
 import { MediaPickerModal } from "./MediaPickerModal";
 import { Panel, Tabs } from "./ui";
 import { NO_PHOTO } from "@/lib/photo";
+import { parseVideo } from "@/lib/video";
 
 export type SectionKey = "global" | "home" | "about" | "services" | "news" | "courses" | "contact";
 
@@ -62,13 +65,14 @@ function ImageField({
   onChange: (val: string) => void;
   onPick: () => void;
 }) {
+  const t = useT();
   const hidden = value === NO_PHOTO;
   return (
     <div className="space-y-1.5">
       <Field
         label={label}
         value={hidden ? "" : value}
-        placeholder={hidden ? "Removed: no photo is shown" : "Empty = default photo"}
+        placeholder={hidden ? t("Removed: no photo is shown") : t("Empty = default photo")}
         onChange={onChange}
       />
       <div className="flex flex-wrap items-center gap-2">
@@ -77,7 +81,7 @@ function ImageField({
           onClick={onPick}
           className="px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg inline-flex items-center gap-1.5"
         >
-          <ImageIcon className="w-3.5 h-3.5" /> Pick / Upload
+          <ImageIcon className="w-3.5 h-3.5" /> {t("Pick / Upload")}
         </button>
         {hidden ? (
           <button
@@ -85,7 +89,7 @@ function ImageField({
             onClick={() => onChange("")}
             className="px-3 py-1.5 border border-border-strong text-ink-muted hover:text-ink text-sm font-semibold rounded-lg"
           >
-            Show default again
+            {t("Show default again")}
           </button>
         ) : (
           <button
@@ -93,11 +97,111 @@ function ImageField({
             onClick={() => onChange(NO_PHOTO)}
             className="px-3 py-1.5 border border-red-200 text-red-700 hover:bg-red-50 text-sm font-semibold rounded-lg inline-flex items-center gap-1.5"
           >
-            <Trash2 className="w-3.5 h-3.5" /> Remove photo
+            <Trash2 className="w-3.5 h-3.5" /> {t("Remove photo")}
           </button>
         )}
-        {hidden && <span className="text-sm text-red-700">No photo will be shown</span>}
+        {hidden && <span className="text-sm text-red-700">{t("No photo will be shown")}</span>}
       </div>
+    </div>
+  );
+}
+
+function VideoListEditor({
+  videos,
+  onChange,
+  onPick,
+}: {
+  videos: string[];
+  onChange: (next: string[]) => void;
+  onPick: () => void;
+}) {
+  const t = useT();
+  const [link, setLink] = useState("");
+
+  function move(i: number, d: -1 | 1) {
+    const j = i + d;
+    if (j < 0 || j >= videos.length) return;
+    const copy = [...videos];
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+    onChange(copy);
+  }
+
+  return (
+    <div className="rounded-lg border border-dashed border-border-strong bg-sand-raised p-4 space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <p className="text-sm font-semibold text-ink">
+            {t("Videos")} ({videos.length})
+          </p>
+          <p className="text-sm text-ink-muted">
+            {t("Upload video files or paste a YouTube / Vimeo link. Add as many as you like.")}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onPick}
+          className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg"
+        >
+          <Film className="w-4 h-4" /> {t("Add videos")}
+        </button>
+      </div>
+
+      <div className="flex gap-2">
+        <input
+          type="url"
+          dir="ltr"
+          value={link}
+          onChange={(e) => setLink(e.target.value)}
+          placeholder="https://www.youtube.com/watch?v=..."
+          className="flex-1 min-w-0 px-3.5 py-2.5 text-[15px] bg-white border border-border-strong rounded-lg focus:outline-none focus:border-clay focus:ring-2 focus:ring-clay/20"
+        />
+        <button
+          type="button"
+          disabled={!link.trim()}
+          onClick={() => {
+            onChange([...videos, link.trim()]);
+            setLink("");
+          }}
+          className="inline-flex items-center gap-1.5 px-4 py-2 border border-border-strong rounded-lg text-sm font-semibold text-ink hover:border-clay disabled:opacity-40"
+        >
+          <Link2 className="w-4 h-4" /> {t("Add link")}
+        </button>
+      </div>
+
+      {videos.length > 0 && (
+        <ul className="space-y-2">
+          {videos.map((url, i) => {
+            const v = parseVideo(url);
+            return (
+              <li key={`${url}-${i}`} className="flex items-center gap-3 rounded-lg border border-border bg-white p-2">
+                <div className="relative h-14 w-24 shrink-0 overflow-hidden rounded bg-ink">
+                  {v.kind === "file" ? (
+                    <video src={`${v.src}#t=0.1`} preload="metadata" muted playsInline className="h-full w-full object-cover" />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-sand capitalize">
+                      {v.provider}
+                    </div>
+                  )}
+                </div>
+                <p className="flex-1 min-w-0 truncate text-sm text-ink-muted" dir="ltr">
+                  {url}
+                </p>
+                <div className="flex gap-1 shrink-0">
+                  <button type="button" title={t("Move up")} disabled={i === 0} onClick={() => move(i, -1)} className="p-2 border border-border-strong rounded-lg bg-sand disabled:opacity-40">
+                    <ArrowUp className="w-4 h-4" />
+                  </button>
+                  <button type="button" title={t("Move down")} disabled={i === videos.length - 1} onClick={() => move(i, 1)} className="p-2 border border-border-strong rounded-lg bg-sand disabled:opacity-40">
+                    <ArrowDown className="w-4 h-4" />
+                  </button>
+                  <button type="button" title={t("Remove")} onClick={() => onChange(videos.filter((_, k) => k !== i))} className="p-2 text-red-600 hover:bg-red-50 rounded-lg">
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 }
@@ -129,11 +233,13 @@ export function ContentEditor({
   onChangeDict: (locale: Locale, next: Dictionary) => void;
   onChangeCoursesVisible: (visible: boolean) => void;
 }) {
+  const t = useT();
   const [picker, setPicker] = useState<{
     current?: string;
     title: string;
     onSelect: (url: string) => void;
     onSelectMany?: (urls: string[]) => void;
+    kind?: "image" | "video";
   } | null>(null);
 
   const dict = locale === "en" ? en : ar;
@@ -151,36 +257,34 @@ export function ContentEditor({
 
   return (
     <div className="space-y-6">
-      {locale === "ar" && (
-        <p className="text-sm text-ink-muted bg-sand border border-border rounded-lg px-4 py-3">
-          You are editing the <strong>Arabic</strong> version. Switch language at the top to edit English.
-        </p>
-      )}
-      <p className="text-sm text-ink-muted">
-        Click a block to open it. Changes stay on this screen until you press <strong>Save &amp; Publish</strong>.
+      <p className="text-sm text-ink bg-sand border border-border rounded-lg px-4 py-3">
+        {locale === "ar"
+          ? t("You are editing the Arabic version of the site.")
+          : t("You are editing the English version of the site.")}{" "}
+        {t("Click a block to open it. Changes are only published when you press Save & Publish.")}
       </p>
 
       {/* ── GLOBAL ── */}
       {section === "global" && (
         <div className="space-y-6">
           <Panel>
-            <h3 className="font-display text-lg text-ink">Site Metadata (SEO)</h3>
+            <h3 className="font-display text-lg text-ink">{t("Site Metadata (SEO)")}</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
-                label="Site Name"
+                label={t("Site Name")}
                 dir={dir}
                 value={dict.meta.siteName}
                 onChange={(v) => update({ ...dict, meta: { ...dict.meta, siteName: v } })}
               />
               <Field
-                label="Tagline"
+                label={t("Tagline")}
                 dir={dir}
                 value={dict.meta.tagline}
                 onChange={(v) => update({ ...dict, meta: { ...dict.meta, tagline: v } })}
               />
             </div>
             <Field
-              label="Site Description"
+              label={t("Site Description")}
               dir={dir}
               multiline
               value={dict.meta.description}
@@ -189,7 +293,7 @@ export function ContentEditor({
           </Panel>
 
           <Panel>
-            <h3 className="font-display text-lg text-ink">Navigation Bar</h3>
+            <h3 className="font-display text-lg text-ink">{t("Navigation Bar")}</h3>
             <div className="grid sm:grid-cols-3 gap-4">
               {(Object.keys(dict.nav) as (keyof Dictionary["nav"])[]).map((k) => (
                 <Field
@@ -204,9 +308,9 @@ export function ContentEditor({
           </Panel>
 
           <Panel>
-            <h3 className="font-display text-lg text-ink">Footer</h3>
+            <h3 className="font-display text-lg text-ink">{t("Footer")}</h3>
             <Field
-              label="Description"
+              label={t("Description")}
               dir={dir}
               multiline
               value={dict.footer.description}
@@ -233,10 +337,10 @@ export function ContentEditor({
       {section === "home" && (
         <div className="space-y-6">
           <Panel>
-            <h3 className="font-display text-lg text-ink">Hero Section</h3>
+            <h3 className="font-display text-lg text-ink">{t("Hero Section")}</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
-                label="Brand Name"
+                label={t("Brand Name")}
                 dir={dir}
                 value={dict.home.hero.brandName}
                 onChange={(v) =>
@@ -244,7 +348,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="Badge"
+                label={t("Badge")}
                 dir={dir}
                 value={dict.home.hero.badge}
                 onChange={(v) =>
@@ -253,7 +357,7 @@ export function ContentEditor({
               />
             </div>
             <Field
-              label="Headline"
+              label={t("Headline")}
               dir={dir}
               multiline
               value={dict.home.hero.headline}
@@ -262,7 +366,7 @@ export function ContentEditor({
               }
             />
             <Field
-              label="Subheadline"
+              label={t("Subheadline")}
               dir={dir}
               multiline
               value={dict.home.hero.subheadline}
@@ -272,7 +376,7 @@ export function ContentEditor({
             />
             <div className="grid md:grid-cols-2 gap-4">
               <Field
-                label="Primary CTA"
+                label={t("Primary CTA")}
                 dir={dir}
                 value={dict.home.hero.cta}
                 onChange={(v) =>
@@ -280,7 +384,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="Secondary CTA"
+                label={t("Secondary CTA")}
                 dir={dir}
                 value={dict.home.hero.ctaSecondary}
                 onChange={(v) =>
@@ -295,7 +399,7 @@ export function ContentEditor({
 
           <Panel>
             <div className="flex items-center justify-between">
-              <h3 className="font-display text-lg text-ink">Stats Ribbon</h3>
+              <h3 className="font-display text-lg text-ink">{t("Stats Ribbon")}</h3>
               <button
                 type="button"
                 onClick={() =>
@@ -306,14 +410,14 @@ export function ContentEditor({
                 }
                 className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg"
               >
-                <Plus className="w-3.5 h-3.5" /> Add Stat
+                <Plus className="w-3.5 h-3.5" /> {t("Add Stat")}
               </button>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               {dict.home.stats.map((st, idx) => (
                 <div key={idx} className="p-4 bg-sand-raised rounded-lg border border-border space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-bold text-ink-muted">Stat #{idx + 1}</span>
+                    <span className="text-sm font-bold text-ink-muted">{t("Stat #")}{idx + 1}</span>
                     <button
                       type="button"
                       onClick={() =>
@@ -331,7 +435,7 @@ export function ContentEditor({
                     </button>
                   </div>
                   <Field
-                    label="Value"
+                    label={t("Value")}
                     dir={dir}
                     value={st.value}
                     onChange={(v) => {
@@ -341,7 +445,7 @@ export function ContentEditor({
                     }}
                   />
                   <Field
-                    label="Label"
+                    label={t("Label")}
                     dir={dir}
                     value={st.label}
                     onChange={(v) => {
@@ -357,7 +461,7 @@ export function ContentEditor({
 
           <Panel>
             <div className="flex items-center justify-between">
-              <h3 className="font-display text-lg text-ink">How We Build Leaders (Pillars)</h3>
+              <h3 className="font-display text-lg text-ink">{t("How We Build Leaders (Pillars)")}</h3>
               <button
                 type="button"
                 onClick={() =>
@@ -374,12 +478,12 @@ export function ContentEditor({
                 }
                 className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg"
               >
-                <Plus className="w-3.5 h-3.5" /> Add Pillar
+                <Plus className="w-3.5 h-3.5" /> {t("Add Pillar")}
               </button>
             </div>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
-                label="Badge"
+                label={t("Badge")}
                 dir={dir}
                 value={dict.home.pillars.badge}
                 onChange={(v) =>
@@ -390,7 +494,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="Tagline"
+                label={t("Tagline")}
                 dir={dir}
                 value={dict.home.pillars.tagline}
                 onChange={(v) =>
@@ -402,7 +506,7 @@ export function ContentEditor({
               />
             </div>
             <Field
-              label="Intro"
+              label={t("Intro")}
               dir={dir}
               multiline
               value={dict.home.pillars.intro}
@@ -417,7 +521,7 @@ export function ContentEditor({
               {dict.home.pillars.items.map((p, idx) => (
                 <div key={idx} className="p-4 bg-sand-raised rounded-lg border border-border space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-bold text-ink-muted">Pillar #{idx + 1}</span>
+                    <span className="text-sm font-bold text-ink-muted">{t("Pillar #")}{idx + 1}</span>
                     <button
                       type="button"
                       onClick={() =>
@@ -438,7 +542,7 @@ export function ContentEditor({
                     </button>
                   </div>
                   <Field
-                    label="Title"
+                    label={t("Title")}
                     dir={dir}
                     value={p.title}
                     onChange={(v) => {
@@ -451,7 +555,7 @@ export function ContentEditor({
                     }}
                   />
                   <Field
-                    label="Description"
+                    label={t("Description")}
                     dir={dir}
                     multiline
                     value={p.desc}
@@ -468,7 +572,7 @@ export function ContentEditor({
               ))}
             </div>
             <Field
-              label="Closing Goal Statement"
+              label={t("Closing Goal Statement")}
               dir={dir}
               multiline
               value={dict.home.pillars.goal}
@@ -483,7 +587,7 @@ export function ContentEditor({
 
           <Panel>
             <div className="flex items-center justify-between">
-              <h3 className="font-display text-lg text-ink">Home Sectors List</h3>
+              <h3 className="font-display text-lg text-ink">{t("Home Sectors List")}</h3>
               <button
                 type="button"
                 onClick={() =>
@@ -503,12 +607,12 @@ export function ContentEditor({
                 }
                 className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg"
               >
-                <Plus className="w-3.5 h-3.5" /> Add Home Sector
+                <Plus className="w-3.5 h-3.5" /> {t("Add Home Sector")}
               </button>
             </div>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
-                label="Headline"
+                label={t("Headline")}
                 dir={dir}
                 value={dict.home.services.headline}
                 onChange={(v) =>
@@ -519,7 +623,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="Explore CTA"
+                label={t("Explore CTA")}
                 dir={dir}
                 value={dict.home.services.cta}
                 onChange={(v) =>
@@ -531,7 +635,7 @@ export function ContentEditor({
               />
             </div>
             <Field
-              label="Subheadline"
+              label={t("Subheadline")}
               dir={dir}
               value={dict.home.services.sub}
               onChange={(v) =>
@@ -545,7 +649,7 @@ export function ContentEditor({
               {dict.home.services.items.map((item, idx) => (
                 <div key={idx} className="p-4 bg-sand-raised rounded-lg border border-border space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-ink-muted">Sector #{idx + 1}</span>
+                    <span className="text-sm font-bold text-ink-muted">{t("Sector #")}{idx + 1}</span>
                     <button
                       type="button"
                       onClick={() =>
@@ -567,7 +671,7 @@ export function ContentEditor({
                   </div>
                   <div className="grid sm:grid-cols-3 gap-3">
                     <Field
-                      label="Icon (emoji)"
+                      label={t("Icon (emoji)")}
                       value={item.icon}
                       onChange={(v) => {
                         const next = [...dict.home.services.items];
@@ -579,7 +683,7 @@ export function ContentEditor({
                       }}
                     />
                     <Field
-                      label="Title"
+                      label={t("Title")}
                       dir={dir}
                       value={item.title}
                       onChange={(v) => {
@@ -592,8 +696,8 @@ export function ContentEditor({
                       }}
                     />
                     <Field
-                      label="Optional Page Slug"
-                      placeholder="e.g. doctors"
+                      label={t("Optional Page Slug")}
+                      placeholder={t("e.g. doctors")}
                       value={item.slug ?? ""}
                       onChange={(v) => {
                         const next = [...dict.home.services.items];
@@ -606,7 +710,7 @@ export function ContentEditor({
                     />
                   </div>
                   <Field
-                    label="Description"
+                    label={t("Description")}
                     dir={dir}
                     multiline
                     value={item.desc}
@@ -625,9 +729,9 @@ export function ContentEditor({
           </Panel>
 
           <Panel>
-            <h3 className="font-display text-lg text-ink">Bottom CTA Banner</h3>
+            <h3 className="font-display text-lg text-ink">{t("Bottom CTA Banner")}</h3>
             <Field
-              label="Headline"
+              label={t("Headline")}
               dir={dir}
               value={dict.home.cta.headline}
               onChange={(v) =>
@@ -635,7 +739,7 @@ export function ContentEditor({
               }
             />
             <Field
-              label="Body"
+              label={t("Body")}
               dir={dir}
               multiline
               value={dict.home.cta.body}
@@ -645,7 +749,7 @@ export function ContentEditor({
             />
             <div className="grid sm:grid-cols-2 gap-4">
               <Field
-                label="Primary Button"
+                label={t("Primary Button")}
                 dir={dir}
                 value={dict.home.cta.donate}
                 onChange={(v) =>
@@ -653,7 +757,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="Secondary Link"
+                label={t("Secondary Link")}
                 dir={dir}
                 value={dict.home.cta.volunteer}
                 onChange={(v) =>
@@ -672,10 +776,10 @@ export function ContentEditor({
       {section === "about" && (
         <div className="space-y-6">
           <Panel>
-            <h3 className="font-display text-lg text-ink">About Hero & Story</h3>
+            <h3 className="font-display text-lg text-ink">{t("About Hero & Story")}</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
-                label="Hero Badge"
+                label={t("Hero Badge")}
                 dir={dir}
                 value={dict.about.hero.badge}
                 onChange={(v) =>
@@ -683,7 +787,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="Hero Headline"
+                label={t("Hero Headline")}
                 dir={dir}
                 value={dict.about.hero.headline}
                 onChange={(v) =>
@@ -695,7 +799,7 @@ export function ContentEditor({
               />
             </div>
             <Field
-              label="Story Headline"
+              label={t("Story Headline")}
               dir={dir}
               value={dict.about.story.headline}
               onChange={(v) =>
@@ -706,7 +810,7 @@ export function ContentEditor({
               }
             />
             <Field
-              label="Story Paragraph 1"
+              label={t("Story Paragraph 1")}
               dir={dir}
               multiline
               value={dict.about.story.body1}
@@ -718,7 +822,7 @@ export function ContentEditor({
               }
             />
             <Field
-              label="Story Paragraph 2"
+              label={t("Story Paragraph 2")}
               dir={dir}
               multiline
               value={dict.about.story.body2}
@@ -732,9 +836,9 @@ export function ContentEditor({
           </Panel>
 
           <Panel>
-            <h3 className="font-display text-lg text-ink">Mission, Vision & Slogan</h3>
+            <h3 className="font-display text-lg text-ink">{t("Mission, Vision & Slogan")}</h3>
             <Field
-              label="Section Headline"
+              label={t("Section Headline")}
               dir={dir}
               value={dict.about.mission.headline}
               onChange={(v) =>
@@ -747,7 +851,7 @@ export function ContentEditor({
             <div className="grid md:grid-cols-3 gap-4">
               <div className="space-y-3 p-4 bg-sand-raised rounded-lg border border-border">
                 <Field
-                  label="Mission Title"
+                  label={t("Mission Title")}
                   dir={dir}
                   value={dict.about.mission.mission.title}
                   onChange={(v) =>
@@ -764,7 +868,7 @@ export function ContentEditor({
                   }
                 />
                 <Field
-                  label="Mission Body"
+                  label={t("Mission Body")}
                   dir={dir}
                   multiline
                   value={dict.about.mission.mission.body}
@@ -784,7 +888,7 @@ export function ContentEditor({
               </div>
               <div className="space-y-3 p-4 bg-sand-raised rounded-lg border border-border">
                 <Field
-                  label="Vision Title"
+                  label={t("Vision Title")}
                   dir={dir}
                   value={dict.about.mission.vision.title}
                   onChange={(v) =>
@@ -801,7 +905,7 @@ export function ContentEditor({
                   }
                 />
                 <Field
-                  label="Vision Body"
+                  label={t("Vision Body")}
                   dir={dir}
                   multiline
                   value={dict.about.mission.vision.body}
@@ -821,7 +925,7 @@ export function ContentEditor({
               </div>
               <div className="space-y-3 p-4 bg-sand-raised rounded-lg border border-border">
                 <Field
-                  label="Slogan Title"
+                  label={t("Slogan Title")}
                   dir={dir}
                   value={dict.about.slogan.title}
                   onChange={(v) =>
@@ -832,7 +936,7 @@ export function ContentEditor({
                   }
                 />
                 <Field
-                  label="Slogan Quote"
+                  label={t("Slogan Quote")}
                   dir={dir}
                   value={dict.about.slogan.body}
                   onChange={(v) =>
@@ -843,7 +947,7 @@ export function ContentEditor({
                   }
                 />
                 <Field
-                  label="Slogan Description"
+                  label={t("Slogan Description")}
                   dir={dir}
                   multiline
                   value={dict.about.slogan.desc}
@@ -860,7 +964,7 @@ export function ContentEditor({
 
           <Panel>
             <div className="flex items-center justify-between">
-              <h3 className="font-display text-lg text-ink">Core Values</h3>
+              <h3 className="font-display text-lg text-ink">{t("Core Values")}</h3>
               <button
                 type="button"
                 onClick={() =>
@@ -874,11 +978,11 @@ export function ContentEditor({
                 }
                 className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg"
               >
-                <Plus className="w-3.5 h-3.5" /> Add Value
+                <Plus className="w-3.5 h-3.5" /> {t("Add Value")}
               </button>
             </div>
             <Field
-              label="Values Section Headline"
+              label={t("Values Section Headline")}
               dir={dir}
               value={dict.about.valuesHeadline}
               onChange={(v) => update({ ...dict, about: { ...dict.about, valuesHeadline: v } })}
@@ -887,7 +991,7 @@ export function ContentEditor({
               {dict.about.values.map((val, idx) => (
                 <div key={idx} className="p-4 bg-sand-raised rounded-lg border border-border space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-bold text-ink-muted">Value #{idx + 1}</span>
+                    <span className="text-sm font-bold text-ink-muted">{t("Value #")}{idx + 1}</span>
                     <button
                       type="button"
                       onClick={() =>
@@ -905,7 +1009,7 @@ export function ContentEditor({
                     </button>
                   </div>
                   <Field
-                    label="Title"
+                    label={t("Title")}
                     dir={dir}
                     value={val.title}
                     onChange={(v) => {
@@ -915,7 +1019,7 @@ export function ContentEditor({
                     }}
                   />
                   <Field
-                    label="Description"
+                    label={t("Description")}
                     dir={dir}
                     multiline
                     value={val.desc}
@@ -932,7 +1036,7 @@ export function ContentEditor({
 
           <Panel>
             <div className="flex items-center justify-between">
-              <h3 className="font-display text-lg text-ink">About Stats & Board Team</h3>
+              <h3 className="font-display text-lg text-ink">{t("About Stats & Board Team")}</h3>
               <button
                 type="button"
                 onClick={() =>
@@ -952,11 +1056,11 @@ export function ContentEditor({
                 }
                 className="inline-flex items-center gap-1 px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg"
               >
-                <Plus className="w-3.5 h-3.5" /> Add Team Member
+                <Plus className="w-3.5 h-3.5" /> {t("Add Team Member")}
               </button>
             </div>
             <Field
-              label="Sector Section Title"
+              label={t("Sector Section Title")}
               dir={dir}
               value={dict.about.sectorSectionTitle}
               onChange={(v) =>
@@ -967,7 +1071,7 @@ export function ContentEditor({
               {dict.about.team.members.map((m, idx) => (
                 <div key={idx} className="p-4 bg-sand-raised rounded-lg border border-border space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-bold text-ink-muted">Member #{idx + 1}</span>
+                    <span className="text-sm font-bold text-ink-muted">{t("Member #")}{idx + 1}</span>
                     <button
                       type="button"
                       onClick={() =>
@@ -988,7 +1092,7 @@ export function ContentEditor({
                     </button>
                   </div>
                   <Field
-                    label="Name"
+                    label={t("Name")}
                     dir={dir}
                     value={m.name}
                     onChange={(v) => {
@@ -1001,7 +1105,7 @@ export function ContentEditor({
                     }}
                   />
                   <Field
-                    label="Role"
+                    label={t("Role")}
                     dir={dir}
                     value={m.role}
                     onChange={(v) => {
@@ -1014,7 +1118,7 @@ export function ContentEditor({
                     }}
                   />
                   <Field
-                    label="Bio"
+                    label={t("Bio")}
                     dir={dir}
                     multiline
                     value={m.bio}
@@ -1038,10 +1142,10 @@ export function ContentEditor({
       {section === "services" && (
         <div className="space-y-6">
           <Panel>
-            <h3 className="font-display text-lg text-ink">Services Page Header & CTA</h3>
+            <h3 className="font-display text-lg text-ink">{t("Services Page Header & CTA")}</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
-                label="Hero Badge"
+                label={t("Hero Badge")}
                 dir={dir}
                 value={dict.services.hero.badge}
                 onChange={(v) =>
@@ -1052,14 +1156,14 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="Goal Label"
+                label={t("Goal Label")}
                 dir={dir}
                 value={dict.services.goalLabel}
                 onChange={(v) => update({ ...dict, services: { ...dict.services, goalLabel: v } })}
               />
             </div>
             <Field
-              label="Hero Headline"
+              label={t("Hero Headline")}
               dir={dir}
               value={dict.services.hero.headline}
               onChange={(v) =>
@@ -1070,7 +1174,7 @@ export function ContentEditor({
               }
             />
             <Field
-              label="Intro Banner"
+              label={t("Intro Banner")}
               dir={dir}
               multiline
               value={dict.services.intro}
@@ -1078,7 +1182,7 @@ export function ContentEditor({
             />
             <div className="grid md:grid-cols-3 gap-4">
               <Field
-                label="CTA Headline"
+                label={t("CTA Headline")}
                 dir={dir}
                 value={dict.services.cta.headline}
                 onChange={(v) =>
@@ -1089,7 +1193,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="CTA Body"
+                label={t("CTA Body")}
                 dir={dir}
                 value={dict.services.cta.body}
                 onChange={(v) =>
@@ -1100,7 +1204,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="CTA Button"
+                label={t("CTA Button")}
                 dir={dir}
                 value={dict.services.cta.link}
                 onChange={(v) =>
@@ -1118,10 +1222,10 @@ export function ContentEditor({
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h3 className="font-display text-lg text-ink">
-                  Services & Sectors ({dict.services.items.length})
+                  {t("Services & Sectors (")}{dict.services.items.length})
                 </h3>
                 <p className="text-sm text-ink-muted">
-                  Add new services, edit sections & points, or attach a custom slug and photo.
+                  {t("Add new services, edit sections & points, or attach a custom slug and photo.")}
                 </p>
               </div>
               <button
@@ -1143,7 +1247,7 @@ export function ContentEditor({
                 }}
                 className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg"
               >
-                <Plus className="w-4 h-4" /> Add New Service
+                <Plus className="w-4 h-4" /> {t("Add New Service")}
               </button>
             </div>
 
@@ -1165,7 +1269,7 @@ export function ContentEditor({
                         <div className="min-w-0">
                           <p className="font-semibold text-ink text-base truncate">{item.title || "Untitled service"}</p>
                           <p className="text-sm text-ink-muted truncate">
-                            {item.sections.length} sections
+                            {item.sections.length} {t("sections")}
                             {item.slug ? ` · /services/${item.slug}` : ""}
                           </p>
                         </div>
@@ -1173,7 +1277,7 @@ export function ContentEditor({
                       <div className="flex items-center gap-1.5">
                         <button
                           type="button"
-                          title="Move up"
+                          title={t("Move up")}
                           onClick={() =>
                             update({
                               ...dict,
@@ -1187,7 +1291,7 @@ export function ContentEditor({
                         </button>
                         <button
                           type="button"
-                          title="Move down"
+                          title={t("Move down")}
                           onClick={() =>
                             update({
                               ...dict,
@@ -1201,9 +1305,9 @@ export function ContentEditor({
                         </button>
                         <button
                           type="button"
-                          title="Delete service"
+                          title={t("Delete service")}
                           onClick={() => {
-                            if (!confirm(`Delete service "${item.title}"?`)) return;
+                            if (!confirm(`${t("Delete service")} "${item.title}"?`)) return;
                             update({
                               ...dict,
                               services: {
@@ -1228,33 +1332,33 @@ export function ContentEditor({
                             <>
                               <div className="grid sm:grid-cols-[6rem_1fr] gap-4">
                                 <Field
-                                  label="Icon"
+                                  label={t("Icon")}
                                   value={item.icon}
                                   onChange={(v) => updateService({ icon: v })}
                                 />
                                 <Field
-                                  label="Title"
+                                  label={t("Title")}
                                   dir={dir}
                                   value={item.title}
                                   onChange={(v) => updateService({ title: v })}
                                 />
                               </div>
                               <Field
-                                label="Intro (top of the service page)"
+                                label={t("Intro (top of the service page)")}
                                 dir={dir}
                                 multiline
                                 value={item.intro}
                                 onChange={(v) => updateService({ intro: v })}
                               />
                               <Field
-                                label="Goal (bottom of the service page)"
+                                label={t("Goal (bottom of the service page)")}
                                 dir={dir}
                                 multiline
                                 value={item.goal}
                                 onChange={(v) => updateService({ goal: v })}
                               />
                               <Field
-                                label="Tags (comma separated)"
+                                label={t("Tags (comma separated)")}
                                 dir={dir}
                                 value={item.tags.join(", ")}
                                 onChange={(v) =>
@@ -1275,37 +1379,37 @@ export function ContentEditor({
                           content: (
                             <>
                               <Field
-                                label="Card summary (shown on the Services page)"
+                                label={t("Card summary (shown on the Services page)")}
                                 dir={dir}
                                 multiline
                                 value={item.brief ?? ""}
-                                placeholder="Short summary. Empty = uses the Intro"
+                                placeholder={t("Short summary. Empty = uses the Intro")}
                                 onChange={(v) => updateService({ brief: v })}
                               />
                               <div className="grid sm:grid-cols-2 gap-4">
                                 <Field
-                                  label="Small label above the page title"
+                                  label={t("Small label above the page title")}
                                   dir={dir}
                                   value={item.badge ?? ""}
-                                  placeholder="Empty = default"
+                                  placeholder={t("Empty = default")}
                                   onChange={(v) => updateService({ badge: v })}
                                 />
                                 <Field
-                                  label="Heading above the overview text"
+                                  label={t("Heading above the overview text")}
                                   dir={dir}
                                   value={item.aboutHeading ?? ""}
-                                  placeholder="Empty = default"
+                                  placeholder={t("Empty = default")}
                                   onChange={(v) => updateService({ aboutHeading: v })}
                                 />
                               </div>
                               <Field
-                                label="Page address (slug)"
-                                placeholder="e.g. youth-ministry"
+                                label={t("Page address (slug)")}
+                                placeholder={t("e.g. youth-ministry")}
                                 value={item.slug ?? ""}
                                 onChange={(v) => updateService({ slug: v })}
                               />
                               <p className="text-sm text-ink-muted">
-                                Leave the address unchanged for the built-in services, or their page will stop working.
+                                {t("Leave the address unchanged for the built-in services, or their page will stop working.")}
                               </p>
                             </>
                           ),
@@ -1316,42 +1420,41 @@ export function ContentEditor({
                           content: (
                             <>
                               <p className="text-sm text-ink-muted">
-                                Set photos once in the English version and they also apply to Arabic. Empty = the
-                                default photo from the Photos library.
+                                {t("Set photos once in the English version and they also apply to Arabic. Empty = the default photo from the Photos library.")}
                               </p>
                               <div className="grid sm:grid-cols-2 gap-4">
                                 <ImageField
-                                  label="Main photo (card + page top)"
+                                  label={t("Main photo (card + page top)")}
                                   value={item.image ?? ""}
                                   onChange={(v) => updateService({ image: v })}
                                   onPick={() =>
                                     setPicker({
                                       current: item.image && item.image !== NO_PHOTO ? item.image : undefined,
-                                      title: `Main photo for ${item.title}`,
+                                      title: `${t("Main photo for")} ${item.title}`,
                                       onSelect: (url) => updateService({ image: url }),
                                     })
                                   }
                                 />
                                 <ImageField
-                                  label="Logo"
+                                  label={t("Logo")}
                                   value={item.logo ?? ""}
                                   onChange={(v) => updateService({ logo: v })}
                                   onPick={() =>
                                     setPicker({
                                       current: item.logo && item.logo !== NO_PHOTO ? item.logo : undefined,
-                                      title: `Logo for ${item.title}`,
+                                      title: `${t("Logo for")} ${item.title}`,
                                       onSelect: (url) => updateService({ logo: url }),
                                     })
                                   }
                                 />
                                 <ImageField
-                                  label="Overview photo"
+                                  label={t("Overview photo")}
                                   value={item.aboutImage ?? ""}
                                   onChange={(v) => updateService({ aboutImage: v })}
                                   onPick={() =>
                                     setPicker({
                                       current: item.aboutImage && item.aboutImage !== NO_PHOTO ? item.aboutImage : undefined,
-                                      title: `Overview photo for ${item.title}`,
+                                      title: `${t("Overview photo for")} ${item.title}`,
                                       onSelect: (url) => updateService({ aboutImage: url }),
                                     })
                                   }
@@ -1362,14 +1465,16 @@ export function ContentEditor({
                                 <div className="flex flex-wrap items-center justify-between gap-2">
                                   <div>
                                     <p className="text-sm font-semibold text-ink">
-                                      Gallery photos ({(item.gallery ?? []).length})
+                                      {t("Gallery photos (")}{(item.gallery ?? []).length})
                                     </p>
                                     <p className="text-sm text-ink-muted">
-                                      {item.gallery === undefined
-                                        ? "Showing the default photos. Add your own, or remove the defaults."
-                                        : item.gallery.length === 0
-                                          ? "No gallery is shown on this page."
-                                          : "Add as many as you like."}
+                                      {t(
+                                        item.gallery === undefined
+                                          ? "Showing the default photos. Add your own, or remove the defaults."
+                                          : item.gallery.length === 0
+                                            ? "No gallery is shown on this page."
+                                            : "Add as many as you like."
+                                      )}
                                     </p>
                                   </div>
                                   <div className="flex flex-wrap gap-2">
@@ -1379,7 +1484,7 @@ export function ContentEditor({
                                         onClick={() => updateService({ gallery: [] })}
                                         className="px-3 py-2 border border-red-200 text-red-700 hover:bg-red-50 text-sm font-semibold rounded-lg inline-flex items-center gap-1.5"
                                       >
-                                        <Trash2 className="w-3.5 h-3.5" /> Remove default photos
+                                        <Trash2 className="w-3.5 h-3.5" /> {t("Remove default photos")}
                                       </button>
                                     )}
                                     {item.gallery !== undefined && item.gallery.length === 0 && (
@@ -1388,14 +1493,14 @@ export function ContentEditor({
                                         onClick={() => updateService({ gallery: undefined })}
                                         className="px-3 py-2 border border-border-strong text-ink-muted hover:text-ink text-sm font-semibold rounded-lg"
                                       >
-                                        Show default photos again
+                                        {t("Show default photos again")}
                                       </button>
                                     )}
                                     <button
                                       type="button"
                                       onClick={() =>
                                         setPicker({
-                                          title: `Add photos to ${item.title}`,
+                                          title: `${t("Add photos to")} ${item.title}`,
                                           onSelect: () => {},
                                           onSelectMany: (urls) =>
                                             updateService({ gallery: [...(item.gallery ?? []), ...urls] }),
@@ -1403,7 +1508,7 @@ export function ContentEditor({
                                       }
                                       className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg"
                                     >
-                                      <Plus className="w-4 h-4" /> Add photos
+                                      <Plus className="w-4 h-4" /> {t("Add photos")}
                                     </button>
                                   </div>
                                 </div>
@@ -1422,7 +1527,7 @@ export function ContentEditor({
                                             <div className="flex gap-1">
                                               <button
                                                 type="button"
-                                                title="Move earlier"
+                                                title={t("Move earlier")}
                                                 disabled={gIdx === 0}
                                                 onClick={() => updateService({ gallery: moveItem(list, gIdx, -1) })}
                                                 className="p-1 rounded bg-sand/90 disabled:opacity-40"
@@ -1431,7 +1536,7 @@ export function ContentEditor({
                                               </button>
                                               <button
                                                 type="button"
-                                                title="Move later"
+                                                title={t("Move later")}
                                                 disabled={gIdx === list.length - 1}
                                                 onClick={() => updateService({ gallery: moveItem(list, gIdx, 1) })}
                                                 className="p-1 rounded bg-sand/90 disabled:opacity-40"
@@ -1441,7 +1546,7 @@ export function ContentEditor({
                                             </div>
                                             <button
                                               type="button"
-                                              title="Remove photo"
+                                              title={t("Remove photo")}
                                               onClick={() =>
                                                 updateService({ gallery: list.filter((_, i) => i !== gIdx) })
                                               }
@@ -1460,6 +1565,26 @@ export function ContentEditor({
                           ),
                         },
                         {
+                          key: "videos",
+                          label: "Videos",
+                          count: (item.videos ?? []).length,
+                          content: (
+                            <VideoListEditor
+                              videos={item.videos ?? []}
+                              onChange={(next) => updateService({ videos: next })}
+                              onPick={() =>
+                                setPicker({
+                                  kind: "video",
+                                  title: `${t("Add videos to")} ${item.title}`,
+                                  onSelect: () => {},
+                                  onSelectMany: (urls) =>
+                                    updateService({ videos: [...(item.videos ?? []), ...urls] }),
+                                })
+                              }
+                            />
+                          ),
+                        },
+                        {
                           key: "sections",
                           label: "Sections",
                           count: item.sections.length,
@@ -1473,11 +1598,11 @@ export function ContentEditor({
                                   >
                                     <div className="flex justify-between items-center">
                                       <span className="text-sm font-semibold text-ink-muted">
-                                        Section {sIdx + 1}
+                                        {t("Section")} {sIdx + 1}
                                       </span>
                                       <button
                                         type="button"
-                                        title="Delete section"
+                                        title={t("Delete section")}
                                         onClick={() =>
                                           updateService({
                                             sections: item.sections.filter((_, i) => i !== sIdx),
@@ -1489,7 +1614,7 @@ export function ContentEditor({
                                       </button>
                                     </div>
                                     <Field
-                                      label="Title"
+                                      label={t("Title")}
                                       dir={dir}
                                       value={sec.title}
                                       onChange={(v) => {
@@ -1499,7 +1624,7 @@ export function ContentEditor({
                                       }}
                                     />
                                     <Field
-                                      label="Description"
+                                      label={t("Description")}
                                       dir={dir}
                                       multiline
                                       value={sec.desc}
@@ -1510,7 +1635,7 @@ export function ContentEditor({
                                       }}
                                     />
                                     <Field
-                                      label="Bullet points (one per line)"
+                                      label={t("Bullet points (one per line)")}
                                       dir={dir}
                                       multiline
                                       value={sec.points.join("\n")}
@@ -1535,7 +1660,7 @@ export function ContentEditor({
                                 }
                                 className="w-full py-3 border-2 border-dashed border-border-strong rounded-lg text-sm font-semibold text-clay hover:border-clay hover:bg-clay-soft/40 inline-flex items-center justify-center gap-1.5"
                               >
-                                <Plus className="w-4 h-4" /> Add section
+                                <Plus className="w-4 h-4" /> {t("Add section")}
                               </button>
                             </>
                           ),
@@ -1550,10 +1675,10 @@ export function ContentEditor({
 
           {/* Leadership School */}
           <Panel>
-            <h3 className="font-display text-lg text-ink">Leadership School Sub-page</h3>
+            <h3 className="font-display text-lg text-ink">{t("Leadership School Sub-page")}</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
-                label="Badge"
+                label={t("Badge")}
                 dir={dir}
                 value={dict.services.leadershipSchool.badge}
                 onChange={(v) =>
@@ -1567,7 +1692,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="Headline"
+                label={t("Headline")}
                 dir={dir}
                 value={dict.services.leadershipSchool.headline}
                 onChange={(v) =>
@@ -1582,7 +1707,7 @@ export function ContentEditor({
               />
             </div>
             <Field
-              label="Subheadline"
+              label={t("Subheadline")}
               dir={dir}
               multiline
               value={dict.services.leadershipSchool.sub}
@@ -1597,7 +1722,7 @@ export function ContentEditor({
               }
             />
             <Field
-              label="About Text"
+              label={t("About Text")}
               dir={dir}
               multiline
               value={dict.services.leadershipSchool.about}
@@ -1612,7 +1737,7 @@ export function ContentEditor({
               }
             />
             <Field
-              label="Goal"
+              label={t("Goal")}
               dir={dir}
               multiline
               value={dict.services.leadershipSchool.goal}
@@ -1630,7 +1755,7 @@ export function ContentEditor({
             <div className="space-y-3 pt-2 border-t border-border">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-bold uppercase tracking-wider text-ink-muted">
-                  Program Sections ({dict.services.leadershipSchool.sections.length})
+                  {t("Program Sections (")}{dict.services.leadershipSchool.sections.length})
                 </span>
                 <button
                   type="button"
@@ -1651,7 +1776,7 @@ export function ContentEditor({
                   }
                   className="text-sm font-semibold text-clay hover:underline inline-flex items-center gap-1"
                 >
-                  <Plus className="w-3.5 h-3.5" /> Add Section
+                  <Plus className="w-3.5 h-3.5" /> {t("Add Section")}
                 </button>
               </div>
               {dict.services.leadershipSchool.sections.map((sec, i) => {
@@ -1667,24 +1792,24 @@ export function ContentEditor({
                 return (
                   <div key={i} className="rounded-lg border border-border bg-sand-raised p-4 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-semibold text-ink-muted">Section {i + 1}</span>
+                      <span className="text-sm font-semibold text-ink-muted">{t("Section")} {i + 1}</span>
                       <button
                         type="button"
                         onClick={() => setSections(list.filter((_, k) => k !== i))}
                         className="p-1.5 text-red-600 hover:bg-red-50 rounded"
-                        aria-label="Delete section"
+                        aria-label={t("Delete section")}
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                     <Field
-                      label="Title"
+                      label={t("Title")}
                       dir={dir}
                       value={sec.title}
                       onChange={(v) => setSections(list.map((x, k) => (k === i ? { ...x, title: v } : x)))}
                     />
                     <Field
-                      label="Description"
+                      label={t("Description")}
                       dir={dir}
                       multiline
                       value={sec.desc}
@@ -1694,6 +1819,36 @@ export function ContentEditor({
                 );
               })}
             </div>
+            <VideoListEditor
+              videos={dict.services.leadershipSchool.videos ?? []}
+              onChange={(next) =>
+                update({
+                  ...dict,
+                  services: {
+                    ...dict.services,
+                    leadershipSchool: { ...dict.services.leadershipSchool, videos: next },
+                  },
+                })
+              }
+              onPick={() =>
+                setPicker({
+                  kind: "video",
+                  title: t("Add videos"),
+                  onSelect: () => {},
+                  onSelectMany: (urls) =>
+                    update({
+                      ...dict,
+                      services: {
+                        ...dict.services,
+                        leadershipSchool: {
+                          ...dict.services.leadershipSchool,
+                          videos: [...(dict.services.leadershipSchool.videos ?? []), ...urls],
+                        },
+                      },
+                    }),
+                })
+              }
+            />
           </Panel>
         </div>
       )}
@@ -1702,10 +1857,10 @@ export function ContentEditor({
       {section === "news" && (
         <div className="space-y-6">
           <Panel>
-            <h3 className="font-display text-lg text-ink">News Page Headers</h3>
+            <h3 className="font-display text-lg text-ink">{t("News Page Headers")}</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Field
-                label="Hero Badge"
+                label={t("Hero Badge")}
                 dir={dir}
                 value={dict.news.hero.badge}
                 onChange={(v) =>
@@ -1713,7 +1868,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="Hero Headline"
+                label={t("Hero Headline")}
                 dir={dir}
                 value={dict.news.hero.headline}
                 onChange={(v) =>
@@ -1724,7 +1879,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="Forum Gallery Badge"
+                label={t("Forum Gallery Badge")}
                 dir={dir}
                 value={dict.news.forum.badge}
                 onChange={(v) =>
@@ -1732,7 +1887,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="Forum Gallery Headline"
+                label={t("Forum Gallery Headline")}
                 dir={dir}
                 value={dict.news.forum.headline}
                 onChange={(v) =>
@@ -1743,7 +1898,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="Newsletter Headline"
+                label={t("Newsletter Headline")}
                 dir={dir}
                 value={dict.news.newsletter.headline}
                 onChange={(v) =>
@@ -1754,7 +1909,7 @@ export function ContentEditor({
                 }
               />
               <Field
-                label="Newsletter Description"
+                label={t("Newsletter Description")}
                 dir={dir}
                 value={dict.news.newsletter.desc}
                 onChange={(v) =>
@@ -1771,10 +1926,10 @@ export function ContentEditor({
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h3 className="font-display text-lg text-ink">
-                  News Articles ({dict.news.articles.length})
+                  {t("News Articles (")}{dict.news.articles.length})
                 </h3>
                 <p className="text-sm text-ink-muted">
-                  Add news stories, upload cover photos, reorder, or delete articles.
+                  {t("Add news stories, upload cover photos, reorder, or delete articles.")}
                 </p>
               </div>
               <button
@@ -1795,7 +1950,7 @@ export function ContentEditor({
                 }}
                 className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg"
               >
-                <Plus className="w-4 h-4" /> Add News Article
+                <Plus className="w-4 h-4" /> {t("Add News Article")}
               </button>
             </div>
 
@@ -1811,7 +1966,7 @@ export function ContentEditor({
                   <Panel key={idx} variant="item">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <span className="text-sm font-bold text-ink-muted">
-                        Article #{idx + 1} {idx === 0 ? "(Featured)" : ""}
+                        {t("Article #")}{idx + 1} {idx === 0 ? "(Featured)" : ""}
                       </span>
                       <div className="flex items-center gap-1.5">
                         <button
@@ -1843,7 +1998,7 @@ export function ContentEditor({
                         <button
                           type="button"
                           onClick={() => {
-                            if (!confirm(`Delete article "${art.title}"?`)) return;
+                            if (!confirm(`${t("Delete article")} "${art.title}"?`)) return;
                             update({
                               ...dict,
                               news: {
@@ -1861,33 +2016,33 @@ export function ContentEditor({
 
                     <div className="grid sm:grid-cols-3 gap-3">
                       <Field
-                        label="Date"
+                        label={t("Date")}
                         dir={dir}
                         value={art.date}
                         onChange={(v) => updateArt({ date: v })}
                       />
                       <Field
-                        label="Category"
+                        label={t("Category")}
                         dir={dir}
                         value={art.category}
                         onChange={(v) => updateArt({ category: v })}
                       />
                       <Field
-                        label="Service Link Slug (optional)"
-                        placeholder="e.g. lawyers, isp"
+                        label={t("Service Link Slug (optional)")}
+                        placeholder={t("e.g. lawyers, isp")}
                         value={art.slug}
                         onChange={(v) => updateArt({ slug: v })}
                       />
                     </div>
 
                     <Field
-                      label="Title"
+                      label={t("Title")}
                       dir={dir}
                       value={art.title}
                       onChange={(v) => updateArt({ title: v })}
                     />
                     <Field
-                      label="Excerpt"
+                      label={t("Excerpt")}
                       dir={dir}
                       multiline
                       value={art.excerpt}
@@ -1895,13 +2050,13 @@ export function ContentEditor({
                     />
 
                     <ImageField
-                      label="Article photo"
+                      label={t("Article photo")}
                       value={art.image ?? ""}
                       onChange={(v) => updateArt({ image: v })}
                       onPick={() =>
                         setPicker({
                           current: art.image && art.image !== NO_PHOTO ? art.image : undefined,
-                          title: `Photo for: ${art.title}`,
+                          title: `${t("Photo for")}: ${art.title}`,
                           onSelect: (url) => updateArt({ image: url }),
                         })
                       }
@@ -1911,6 +2066,23 @@ export function ContentEditor({
               })}
             </div>
           </Panel>
+
+          <Panel>
+            <h3 className="font-display text-lg text-ink">{t("News Videos")}</h3>
+            <VideoListEditor
+              videos={dict.news.videos ?? []}
+              onChange={(next) => update({ ...dict, news: { ...dict.news, videos: next } })}
+              onPick={() =>
+                setPicker({
+                  kind: "video",
+                  title: t("Add videos"),
+                  onSelect: () => {},
+                  onSelectMany: (urls) =>
+                    update({ ...dict, news: { ...dict.news, videos: [...(dict.news.videos ?? []), ...urls] } }),
+                })
+              }
+            />
+          </Panel>
         </div>
       )}
 
@@ -1919,9 +2091,9 @@ export function ContentEditor({
         <div className="space-y-6">
           <div className="bg-sand border border-border rounded-xl p-6 flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h3 className="font-display text-lg text-ink">Courses Page Visibility</h3>
+              <h3 className="font-display text-lg text-ink">{t("Courses Page Visibility")}</h3>
               <p className="text-sm text-ink-muted">
-                Toggle whether the Courses page & navigation link are visible on the public website.
+                {t("Toggle whether the Courses page & navigation link are visible on the public website.")}
               </p>
             </div>
             <button
@@ -1940,7 +2112,7 @@ export function ContentEditor({
 
           <Panel>
             <div className="flex items-center justify-between">
-              <h3 className="font-display text-lg text-ink">Courses ({dict.courses.items.length})</h3>
+              <h3 className="font-display text-lg text-ink">{t("Courses (")}{dict.courses.items.length})</h3>
               <button
                 type="button"
                 onClick={() =>
@@ -1964,14 +2136,14 @@ export function ContentEditor({
                 }
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg"
               >
-                <Plus className="w-3.5 h-3.5" /> Add Course
+                <Plus className="w-3.5 h-3.5" /> {t("Add Course")}
               </button>
             </div>
             <div className="grid md:grid-cols-2 gap-4">
               {dict.courses.items.map((c, idx) => (
                 <div key={idx} className="p-4 bg-sand-raised rounded-xl border border-border space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-bold text-ink-muted">Course #{idx + 1}</span>
+                    <span className="text-sm font-bold text-ink-muted">{t("Course #")}{idx + 1}</span>
                     <button
                       type="button"
                       onClick={() =>
@@ -1990,7 +2162,7 @@ export function ContentEditor({
                   </div>
                   <div className="grid grid-cols-3 gap-2">
                     <Field
-                      label="Icon"
+                      label={t("Icon")}
                       value={c.icon}
                       onChange={(v) => {
                         const next = [...dict.courses.items];
@@ -1999,7 +2171,7 @@ export function ContentEditor({
                       }}
                     />
                     <Field
-                      label="Level"
+                      label={t("Level")}
                       dir={dir}
                       value={c.level}
                       onChange={(v) => {
@@ -2009,7 +2181,7 @@ export function ContentEditor({
                       }}
                     />
                     <Field
-                      label="Duration"
+                      label={t("Duration")}
                       dir={dir}
                       value={c.duration}
                       onChange={(v) => {
@@ -2020,7 +2192,7 @@ export function ContentEditor({
                     />
                   </div>
                   <Field
-                    label="Title"
+                    label={t("Title")}
                     dir={dir}
                     value={c.title}
                     onChange={(v) => {
@@ -2030,7 +2202,7 @@ export function ContentEditor({
                     }}
                   />
                   <Field
-                    label="Description"
+                    label={t("Description")}
                     dir={dir}
                     multiline
                     value={c.desc}
@@ -2041,7 +2213,7 @@ export function ContentEditor({
                     }}
                   />
                   <ImageField
-                    label="Course logo"
+                    label={t("Course logo")}
                     value={c.logo ?? ""}
                     onChange={(v) => {
                       const next = [...dict.courses.items];
@@ -2051,7 +2223,7 @@ export function ContentEditor({
                     onPick={() =>
                       setPicker({
                         current: c.logo && c.logo !== NO_PHOTO ? c.logo : undefined,
-                        title: `Logo for: ${c.title}`,
+                        title: `${t("Logo for")}: ${c.title}`,
                         onSelect: (url) => {
                           const next = [...dict.courses.items];
                           next[idx] = { ...c, logo: url };
@@ -2061,7 +2233,7 @@ export function ContentEditor({
                     }
                   />
                   <Field
-                    label="Topics (comma separated)"
+                    label={t("Topics (comma separated)")}
                     dir={dir}
                     value={c.topics.join(", ")}
                     onChange={(v) => {
@@ -2086,10 +2258,10 @@ export function ContentEditor({
       {/* ── CONTACT ── */}
       {section === "contact" && (
         <Panel>
-          <h3 className="font-display text-lg text-ink">Contact Page & Form Labels</h3>
+          <h3 className="font-display text-lg text-ink">{t("Contact Page & Form Labels")}</h3>
           <div className="grid md:grid-cols-2 gap-4">
             <Field
-              label="Hero Badge"
+              label={t("Hero Badge")}
               dir={dir}
               value={dict.contact.hero.badge}
               onChange={(v) =>
@@ -2100,7 +2272,7 @@ export function ContentEditor({
               }
             />
             <Field
-              label="Hero Headline"
+              label={t("Hero Headline")}
               dir={dir}
               value={dict.contact.hero.headline}
               onChange={(v) =>
@@ -2112,7 +2284,7 @@ export function ContentEditor({
             />
           </div>
           <Field
-            label="Hero Subheadline"
+            label={t("Hero Subheadline")}
             dir={dir}
             multiline
             value={dict.contact.hero.sub}
@@ -2148,6 +2320,7 @@ export function ContentEditor({
         title={picker?.title ?? "Select Photo"}
         currentUrl={picker?.current}
         multiple={Boolean(picker?.onSelectMany)}
+        kind={picker?.kind ?? "image"}
         onSelect={(url) => picker?.onSelect(url)}
         onSelectMany={(urls) => picker?.onSelectMany?.(urls)}
       />

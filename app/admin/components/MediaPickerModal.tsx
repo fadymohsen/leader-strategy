@@ -1,13 +1,45 @@
 "use client";
 
+
+import { useT } from "../i18n";
 import { useEffect, useState } from "react";
-import { Upload, X, Check, Loader2, Image as ImageIcon } from "lucide-react";
+import { Upload, X, Check, Loader2, Image as ImageIcon, Film } from "lucide-react";
+import { upload } from "@vercel/blob/client";
+import { isVideoUrl } from "@/lib/video";
 
 export interface MediaAsset {
   id?: number;
   url: string;
   filename: string;
+  content_type?: string | null;
   source: "blob" | "local";
+}
+
+/** Upload a video straight from the browser to Vercel Blob, then record it in the library. */
+export async function uploadVideo(file: File, onProgress?: (percent: number) => void): Promise<string> {
+  const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const blob = await upload(`videos/${Date.now()}-${safe}`, file, {
+    access: "public",
+    handleUploadUrl: "/api/admin/upload/video",
+    multipart: file.size > 20 * 1024 * 1024,
+    onUploadProgress: (e) => onProgress?.(Math.round(e.percentage)),
+  });
+  await fetch("/api/admin/upload/video", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "register",
+      url: blob.url,
+      filename: file.name,
+      contentType: file.type || blob.contentType,
+      size: file.size,
+    }),
+  });
+  return blob.url;
+}
+
+export function isVideoAsset(a: MediaAsset): boolean {
+  return isVideoUrl(a.url, a.content_type);
 }
 
 export function MediaPickerModal({
@@ -16,6 +48,7 @@ export function MediaPickerModal({
   onSelect,
   onSelectMany,
   multiple = false,
+  kind = "image",
   currentUrl,
   title = "Select or Upload Photo",
 }: {
@@ -25,10 +58,14 @@ export function MediaPickerModal({
   /** With `multiple`, called once with every chosen photo, in the order they were picked. */
   onSelectMany?: (urls: string[]) => void;
   multiple?: boolean;
+  /** "video" lists/uploads videos instead of photos. */
+  kind?: "image" | "video";
   currentUrl?: string;
   title?: string;
 }) {
+  const t = useT();
   const [chosen, setChosen] = useState<string[]>([]);
+  const [progress, setProgress] = useState<number | null>(null);
   const [uploaded, setUploaded] = useState<MediaAsset[]>([]);
   const [local, setLocal] = useState<MediaAsset[]>([]);
   const [loading, setLoading] = useState(false);
@@ -45,7 +82,7 @@ export function MediaPickerModal({
       const data = (await res.json()) as { uploaded: MediaAsset[]; local: MediaAsset[] };
       setUploaded(data.uploaded ?? []);
       setLocal(data.local ?? []);
-      if ((data.uploaded ?? []).length === 0) {
+      if (kind === "image" && (data.uploaded ?? []).length === 0) {
         setTab("local");
       }
     } catch (err) {
@@ -80,6 +117,11 @@ export function MediaPickerModal({
     try {
       const urls: string[] = [];
       for (const file of files) {
+        if (kind === "video") {
+          if (!file.type.startsWith("video/")) throw new Error(`Not a video file: ${file.name}`);
+          urls.push(await uploadVideo(file, setProgress));
+          continue;
+        }
         const fd = new FormData();
         fd.append("file", file);
         const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
@@ -102,20 +144,22 @@ export function MediaPickerModal({
       setError(err instanceof Error ? err.message : "Upload failed");
     } finally {
       setUploading(false);
+      setProgress(null);
     }
   }
 
   if (!open) return null;
 
-  const list = tab === "blob" ? uploaded : local;
+  const uploadedOfKind = uploaded.filter((a) => (kind === "video" ? isVideoAsset(a) : !isVideoAsset(a)));
+  const list = kind === "video" || tab === "blob" ? uploadedOfKind : local;
 
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
       <div className="bg-sand border border-border rounded-2xl w-full max-w-4xl max-h-[85vh] flex flex-col shadow-2xl">
         <div className="flex items-center justify-between px-6 py-4 border-b border-border">
           <div className="flex items-center gap-2">
-            <ImageIcon className="w-5 h-5 text-clay" />
-            <h3 className="font-display text-lg text-ink">{title}</h3>
+            {kind === "video" ? <Film className="w-5 h-5 text-clay" /> : <ImageIcon className="w-5 h-5 text-clay" />}
+            <h3 className="font-display text-lg text-ink">{t(title)}</h3>
           </div>
           <button
             type="button"
@@ -133,10 +177,22 @@ export function MediaPickerModal({
             ) : (
               <Upload className="w-4 h-4" />
             )}
-            <span>{uploading ? "Uploading..." : multiple ? "Upload New Photos" : "Upload New Photo"}</span>
+            <span>
+              {uploading
+                ? progress !== null
+                  ? `${t("Uploading...")} ${progress}%`
+                  : t("Uploading...")
+                : kind === "video"
+                  ? multiple
+                    ? t("Upload New Videos")
+                    : t("Upload New Video")
+                  : multiple
+                    ? t("Upload New Photos")
+                    : t("Upload New Photo")}
+            </span>
             <input
               type="file"
-              accept="image/*"
+              accept={kind === "video" ? "video/*" : "image/*"}
               multiple={multiple}
               className="hidden"
               disabled={uploading}
@@ -144,7 +200,7 @@ export function MediaPickerModal({
             />
           </label>
 
-          <div className="flex items-center gap-2">
+          <div className={`items-center gap-2 ${kind === "video" ? "hidden" : "flex"}`}>
             <button
               type="button"
               onClick={() => setTab("blob")}
@@ -154,7 +210,7 @@ export function MediaPickerModal({
                   : "bg-sand border border-border text-ink-muted hover:text-ink"
               }`}
             >
-              Uploaded ({uploaded.length})
+              {t("Uploaded (")}{uploadedOfKind.length})
             </button>
             <button
               type="button"
@@ -165,14 +221,20 @@ export function MediaPickerModal({
                   : "bg-sand border border-border text-ink-muted hover:text-ink"
               }`}
             >
-              Built-in Photos ({local.length})
+              {t("Built-in Photos (")}{local.length})
             </button>
           </div>
         </div>
 
+        {progress !== null && (
+          <div className="mx-6 mt-4 h-2 rounded-full bg-border overflow-hidden">
+            <div className="h-full bg-clay transition-all" style={{ width: `${progress}%` }} />
+          </div>
+        )}
+
         {error && (
           <div className="mx-6 mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-3.5 py-2">
-            {error}
+            {t(error)}
           </div>
         )}
 
@@ -180,11 +242,13 @@ export function MediaPickerModal({
           {loading ? (
             <div className="flex items-center justify-center py-16 text-ink-muted gap-2">
               <Loader2 className="w-5 h-5 animate-spin" />
-              <span className="text-sm">Loading photos...</span>
+              <span className="text-sm">{t("Loading photos...")}</span>
             </div>
           ) : list.length === 0 ? (
             <div className="text-center py-16 text-ink-muted text-sm">
-              No uploaded photos yet. Click &ldquo;Upload New Photo&rdquo; above or switch to Built-in Photos.
+              {kind === "video"
+                ? t("No videos uploaded yet. Click “Upload New Video” above.")
+                : t("No uploaded photos yet. Click “Upload New Photo” above or switch to Built-in Photos.")}
             </div>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -210,12 +274,27 @@ export function MediaPickerModal({
                     }`}
                   >
                     <div className="aspect-square bg-sand-raised relative">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={item.url}
-                        alt={item.filename}
-                        className="w-full h-full object-cover"
-                      />
+                      {isVideoAsset(item) ? (
+                        <>
+                          <video
+                            src={`${item.url}#t=0.1`}
+                            preload="metadata"
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover"
+                          />
+                          <span className="absolute bottom-2 left-2 inline-flex items-center gap-1 rounded bg-ink/75 px-1.5 py-0.5 text-xs text-sand">
+                            <Film className="w-3 h-3" /> {t("Video")}
+                          </span>
+                        </>
+                      ) : (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={item.url}
+                          alt={item.filename}
+                          className="w-full h-full object-cover"
+                        />
+                      )}
                       {selected && (
                         <div className="absolute top-2 right-2 min-w-6 h-6 px-1 rounded-full bg-clay text-sand flex items-center justify-center text-xs font-bold">
                           {multiple ? order + 1 : <Check className="w-3.5 h-3.5" />}
@@ -236,8 +315,8 @@ export function MediaPickerModal({
           <div className="px-6 py-4 border-t border-border bg-sand-raised flex flex-wrap items-center justify-between gap-3 rounded-b-2xl">
             <p className="text-sm text-ink-muted">
               {chosen.length === 0
-                ? "Click photos to select them. You can pick as many as you want."
-                : `${chosen.length} photo${chosen.length === 1 ? "" : "s"} selected`}
+                ? t("Click photos to select them. You can pick as many as you want.")
+                : `${chosen.length} ${t("photos selected")}`}
             </p>
             <div className="flex gap-2">
               <button
@@ -245,7 +324,7 @@ export function MediaPickerModal({
                 onClick={() => setChosen(list.map((i) => i.url))}
                 className="px-3 py-2 border border-border-strong rounded-lg text-sm font-medium text-ink-muted hover:text-ink"
               >
-                Select all shown
+                {t("Select all shown")}
               </button>
               <button
                 type="button"
@@ -253,7 +332,7 @@ export function MediaPickerModal({
                 onClick={() => setChosen([])}
                 className="px-3 py-2 border border-border-strong rounded-lg text-sm font-medium text-ink-muted hover:text-ink disabled:opacity-40"
               >
-                Clear
+                {t("Clear")}
               </button>
               <button
                 type="button"
@@ -261,7 +340,7 @@ export function MediaPickerModal({
                 onClick={confirmMany}
                 className="px-5 py-2 bg-clay hover:bg-clay-deep disabled:opacity-50 text-sand text-sm font-semibold rounded-lg"
               >
-                {chosen.length > 0 ? `Add ${chosen.length} photo${chosen.length === 1 ? "" : "s"}` : "Add photos"}
+                {chosen.length > 0 ? `${t("Add")} ${chosen.length} ${t("photos")}` : t("Add photos")}
               </button>
             </div>
           </div>

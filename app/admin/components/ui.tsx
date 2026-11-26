@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useT } from "../i18n";
 
 /**
  * Collapsible block. The FIRST child is the always-visible header (clicking it
@@ -59,6 +60,7 @@ export function Tabs({
 }: {
   tabs: { key: string; label: string; count?: number; content: React.ReactNode }[];
 }) {
+  const tr = useT();
   const [active, setActive] = useState(tabs[0]?.key);
   const current = tabs.find((t) => t.key === active) ?? tabs[0];
 
@@ -80,7 +82,7 @@ export function Tabs({
                   : "border-transparent text-ink-muted hover:text-ink hover:border-border-strong"
               }`}
             >
-              {t.label}
+              {tr(t.label)}
               {typeof t.count === "number" && (
                 <span
                   className={`ms-2 inline-block min-w-5 px-1.5 rounded-full text-xs ${
