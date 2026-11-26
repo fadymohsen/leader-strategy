@@ -10,6 +10,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  if (!isValidLocale(locale)) return {};
   const dict = await getDictionary(locale);
   const { leadershipSchool } = dict.services;
   return {
