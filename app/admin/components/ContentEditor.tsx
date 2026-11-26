@@ -1161,6 +1161,14 @@ export function ContentEditor({
                                 onChange={(v) => updateService({ intro: v })}
                               />
                               <Field
+                                label={t("Overview text (under the heading on the page)")}
+                                dir={dir}
+                                multiline
+                                value={item.overview ?? ""}
+                                placeholder={t("Empty = uses the first section")}
+                                onChange={(v) => updateService({ overview: v })}
+                              />
+                              <Field
                                 label={t("Goal (bottom of the service page)")}
                                 dir={dir}
                                 multiline
@@ -1494,184 +1502,6 @@ export function ContentEditor({
                 );
               })}
             </div>
-          </Panel>
-
-          {/* Leadership School */}
-          <Panel>
-            <h3 className="font-display text-lg text-ink">{t("Leadership School Sub-page")}</h3>
-            <div className="grid md:grid-cols-2 gap-4">
-              <Field
-                label={t("Badge")}
-                dir={dir}
-                value={dict.services.leadershipSchool.badge}
-                onChange={(v) =>
-                  update({
-                    ...dict,
-                    services: {
-                      ...dict.services,
-                      leadershipSchool: { ...dict.services.leadershipSchool, badge: v },
-                    },
-                  })
-                }
-              />
-              <Field
-                label={t("Headline")}
-                dir={dir}
-                value={dict.services.leadershipSchool.headline}
-                onChange={(v) =>
-                  update({
-                    ...dict,
-                    services: {
-                      ...dict.services,
-                      leadershipSchool: { ...dict.services.leadershipSchool, headline: v },
-                    },
-                  })
-                }
-              />
-            </div>
-            <Field
-              label={t("Subheadline")}
-              dir={dir}
-              multiline
-              value={dict.services.leadershipSchool.sub}
-              onChange={(v) =>
-                update({
-                  ...dict,
-                  services: {
-                    ...dict.services,
-                    leadershipSchool: { ...dict.services.leadershipSchool, sub: v },
-                  },
-                })
-              }
-            />
-            <Field
-              label={t("About Text")}
-              dir={dir}
-              multiline
-              value={dict.services.leadershipSchool.about}
-              onChange={(v) =>
-                update({
-                  ...dict,
-                  services: {
-                    ...dict.services,
-                    leadershipSchool: { ...dict.services.leadershipSchool, about: v },
-                  },
-                })
-              }
-            />
-            <Field
-              label={t("Goal")}
-              dir={dir}
-              multiline
-              value={dict.services.leadershipSchool.goal}
-              onChange={(v) =>
-                update({
-                  ...dict,
-                  services: {
-                    ...dict.services,
-                    leadershipSchool: { ...dict.services.leadershipSchool, goal: v },
-                  },
-                })
-              }
-            />
-
-            <div className="space-y-3 pt-2 border-t border-border">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-bold uppercase tracking-wider text-ink-muted">
-                  {t("Program Sections (")}{dict.services.leadershipSchool.sections.length})
-                </span>
-                <button
-                  type="button"
-                  onClick={() =>
-                    update({
-                      ...dict,
-                      services: {
-                        ...dict.services,
-                        leadershipSchool: {
-                          ...dict.services.leadershipSchool,
-                          sections: [
-                            ...dict.services.leadershipSchool.sections,
-                            { title: "New Section", desc: "" },
-                          ],
-                        },
-                      },
-                    })
-                  }
-                  className="text-sm font-semibold text-clay hover:underline inline-flex items-center gap-1"
-                >
-                  <Plus className="w-3.5 h-3.5" /> {t("Add Section")}
-                </button>
-              </div>
-              {dict.services.leadershipSchool.sections.map((sec, i) => {
-                const setSections = (sections: typeof dict.services.leadershipSchool.sections) =>
-                  update({
-                    ...dict,
-                    services: {
-                      ...dict.services,
-                      leadershipSchool: { ...dict.services.leadershipSchool, sections },
-                    },
-                  });
-                const list = dict.services.leadershipSchool.sections;
-                return (
-                  <div key={i} className="rounded-lg border border-border bg-sand-raised p-4 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-semibold text-ink-muted">{t("Section")} {i + 1}</span>
-                      <button
-                        type="button"
-                        onClick={() => setSections(list.filter((_, k) => k !== i))}
-                        className="p-1.5 text-red-600 hover:bg-red-50 rounded"
-                        aria-label={t("Delete section")}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                    <Field
-                      label={t("Title")}
-                      dir={dir}
-                      value={sec.title}
-                      onChange={(v) => setSections(list.map((x, k) => (k === i ? { ...x, title: v } : x)))}
-                    />
-                    <Field
-                      label={t("Description")}
-                      dir={dir}
-                      multiline
-                      value={sec.desc}
-                      onChange={(v) => setSections(list.map((x, k) => (k === i ? { ...x, desc: v } : x)))}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-            <VideoListEditor
-              videos={dict.services.leadershipSchool.videos ?? []}
-              onChange={(next) =>
-                update({
-                  ...dict,
-                  services: {
-                    ...dict.services,
-                    leadershipSchool: { ...dict.services.leadershipSchool, videos: next },
-                  },
-                })
-              }
-              onPick={() =>
-                setPicker({
-                  kind: "video",
-                  title: t("Add videos"),
-                  onSelect: () => {},
-                  onSelectMany: (urls) =>
-                    update({
-                      ...dict,
-                      services: {
-                        ...dict.services,
-                        leadershipSchool: {
-                          ...dict.services.leadershipSchool,
-                          videos: [...(dict.services.leadershipSchool.videos ?? []), ...urls],
-                        },
-                      },
-                    }),
-                })
-              }
-            />
           </Panel>
         </div>
       )}

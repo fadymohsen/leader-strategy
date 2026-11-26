@@ -90,7 +90,7 @@ export default async function ServiceDetailPage({
               <h2 className="font-display text-2xl md:text-3xl text-ink mb-4">
                 {service.aboutHeading || (isAr ? "نبذة عن الخدمة" : "About this service")}
               </h2>
-              <p className="text-ink-muted leading-relaxed">{service.sections[0]?.desc || service.intro}</p>
+              <p className="text-ink-muted leading-relaxed">{service.overview || service.sections[0]?.desc || service.intro}</p>
             </RevealSlide>
             {about && (
               <RevealScale delay={150}>

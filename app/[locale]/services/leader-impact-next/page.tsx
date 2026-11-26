@@ -87,7 +87,7 @@ export default async function LeaderImpactNextPage({
                 {service.aboutHeading || (isAr ? "إزاي بنعمل ده؟" : "How We Do It")}
               </h2>
               <p className="text-ink-muted leading-relaxed">
-                {service.sections[0]?.desc}
+                {service.overview || service.sections[0]?.desc}
               </p>
             </RevealSlide>
             {view.about ? (

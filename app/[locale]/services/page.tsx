@@ -48,14 +48,6 @@ export default async function ServicesPage({
         logo: view.logo,
       };
     }),
-    {
-      href: `/${locale}/services/leadership-school`,
-      title: services.leadershipSchool.headline,
-      brief: services.leadershipSchool.sub,
-      tags: [] as string[],
-      image: media["subpages.leadershipSchool.hero"],
-      logo: null as string | null,
-    },
   ];
 
   return (

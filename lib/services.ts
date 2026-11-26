@@ -22,6 +22,8 @@ const SERVICE_META: Record<string, ServiceMeta> = {
   "🏥": { slug: "doctors", slotPrefix: "doctors" },
   "⚖️": { slug: "lawyers", slotPrefix: "lawyers", defaultBadge: "FLAG Ministry" },
   "🏫": { slug: "isp", slotPrefix: "isp", defaultBadge: "ISP" },
+  "🧭": { slug: "leadership-school", slotPrefix: "leadershipSchool" },
+  "🎬": { slug: "media", slotPrefix: "media" },
   "💼": { slug: "business", slotPrefix: "business", logoSlot: "sectors.businessLogo" },
 };
 

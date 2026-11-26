@@ -418,4 +418,12 @@ export const AR: Record<string, string> = {
   "Add sub-service page": "إضافة صفحة خدمة فرعية",
   Content: "المحتوى",
   "Photos & videos": "الصور والفيديوهات",
+  "Overview text (under the heading on the page)": "نص النبذة (تحت العنوان في الصفحة)",
+  "Empty = uses the first section": "فارغ = يُستخدم أول قسم",
+  "Media Sub-page": "صفحة الميديا",
+  "Media Hero Image": "صورة واجهة الميديا",
+  "Media About Image": "صورة نبذة الميديا",
+  "Media Gallery Photo 1": "الميديا: صورة المعرض 1",
+  "Media Gallery Photo 2": "الميديا: صورة المعرض 2",
+  "Media Gallery Photo 3": "الميديا: صورة المعرض 3",
 };

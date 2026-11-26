@@ -57,6 +57,12 @@ export const MEDIA_SLOTS: MediaSlotDefinition[] = [
   { slot: "subpages.business.gallery2", label: "Business Gallery Photo 2", group: "Business Sub-page", defaultUrl: "/images/forum-4-group-palms.jpeg" },
   { slot: "subpages.business.gallery3", label: "Business Gallery Photo 3", group: "Business Sub-page", defaultUrl: "/images/forum-4-audience.jpeg" },
 
+  { slot: "subpages.media.hero", label: "Media Hero Image", group: "Media Sub-page", defaultUrl: "/images/forum-4-audience.jpeg" },
+  { slot: "subpages.media.about", label: "Media About Image", group: "Media Sub-page", defaultUrl: "/images/team-lead-up-workshop.jpg" },
+  { slot: "subpages.media.gallery1", label: "Media Gallery Photo 1", group: "Media Sub-page", defaultUrl: "/images/staff-family-gathering.jpg" },
+  { slot: "subpages.media.gallery2", label: "Media Gallery Photo 2", group: "Media Sub-page", defaultUrl: "/images/community-celebration.jpg" },
+  { slot: "subpages.media.gallery3", label: "Media Gallery Photo 3", group: "Media Sub-page", defaultUrl: "/images/interfaith-nativity-event.jpg" },
+
   { slot: "subpages.leadershipSchool.hero", label: "Leadership School Hero", group: "Leadership School", defaultUrl: "/images/leadership-school.jpeg" },
   { slot: "subpages.leadershipSchool.about", label: "Leadership School About", group: "Leadership School", defaultUrl: "/images/forum-4-group-garden.jpeg" },
   { slot: "subpages.leadershipSchool.gallery1", label: "Leadership School Gallery 1", group: "Leadership School", defaultUrl: "/images/leadership-school.jpeg" },

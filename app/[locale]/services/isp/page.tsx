@@ -87,7 +87,7 @@ export default async function IspPage({
                 {service.aboutHeading || (isAr ? "كيف نعمل؟" : "How We Work")}
               </h2>
               <p className="text-ink-muted leading-relaxed">
-                {service.sections[0]?.desc}
+                {service.overview || service.sections[0]?.desc}
               </p>
             </RevealSlide>
             {view.about ? (

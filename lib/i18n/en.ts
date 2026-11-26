@@ -642,6 +642,8 @@ export type ServiceItem = BaseDictionary["services"]["items"][number] & {
   image?: string;
   logo?: string;
   slug?: string;
+  /** Overview text on the service page. Falls back to the first section / intro. */
+  overview?: string;
   /** Short text on the /services card. Falls back to `intro`. */
   brief?: string;
   /** Small label above the page title. */
@@ -672,6 +674,8 @@ export type HomeServiceItem = BaseDictionary["home"]["services"]["items"][number
 
 export type LeadershipSchoolContent = BaseDictionary["services"]["leadershipSchool"] & {
   videos?: string[];
+  /** true once the school lives in `services.items` (it is then edited there). */
+  migrated?: boolean;
 };
 
 export type Dictionary = Omit<BaseDictionary, "services" | "news" | "home" | "courses"> & {
@@ -684,6 +688,8 @@ export type Dictionary = Omit<BaseDictionary, "services" | "news" | "home" | "co
     };
   };
   services: Omit<BaseDictionary["services"], "items" | "leadershipSchool"> & {
+    /** Slugs of default services already offered to this language (see seeds.ts). */
+    seeded?: string[];
     items: ServiceItem[];
     leadershipSchool: LeadershipSchoolContent;
   };
