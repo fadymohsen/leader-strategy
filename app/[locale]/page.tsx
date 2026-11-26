@@ -48,7 +48,7 @@ export default async function HomePage({
       <HomeJsonLd locale={locale} />
 
       {/* ── Hero: editorial masthead, bottom-anchored, one CTA + one text link ── */}
-      <section className="grain relative overflow-hidden bg-ink text-sand min-h-screen flex items-end">
+      <section className="grain relative overflow-hidden bg-ink text-sand min-h-screen flex items-center">
         <Image
           src="/images/strategy-team.jpeg"
           alt={dict.news.gallery.strategyTeam}
@@ -57,10 +57,9 @@ export default async function HomePage({
           sizes="100vw"
           className="object-cover object-[50%_35%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-transparent to-transparent h-40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/30" />
 
-        <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-8 pt-40 pb-24 md:pb-28 w-full">
+        <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-8 pt-24 pb-16 w-full">
           <div className="max-w-2xl hero-stagger">
             <h1 className="font-display text-hero leading-[1.15] tracking-tight mb-6 whitespace-pre-line drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
               {home.hero.headline}

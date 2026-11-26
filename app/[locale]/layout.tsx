@@ -29,13 +29,24 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href={`/${locale}`} className="shrink-0 flex items-center gap-3">
+            {/* Original logo — shown when navbar has a background */}
             <Image
               src="/logo-new.jpeg"
               alt="Leader Strategies"
               width={160}
               height={48}
-              className="h-12 w-auto"
+              className="h-12 w-auto logo-original"
               style={{ width: "auto" }}
+              priority
+            />
+            {/* White logo — shown over hero images when navbar is transparent */}
+            <Image
+              src="/logo.png"
+              alt="Leader Strategies"
+              width={160}
+              height={48}
+              className="h-12 w-auto logo-white"
+              style={{ width: "auto", filter: "brightness(0) invert(1)" }}
               priority
             />
             {nav.brandName && (

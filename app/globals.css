@@ -217,7 +217,7 @@ body {
   .shimmer-bg { animation: none; }
 }
 
-/* ── Transparent navbar: light text over hero images ───────────────────── */
+/* ── Transparent navbar: light text + white logo over hero images ───────── */
 .nav-transparent .nav-text {
   color: rgba(248, 250, 252, 0.95);
 }
@@ -235,6 +235,15 @@ body {
   border-color: rgba(248, 250, 252, 0.8);
   color: rgba(248, 250, 252, 1);
 }
+
+/* Logo swap: white version when transparent, original when scrolled */
+.nav-transparent .logo-original { display: none; }
+.nav-transparent .logo-white    { display: block; }
+.nav-scrolled   .logo-original  { display: block; }
+.nav-scrolled   .logo-white     { display: none; }
+/* Fallback before JS hydrates (no class yet) */
+header:not(.nav-transparent):not(.nav-scrolled) .logo-original { display: block; }
+header:not(.nav-transparent):not(.nav-scrolled) .logo-white    { display: none; }
 
 /* Print-grain: breaks flat-vector smoothness with a tactile, tiled noise texture */
 .grain {
