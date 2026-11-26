@@ -6,6 +6,7 @@ import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { findServiceBySlug, getServiceView } from "@/lib/services";
 import { Reveal, RevealSlide, RevealScale } from "@/components/Reveal";
 import { VideoGrid } from "@/components/VideoGrid";
+import { SubServiceCards } from "@/components/SubServiceCards";
 
 export async function generateMetadata({
   params,
@@ -84,18 +85,7 @@ export default async function ServiceDetailPage({
       {/* ── Tags & overview ── */}
       <section className="bg-sand py-16">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-          {service.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-10">
-              {service.tags.map((tag, ti) => (
-                <RevealScale key={tag} delay={ti * 70}>
-                  <span className="block text-xs px-3 py-1.5 bg-clay-soft text-clay-deep font-medium rounded-full">
-                    {tag}
-                  </span>
-                </RevealScale>
-              ))}
-            </div>
-          )}
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className={`grid gap-8 items-center ${about ? "md:grid-cols-2" : "max-w-3xl"}`}>
             <RevealSlide>
               <h2 className="font-display text-2xl md:text-3xl text-ink mb-4">
                 {service.aboutHeading || (isAr ? "نبذة عن الخدمة" : "About this service")}
@@ -146,6 +136,8 @@ export default async function ServiceDetailPage({
           </div>
         </div>
       </section>
+
+      <SubServiceCards item={service} locale={locale} parentSlug={slug} />
 
       {/* ── Gallery ── */}
       {gallery.length > 0 && (

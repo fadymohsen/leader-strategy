@@ -70,7 +70,7 @@ export default async function LeadershipSchoolPage({
       {/* ── 2. About ── */}
       <section className="bg-sand py-16">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
+          <div className={`grid gap-10 items-center ${media["subpages.leadershipSchool.about"] ? "md:grid-cols-2" : "max-w-3xl"}`}>
             <RevealSlide>
               <h2 className="font-display text-2xl md:text-3xl text-ink mb-4">
                 {isAr ? "ما هي مدرسة القيادة؟" : "What is the Leadership School?"}
@@ -91,7 +91,7 @@ export default async function LeadershipSchoolPage({
               />
             </div>
             </RevealScale>
-            ) : <div />}
+            ) : null}
           </div>
         </div>
       </section>

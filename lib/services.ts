@@ -2,6 +2,7 @@ import { getDictionary, type Locale } from "./i18n";
 import type { ServiceItem } from "./i18n/en";
 import { getSiteMedia, type MediaMap } from "./media";
 import { NO_PHOTO } from "./photo";
+import { findSubService } from "./subservices";
 
 /**
  * Main services -> dedicated page slug + media slots.
@@ -105,4 +106,32 @@ export async function getServiceView(locale: Locale, slug: string) {
   if (!service) return null;
   const enItem = enDict.services.items.find((s) => s.icon === service.icon && serviceSlug(s) === slug);
   return { dict, media, service, view: resolveServiceView(service, media, enItem) };
+}
+
+/** Load one sub-service page. Falls back to the English content if this language has none. */
+export async function getSubServiceView(locale: Locale, parentSlug: string, subSlug: string) {
+  const data = await getServiceView(locale, parentSlug);
+  if (!data) return null;
+  const enDict = await getDictionary("en");
+  const enParent = enDict.services.items.find(
+    (s) => s.icon === data.service.icon && serviceSlug(s) === parentSlug
+  );
+  const own = findSubService(data.service, subSlug);
+  const enSub = enParent ? findSubService(enParent, subSlug) : undefined;
+  const sub = own ?? enSub;
+  if (!sub) return null;
+
+  const pickPhoto = (a?: string, b?: string) => {
+    const v = a || b;
+    return v === NO_PHOTO ? null : v || null;
+  };
+  const clean = (l?: string[]) => (l ?? []).filter((u) => u && u.trim() && u !== NO_PHOTO);
+
+  return {
+    ...data,
+    sub,
+    image: pickPhoto(sub.image, enSub?.image),
+    gallery: clean(sub.gallery ?? enSub?.gallery),
+    videos: clean(sub.videos ?? enSub?.videos),
+  };
 }

@@ -621,7 +621,23 @@ type DeepString<T> = T extends string
 
 type BaseDictionary = DeepString<typeof en>;
 
+export interface SubService {
+  /** URL part: /services/<service>/<slug> */
+  slug: string;
+  title: string;
+  intro?: string;
+  /** Longer overview text. */
+  body?: string;
+  image?: string;
+  gallery?: string[];
+  videos?: string[];
+  sections?: { title: string; desc: string; points: string[] }[];
+  goal?: string;
+}
+
 export type ServiceItem = BaseDictionary["services"]["items"][number] & {
+  /** Pages the tag chips link to. Empty/undefined = one page per tag. */
+  subServices?: SubService[];
   /** Hero / cover photo. Falls back to the matching Media slot. */
   image?: string;
   logo?: string;

@@ -400,4 +400,22 @@ export const AR: Record<string, string> = {
   "Leadership School Gallery 1": "مدرسة القيادة: صورة المعرض 1",
   "Leadership School Gallery 2": "مدرسة القيادة: صورة المعرض 2",
   "Leadership School Gallery 3": "مدرسة القيادة: صورة المعرض 3",
+
+  // ── Sub-services ──
+  "Sub-services": "الخدمات الفرعية",
+  "Untitled page": "صفحة بلا عنوان",
+  "Delete page": "حذف الصفحة",
+  "Page title (also the button text)": "عنوان الصفحة (وهو أيضًا نص الزر)",
+  "Short intro (under the title)": "مقدمة قصيرة (تحت العنوان)",
+  "Overview text": "نص النبذة",
+  "Goal (bottom of the page)": "الهدف (أسفل الصفحة)",
+  "Main photo (top of the page)": "الصورة الرئيسية (أعلى الصفحة)",
+  "Each button on the service page opens its own page. Add pages here and they appear automatically as buttons.":
+    "كل زر في صفحة الخدمة يفتح صفحته الخاصة. أضف الصفحات هنا وستظهر تلقائيًا كأزرار.",
+  "Right now every tag opens a simple page made from the tag. Make them editable to add text, photos and videos to each one.":
+    "حاليًا يفتح كل وسم صفحة بسيطة مبنية عليه. اجعلها قابلة للتعديل لإضافة نص وصور وفيديوهات لكل صفحة.",
+  "Make these pages editable": "جعل هذه الصفحات قابلة للتعديل",
+  "Add sub-service page": "إضافة صفحة خدمة فرعية",
+  Content: "المحتوى",
+  "Photos & videos": "الصور والفيديوهات",
 };
