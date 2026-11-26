@@ -45,14 +45,14 @@ export default async function LawyersPage({
               height={48}
               className="rounded-md object-contain bg-sand/10"
             />
-            <span className="text-clay-soft text-xs font-semibold uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+            <span className="text-clay-soft text-xs font-semibold uppercase tracking-widest">
               FLAG Ministry
             </span>
           </div>
-          <h1 className="font-display text-3xl md:text-5xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] max-w-3xl">
+          <h1 className="font-display text-3xl md:text-5xl max-w-3xl">
             {service.title}
           </h1>
-          <p className="mt-4 text-sand/80 text-base md:text-lg max-w-2xl leading-relaxed drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
+          <p className="mt-4 text-sand/70 text-base md:text-lg max-w-2xl leading-relaxed">
             {service.intro}
           </p>
         </div>

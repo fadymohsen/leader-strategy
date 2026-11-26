@@ -6,6 +6,7 @@ import { DirSync } from "@/components/DirSync";
 import { NavLinksDesktop } from "@/components/NavLinks";
 import { LocaleSwitchLink } from "@/components/LocaleSwitchLink";
 import { MobileMenu } from "@/components/MobileMenu";
+import { NavbarClient } from "@/components/NavbarClient";
 
 // ── Navbar ────────────────────────────────────────────────────────────────
 
@@ -23,7 +24,7 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-sand/95 backdrop-blur-sm shadow-[0_1px_2px_rgba(42,36,32,0.06),0_8px_24px_rgba(42,36,32,0.06)]">
+    <NavbarClient>
       <nav className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -38,7 +39,7 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
               priority
             />
             {nav.brandName && (
-              <span className="hidden sm:inline font-display text-lg text-ink">
+              <span className="hidden sm:inline font-display text-lg text-ink nav-text">
                 {nav.brandName}
               </span>
             )}
@@ -52,7 +53,7 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
             {/* Language switcher — desktop only */}
             <LocaleSwitchLink
               targetLocale={otherLocale}
-              className="hidden md:inline-flex items-center px-3 py-1.5 text-xs font-semibold border border-border-strong rounded-md text-ink-muted hover:border-clay hover:text-clay transition-colors"
+              className="hidden md:inline-flex items-center px-3 py-1.5 text-xs font-semibold border border-border-strong rounded-md text-ink-muted hover:border-clay hover:text-clay transition-colors nav-text-muted nav-border-btn"
             >
               {nav.langSwitch}
             </LocaleSwitchLink>
@@ -80,7 +81,7 @@ async function Navbar({ locale, dict }: { locale: Locale; dict: Awaited<ReturnTy
           </div>
         </div>
       </nav>
-    </header>
+    </NavbarClient>
   );
 }
 

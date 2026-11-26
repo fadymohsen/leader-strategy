@@ -217,6 +217,25 @@ body {
   .shimmer-bg { animation: none; }
 }
 
+/* ── Transparent navbar: light text over hero images ───────────────────── */
+.nav-transparent .nav-text {
+  color: rgba(248, 250, 252, 0.95);
+}
+.nav-transparent .nav-text-muted {
+  color: rgba(248, 250, 252, 0.65);
+}
+.nav-transparent .nav-underline {
+  background-color: rgba(248, 250, 252, 0.8);
+}
+.nav-transparent .nav-border-btn {
+  border-color: rgba(248, 250, 252, 0.4);
+  color: rgba(248, 250, 252, 0.8);
+}
+.nav-transparent .nav-border-btn:hover {
+  border-color: rgba(248, 250, 252, 0.8);
+  color: rgba(248, 250, 252, 1);
+}
+
 /* Print-grain: breaks flat-vector smoothness with a tactile, tiled noise texture */
 .grain {
   position: relative;

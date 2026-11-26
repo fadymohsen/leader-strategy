@@ -64,7 +64,7 @@ export function MobileMenu({
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label={open ? "Close menu" : "Open menu"}
-        className="md:hidden relative z-50 flex items-center justify-center w-10 h-10 -me-2 rounded-md text-ink-muted hover:text-ink transition-colors"
+        className="md:hidden relative z-50 flex items-center justify-center w-10 h-10 -me-2 rounded-md text-ink-muted nav-text-muted hover:text-ink transition-colors"
       >
         <div className="w-5 h-4 flex flex-col justify-between">
           <span
