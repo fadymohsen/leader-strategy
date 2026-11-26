@@ -40,8 +40,9 @@ export default async function IspPage({
       {/* ── 1. Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-24">
         <div className="absolute -inset-y-16 inset-x-0">
-          <Image
-            src={view.hero!}
+          {view.hero && (
+            <Image
+            src={view.hero}
             alt=""
             aria-hidden
             priority
@@ -49,17 +50,20 @@ export default async function IspPage({
             sizes="100vw"
             className="hero-emblem-parallax object-cover object-center"
           />
+          )}
         </div>
         <div className="absolute inset-0 bg-ink/50" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 hero-stagger">
           <div className="flex items-center gap-3 mb-5">
-            <Image
+            {view.logo && (
+              <Image
               src={view.logo!}
               alt="ISP logo"
               width={48}
               height={48}
               className="rounded-md object-contain bg-sand/10"
             />
+            )}
             <span className="text-clay-soft text-xs font-semibold uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
               {view.badge}
             </span>
@@ -94,10 +98,11 @@ export default async function IspPage({
                 {service.sections[0]?.desc}
               </p>
             </RevealSlide>
+            {view.about ? (
             <RevealScale delay={150}>
             <div className="group relative aspect-[4/3] rounded-xl overflow-hidden">
               <Image
-                src={view.about!}
+                src={view.about}
                 alt=""
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
@@ -105,6 +110,7 @@ export default async function IspPage({
               />
             </div>
             </RevealScale>
+            ) : <div />}
           </div>
         </div>
       </section>
@@ -138,6 +144,7 @@ export default async function IspPage({
       </section>
 
       {/* ── 4. Gallery ── */}
+      {view.gallery.length > 0 && (
       <section className="bg-sand py-16">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
@@ -151,6 +158,7 @@ export default async function IspPage({
           </div>
         </div>
       </section>
+      )}
 
       {/* ── 5. Goal + CTA ── */}
       <section className="bg-ink py-20">

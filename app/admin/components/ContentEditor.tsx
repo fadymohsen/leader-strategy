@@ -6,6 +6,7 @@ import type { Dictionary, NewsArticle, ServiceItem } from "@/lib/i18n/en";
 import type { Locale } from "@/lib/i18n";
 import { MediaPickerModal } from "./MediaPickerModal";
 import { Panel, Tabs } from "./ui";
+import { NO_PHOTO } from "@/lib/photo";
 
 export type SectionKey = "global" | "home" | "about" | "services" | "news" | "courses" | "contact";
 
@@ -61,18 +62,42 @@ function ImageField({
   onChange: (val: string) => void;
   onPick: () => void;
 }) {
+  const hidden = value === NO_PHOTO;
   return (
-    <div className="flex items-end gap-2">
-      <div className="flex-1">
-        <Field label={label} value={value} placeholder="/images/..." onChange={onChange} />
+    <div className="space-y-1.5">
+      <Field
+        label={label}
+        value={hidden ? "" : value}
+        placeholder={hidden ? "Removed: no photo is shown" : "Empty = default photo"}
+        onChange={onChange}
+      />
+      <div className="flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={onPick}
+          className="px-3 py-1.5 bg-clay text-sand text-sm font-semibold rounded-lg inline-flex items-center gap-1.5"
+        >
+          <ImageIcon className="w-3.5 h-3.5" /> Pick / Upload
+        </button>
+        {hidden ? (
+          <button
+            type="button"
+            onClick={() => onChange("")}
+            className="px-3 py-1.5 border border-border-strong text-ink-muted hover:text-ink text-sm font-semibold rounded-lg"
+          >
+            Show default again
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => onChange(NO_PHOTO)}
+            className="px-3 py-1.5 border border-red-200 text-red-700 hover:bg-red-50 text-sm font-semibold rounded-lg inline-flex items-center gap-1.5"
+          >
+            <Trash2 className="w-3.5 h-3.5" /> Remove photo
+          </button>
+        )}
+        {hidden && <span className="text-sm text-red-700">No photo will be shown</span>}
       </div>
-      <button
-        type="button"
-        onClick={onPick}
-        className="px-3 py-2 bg-clay text-sand text-sm font-semibold rounded-lg inline-flex items-center gap-1 shrink-0"
-      >
-        <ImageIcon className="w-3.5 h-3.5" /> Pick / Upload
-      </button>
     </div>
   );
 }
@@ -108,6 +133,7 @@ export function ContentEditor({
     current?: string;
     title: string;
     onSelect: (url: string) => void;
+    onSelectMany?: (urls: string[]) => void;
   } | null>(null);
 
   const dict = locale === "en" ? en : ar;
@@ -1300,7 +1326,7 @@ export function ContentEditor({
                                   onChange={(v) => updateService({ image: v })}
                                   onPick={() =>
                                     setPicker({
-                                      current: item.image,
+                                      current: item.image && item.image !== NO_PHOTO ? item.image : undefined,
                                       title: `Main photo for ${item.title}`,
                                       onSelect: (url) => updateService({ image: url }),
                                     })
@@ -1312,7 +1338,7 @@ export function ContentEditor({
                                   onChange={(v) => updateService({ logo: v })}
                                   onPick={() =>
                                     setPicker({
-                                      current: item.logo,
+                                      current: item.logo && item.logo !== NO_PHOTO ? item.logo : undefined,
                                       title: `Logo for ${item.title}`,
                                       onSelect: (url) => updateService({ logo: url }),
                                     })
@@ -1324,7 +1350,7 @@ export function ContentEditor({
                                   onChange={(v) => updateService({ aboutImage: v })}
                                   onPick={() =>
                                     setPicker({
-                                      current: item.aboutImage,
+                                      current: item.aboutImage && item.aboutImage !== NO_PHOTO ? item.aboutImage : undefined,
                                       title: `Overview photo for ${item.title}`,
                                       onSelect: (url) => updateService({ aboutImage: url }),
                                     })
@@ -1339,22 +1365,47 @@ export function ContentEditor({
                                       Gallery photos ({(item.gallery ?? []).length})
                                     </p>
                                     <p className="text-sm text-ink-muted">
-                                      Add as many as you like. Empty = the default photos.
+                                      {item.gallery === undefined
+                                        ? "Showing the default photos. Add your own, or remove the defaults."
+                                        : item.gallery.length === 0
+                                          ? "No gallery is shown on this page."
+                                          : "Add as many as you like."}
                                     </p>
                                   </div>
-                                  <button
-                                    type="button"
-                                    onClick={() =>
-                                      setPicker({
-                                        title: `Add gallery photo to ${item.title}`,
-                                        onSelect: (url) =>
-                                          updateService({ gallery: [...(item.gallery ?? []), url] }),
-                                      })
-                                    }
-                                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg"
-                                  >
-                                    <Plus className="w-4 h-4" /> Add photo
-                                  </button>
+                                  <div className="flex flex-wrap gap-2">
+                                    {item.gallery === undefined && (
+                                      <button
+                                        type="button"
+                                        onClick={() => updateService({ gallery: [] })}
+                                        className="px-3 py-2 border border-red-200 text-red-700 hover:bg-red-50 text-sm font-semibold rounded-lg inline-flex items-center gap-1.5"
+                                      >
+                                        <Trash2 className="w-3.5 h-3.5" /> Remove default photos
+                                      </button>
+                                    )}
+                                    {item.gallery !== undefined && item.gallery.length === 0 && (
+                                      <button
+                                        type="button"
+                                        onClick={() => updateService({ gallery: undefined })}
+                                        className="px-3 py-2 border border-border-strong text-ink-muted hover:text-ink text-sm font-semibold rounded-lg"
+                                      >
+                                        Show default photos again
+                                      </button>
+                                    )}
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        setPicker({
+                                          title: `Add photos to ${item.title}`,
+                                          onSelect: () => {},
+                                          onSelectMany: (urls) =>
+                                            updateService({ gallery: [...(item.gallery ?? []), ...urls] }),
+                                        })
+                                      }
+                                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg"
+                                    >
+                                      <Plus className="w-4 h-4" /> Add photos
+                                    </button>
+                                  </div>
                                 </div>
                                 {(item.gallery ?? []).length > 0 && (
                                   <ul className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -1843,29 +1894,18 @@ export function ContentEditor({
                       onChange={(v) => updateArt({ excerpt: v })}
                     />
 
-                    <div className="flex items-end gap-3">
-                      <div className="flex-1">
-                        <Field
-                          label="Article Photo URL (optional — upload or pick)"
-                          value={art.image ?? ""}
-                          placeholder="Leave empty for automatic match or upload a photo"
-                          onChange={(v) => updateArt({ image: v })}
-                        />
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setPicker({
-                            current: art.image,
-                            title: `Photo for: ${art.title}`,
-                            onSelect: (url) => updateArt({ image: url }),
-                          })
-                        }
-                        className="px-3.5 py-2 bg-clay text-sand text-sm font-semibold rounded-lg inline-flex items-center gap-1.5"
-                      >
-                        <ImageIcon className="w-3.5 h-3.5" /> Upload / Pick Photo
-                      </button>
-                    </div>
+                    <ImageField
+                      label="Article photo"
+                      value={art.image ?? ""}
+                      onChange={(v) => updateArt({ image: v })}
+                      onPick={() =>
+                        setPicker({
+                          current: art.image && art.image !== NO_PHOTO ? art.image : undefined,
+                          title: `Photo for: ${art.title}`,
+                          onSelect: (url) => updateArt({ image: url }),
+                        })
+                      }
+                    />
                   </Panel>
                 );
               })}
@@ -2000,6 +2040,26 @@ export function ContentEditor({
                       update({ ...dict, courses: { ...dict.courses, items: next } });
                     }}
                   />
+                  <ImageField
+                    label="Course logo"
+                    value={c.logo ?? ""}
+                    onChange={(v) => {
+                      const next = [...dict.courses.items];
+                      next[idx] = { ...c, logo: v };
+                      update({ ...dict, courses: { ...dict.courses, items: next } });
+                    }}
+                    onPick={() =>
+                      setPicker({
+                        current: c.logo && c.logo !== NO_PHOTO ? c.logo : undefined,
+                        title: `Logo for: ${c.title}`,
+                        onSelect: (url) => {
+                          const next = [...dict.courses.items];
+                          next[idx] = { ...c, logo: url };
+                          update({ ...dict, courses: { ...dict.courses, items: next } });
+                        },
+                      })
+                    }
+                  />
                   <Field
                     label="Topics (comma separated)"
                     dir={dir}
@@ -2087,7 +2147,9 @@ export function ContentEditor({
         onClose={() => setPicker(null)}
         title={picker?.title ?? "Select Photo"}
         currentUrl={picker?.current}
+        multiple={Boolean(picker?.onSelectMany)}
         onSelect={(url) => picker?.onSelect(url)}
+        onSelectMany={(urls) => picker?.onSelectMany?.(urls)}
       />
     </div>
   );

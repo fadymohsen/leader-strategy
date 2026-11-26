@@ -50,7 +50,8 @@ export default async function HomePage({
 
       {/* ── Hero: editorial masthead, bottom-anchored, one CTA + one text link ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand min-h-screen flex items-center">
-        <Image
+        {media["home.hero"] && (
+          <Image
           src={media["home.hero"]}
           alt={dict.news.gallery.strategyTeam}
           priority
@@ -58,6 +59,7 @@ export default async function HomePage({
           sizes="100vw"
           className="object-cover object-[50%_35%]"
         />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/30" />
 
         <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-8 pt-24 pb-16 w-full">

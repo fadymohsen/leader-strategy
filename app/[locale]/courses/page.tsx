@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { photoOr } from "@/lib/photo";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
 import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { CoursesJsonLd } from "@/components/JsonLd";
@@ -56,7 +57,8 @@ export default async function CoursesPage({
       <CoursesJsonLd locale={locale} courses={courses.items} />
       {/* ── Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-20">
-        <Image
+        {media["courses.hero"] && (
+          <Image
           src={media["courses.hero"]}
           alt=""
           aria-hidden
@@ -65,6 +67,7 @@ export default async function CoursesPage({
           sizes="100vw"
           className="object-cover"
         />
+        )}
         <div className="absolute inset-0 bg-ink/30" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
@@ -79,7 +82,7 @@ export default async function CoursesPage({
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {courses.items.map((course) => {
-              const logo = courseLogo(course.title);
+              const logo = photoOr(course.logo, courseLogo(course.title));
               return (
               <div
                 key={course.title}

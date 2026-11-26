@@ -15,11 +15,13 @@ async function Navbar({
   locale,
   dict,
   logoUrl,
+  logoWhiteUrl,
   coursesVisible,
 }: {
   locale: Locale;
   dict: Awaited<ReturnType<typeof getDictionary>>;
   logoUrl: string;
+  logoWhiteUrl: string;
   coursesVisible: boolean;
 }) {
   const otherLocale = locale === "en" ? "ar" : "en";
@@ -41,25 +43,29 @@ async function Navbar({
           {/* Logo */}
           <Link href={`/${locale}`} className="shrink-0 flex items-center gap-3">
             {/* Original logo — shown when navbar has a background */}
-            <Image
-              src={logoUrl}
-              alt="Leader Strategies"
-              width={160}
-              height={48}
-              className="h-12 w-auto logo-original"
-              style={{ width: "auto" }}
-              priority
-            />
+            {logoUrl && (
+              <Image
+                src={logoUrl}
+                alt="Leader Strategies"
+                width={160}
+                height={48}
+                className="h-12 w-auto logo-original"
+                style={{ width: "auto" }}
+                priority
+              />
+            )}
             {/* White logo — shown over hero images when navbar is transparent */}
-            <Image
-              src="/images/shield-emblem-transparent.png"
-              alt="Leader Strategies"
-              width={160}
-              height={48}
-              className="h-12 w-auto logo-white"
-              style={{ width: "auto", filter: "invert(1)" }}
-              priority
-            />
+            {logoWhiteUrl && (
+              <Image
+                src={logoWhiteUrl}
+                alt="Leader Strategies"
+                width={160}
+                height={48}
+                className="h-12 w-auto logo-white"
+                style={{ width: "auto", filter: "invert(1)" }}
+                priority
+              />
+            )}
             {nav.brandName && (
               <span className="hidden sm:inline font-display text-lg text-ink nav-text">
                 {nav.brandName}
@@ -134,14 +140,16 @@ function Footer({
           {/* Brand */}
           <div>
             <div className="mb-4">
-              <Image
-                src={logoUrl}
-                alt={meta.siteName}
-                width={180}
-                height={54}
-                className="h-14 w-auto"
-                style={{ width: "auto" }}
-              />
+              {logoUrl && (
+                <Image
+                  src={logoUrl}
+                  alt={meta.siteName}
+                  width={180}
+                  height={54}
+                  className="h-14 w-auto"
+                  style={{ width: "auto" }}
+                />
+              )}
             </div>
             <p className="text-sm leading-relaxed">{footer.description}</p>
           </div>
@@ -213,7 +221,7 @@ export default async function LocaleLayout({
   return (
     <div className="flex flex-col min-h-screen">
       <DirSync locale={locale} />
-      <Navbar locale={locale} dict={dict} logoUrl={logoUrl} coursesVisible={coursesVisible} />
+      <Navbar locale={locale} dict={dict} logoUrl={logoUrl} logoWhiteUrl={media["logoWhite"]} coursesVisible={coursesVisible} />
       <main className="flex-1">{children}</main>
       <Footer locale={locale} dict={dict} logoUrl={logoUrl} />
     </div>

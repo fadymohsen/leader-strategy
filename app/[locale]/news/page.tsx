@@ -7,6 +7,7 @@ import { buildMetadata, pageMeta } from "@/lib/seo/metadata";
 import { NewsJsonLd } from "@/components/JsonLd";
 import { NewsletterForm } from "./NewsletterForm";
 import { getNewsGallery, getSiteMedia } from "@/lib/media";
+import { photoOr } from "@/lib/photo";
 
 // Article title -> a real photo, where one exists. The rest stay text-only rather than reuse a stand-in.
 const ARTICLE_PHOTOS: [string, string][] = [
@@ -53,7 +54,8 @@ export default async function NewsPage({
       <NewsJsonLd locale={locale} articles={news.articles} />
       {/* ── Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-20">
-        <Image
+        {media["news.hero"] && (
+          <Image
           src={media["news.hero"]}
           alt=""
           aria-hidden
@@ -62,6 +64,7 @@ export default async function NewsPage({
           sizes="100vw"
           className="object-cover object-bottom"
         />
+        )}
         <div className="absolute inset-0 bg-ink/30" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <span className="inline-block mb-4 text-clay-soft text-xs font-semibold uppercase tracking-widest drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
@@ -76,7 +79,7 @@ export default async function NewsPage({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {news.articles.map((article, i) => {
-              const photo = article.image || articlePhoto(article.title, article.category);
+              const photo = photoOr(article.image, articlePhoto(article.title, article.category));
               const featured = i === 0 && photo;
               return (
               <article
@@ -137,6 +140,7 @@ export default async function NewsPage({
       </section>
 
       {/* ── Forum Gallery ── */}
+      {gallery.length > 0 && (
       <section className="bg-sand py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10 max-w-xl">
@@ -166,6 +170,7 @@ export default async function NewsPage({
           </div>
         </div>
       </section>
+      )}
 
       {/* ── Newsletter ── */}
       <section className="bg-sand-raised py-16">

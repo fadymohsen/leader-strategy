@@ -65,7 +65,8 @@ export default async function ServicesPage({
       {/* ── Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-20">
         <div className="absolute -inset-y-16 inset-x-0">
-          <Image
+          {media["services.hero"] && (
+            <Image
             src={media["services.hero"]}
             alt=""
             aria-hidden
@@ -74,6 +75,7 @@ export default async function ServicesPage({
             sizes="100vw"
             className="hero-emblem-parallax object-cover"
           />
+          )}
         </div>
         <div className="absolute inset-0 bg-ink/30" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 hero-stagger">

@@ -638,7 +638,13 @@ export type ServiceItem = BaseDictionary["services"]["items"][number] & {
 };
 
 export type NewsArticle = BaseDictionary["news"]["articles"][number] & {
+  /** "" = automatic photo, "none" = no photo. */
   image?: string;
+};
+
+export type CourseItem = BaseDictionary["courses"]["items"][number] & {
+  /** "" = automatic logo, "none" = no logo. */
+  logo?: string;
 };
 
 export type HomeServiceItem = BaseDictionary["home"]["services"]["items"][number] & {
@@ -646,7 +652,10 @@ export type HomeServiceItem = BaseDictionary["home"]["services"]["items"][number
   slug?: string;
 };
 
-export type Dictionary = Omit<BaseDictionary, "services" | "news" | "home"> & {
+export type Dictionary = Omit<BaseDictionary, "services" | "news" | "home" | "courses"> & {
+  courses: Omit<BaseDictionary["courses"], "items"> & {
+    items: CourseItem[];
+  };
   home: Omit<BaseDictionary["home"], "services"> & {
     services: Omit<BaseDictionary["home"]["services"], "items"> & {
       items: HomeServiceItem[];

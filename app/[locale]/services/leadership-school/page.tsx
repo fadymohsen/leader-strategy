@@ -32,13 +32,17 @@ export default async function LeadershipSchoolPage({
   const [dict, media] = await Promise.all([getDictionary(locale), getSiteMedia()]);
   const { leadershipSchool, goalLabel } = dict.services;
   const isAr = locale === "ar";
+  const galleryPhotos = [1, 2, 3]
+    .map((n) => media[`subpages.leadershipSchool.gallery${n}`])
+    .filter(Boolean);
 
   return (
     <>
       {/* ── 1. Hero ── */}
       <section className="grain relative overflow-hidden bg-ink text-sand py-24">
         <div className="absolute -inset-y-16 inset-x-0">
-          <Image
+          {media["subpages.leadershipSchool.hero"] && (
+            <Image
             src={media["subpages.leadershipSchool.hero"]}
             alt=""
             aria-hidden
@@ -47,6 +51,7 @@ export default async function LeadershipSchoolPage({
             sizes="100vw"
             className="hero-emblem-parallax object-cover object-center"
           />
+          )}
         </div>
         <div className="absolute inset-0 bg-ink/50" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 hero-stagger">
@@ -74,6 +79,7 @@ export default async function LeadershipSchoolPage({
                 {leadershipSchool.about}
               </p>
             </RevealSlide>
+            {media["subpages.leadershipSchool.about"] ? (
             <RevealScale delay={150}>
             <div className="group relative aspect-[4/3] rounded-xl overflow-hidden">
               <Image
@@ -85,6 +91,7 @@ export default async function LeadershipSchoolPage({
               />
             </div>
             </RevealScale>
+            ) : <div />}
           </div>
         </div>
       </section>
@@ -114,14 +121,11 @@ export default async function LeadershipSchoolPage({
       </section>
 
       {/* ── 4. Gallery ── */}
+      {galleryPhotos.length > 0 && (
       <section className="bg-sand py-16">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-            {[
-              media["subpages.leadershipSchool.gallery1"],
-              media["subpages.leadershipSchool.gallery2"],
-              media["subpages.leadershipSchool.gallery3"],
-            ].map((src, idx) => (
+            {galleryPhotos.map((src, idx) => (
               <RevealScale key={`${src}-${idx}`} delay={(idx % 3) * 120}>
                 <div className="group relative aspect-square rounded-lg overflow-hidden">
                   <Image src={src} alt="" fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
@@ -131,6 +135,7 @@ export default async function LeadershipSchoolPage({
           </div>
         </div>
       </section>
+      )}
 
       {/* ── 5. Goal + CTA ── */}
       <section className="bg-ink py-20">

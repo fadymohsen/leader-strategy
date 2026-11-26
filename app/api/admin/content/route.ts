@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { isAdminAuthenticated } from "@/lib/auth";
 import { ensureSchema, getSql } from "@/lib/db";
+import { NO_PHOTO } from "@/lib/photo";
 import { getDictionary, getStaticDictionary, isValidLocale, type Locale } from "@/lib/i18n";
 import {
   getCoursesVisible,
@@ -71,10 +72,12 @@ export async function PUT(req: Request) {
 
     if (body.media && typeof body.media === "object") {
       for (const [slot, url] of Object.entries(body.media)) {
-        if (typeof url === "string" && url.trim()) {
+        if (typeof url === "string") {
+          // "" = photo removed on purpose, stored as "none"
+          const value = url.trim() || NO_PHOTO;
           await sql`
             INSERT INTO site_media (slot, url, updated_at)
-            VALUES (${slot}, ${url.trim()}, NOW())
+            VALUES (${slot}, ${value}, NOW())
             ON CONFLICT (slot) DO UPDATE SET url = EXCLUDED.url, updated_at = NOW()
           `;
         }

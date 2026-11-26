@@ -1,5 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { ensureSchema, getSql } from "./db";
+import { NO_PHOTO } from "./photo";
 
 export interface MediaSlotDefinition {
   slot: string;
@@ -10,6 +11,7 @@ export interface MediaSlotDefinition {
 
 export const MEDIA_SLOTS: MediaSlotDefinition[] = [
   { slot: "logo", label: "Site Logo (Navbar & Footer)", group: "Global", defaultUrl: "/logo-new.jpeg" },
+  { slot: "logoWhite", label: "Navbar Logo over photos (white version)", group: "Global", defaultUrl: "/images/shield-emblem-transparent.png" },
   { slot: "home.hero", label: "Home Hero Background", group: "Home Page", defaultUrl: "/images/strategy-team.jpeg" },
   { slot: "about.hero", label: "About Hero Background", group: "About Page", defaultUrl: "/images/team-family-retreat.jpg" },
   { slot: "services.hero", label: "Services Hero Background", group: "Services Page", defaultUrl: "/images/team-lead-up-workshop.jpg" },
@@ -97,8 +99,9 @@ const fetchMediaFromDb = unstable_cache(
       const sql = getSql();
       const rows = (await sql`SELECT slot, url FROM site_media`) as { slot: string; url: string }[];
       for (const row of rows) {
+        // "none" = photo removed on purpose; expose as "" so pages render no photo.
         if (row.url) {
-          defaults[row.slot] = row.url;
+          defaults[row.slot] = row.url === NO_PHOTO ? "" : row.url;
         }
       }
       return defaults;

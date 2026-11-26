@@ -1,6 +1,7 @@
 import { getDictionary, type Locale } from "./i18n";
 import type { ServiceItem } from "./i18n/en";
 import { getSiteMedia, type MediaMap } from "./media";
+import { NO_PHOTO } from "./photo";
 
 /**
  * Main services -> dedicated page slug + media slots.
@@ -50,24 +51,31 @@ export function resolveServiceView(
   enItem?: ServiceItem
 ): ServiceView {
   const meta = SERVICE_META[item.icon];
+  // Media-tab slots: "" means the photo was removed on purpose.
   const slot = (name: string) => (meta ? media[`subpages.${meta.slotPrefix}.${name}`] : undefined);
-  const pick = (own?: string, en?: string, fromSlot?: string) => own || en || fromSlot || null;
+  // Own field (this language) -> English field -> slot. "none" at any step = no photo.
+  const pick = (own?: string, en?: string, fromSlot?: string): string | null => {
+    const v = own || en;
+    if (v === NO_PHOTO) return null;
+    return v || fromSlot || null;
+  };
 
   const hero = pick(item.image, enItem?.image, slot("hero"));
-  const clean = (g?: string[]) => (g ?? []).filter((u) => u && u.trim());
-  // Own list wins (any length), then the English list, then the 3 default slots.
-  const own = clean(item.gallery);
-  const en = clean(enItem?.gallery);
-  const gallery = own.length
-    ? own
-    : en.length
-      ? en
-      : [1, 2, 3].map((n) => slot(`gallery${n}`)).filter((u): u is string => Boolean(u));
+  const logoSlot = meta?.logoSlot ? media[meta.logoSlot] : slot("logo");
+  const aboutVal = item.aboutImage || enItem?.aboutImage;
+  const about = aboutVal === NO_PHOTO ? null : (aboutVal || slot("about") || hero);
+
+  // Gallery: an explicit list (even an empty one = "no gallery") wins; otherwise
+  // the English list, otherwise the three default slots.
+  const own = item.gallery ?? enItem?.gallery;
+  const gallery = own
+    ? own.filter((u) => u && u.trim() && u !== NO_PHOTO)
+    : [1, 2, 3].map((n) => slot(`gallery${n}`)).filter((u): u is string => Boolean(u));
 
   return {
     hero,
-    logo: pick(item.logo, enItem?.logo, (meta?.logoSlot ? media[meta.logoSlot] : undefined) ?? slot("logo")),
-    about: pick(item.aboutImage, enItem?.aboutImage, slot("about")) ?? hero,
+    logo: pick(item.logo, enItem?.logo, logoSlot),
+    about,
     gallery,
     badge: item.badge || meta?.defaultBadge || null,
   };

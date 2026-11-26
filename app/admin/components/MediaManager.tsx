@@ -30,7 +30,10 @@ export function MediaManager({
 }) {
   const [subTab, setSubTab] = useState<"slots" | "gallery" | "library">("slots");
   const [pickerTarget, setPickerTarget] = useState<
-    { type: "slot"; slot: string; label: string } | { type: "gallery"; index: number } | null
+    | { type: "slot"; slot: string; label: string }
+    | { type: "gallery"; index: number }
+    | { type: "gallery-add" }
+    | null
   >(null);
 
   const [uploaded, setUploaded] = useState<MediaAsset[]>([]);
@@ -167,24 +170,31 @@ export function MediaManager({
                 <h3 className="font-display text-lg text-ink mb-4">{group}</h3>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {items.map((item) => {
-                    const current = media[item.slot] || item.defaultUrl;
+                    const current = media[item.slot] ?? item.defaultUrl;
+                    const removed = current === "";
                     return (
                       <div
                         key={item.slot}
                         className="border border-border rounded-xl overflow-hidden bg-sand-raised flex flex-col"
                       >
                         <div className="aspect-[16/10] bg-ink/5 relative overflow-hidden">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={current}
-                            alt={item.label}
-                            className="w-full h-full object-cover"
-                          />
+                          {removed ? (
+                            <div className="w-full h-full flex items-center justify-center text-sm font-medium text-red-700 bg-red-50">
+                              Photo removed: nothing is shown
+                            </div>
+                          ) : (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={current}
+                              alt={item.label}
+                              className="w-full h-full object-cover"
+                            />
+                          )}
                         </div>
                         <div className="p-4 flex-1 flex flex-col justify-between gap-3">
                           <div>
                             <p className="text-sm font-semibold text-ink">{item.label}</p>
-                            <p className="text-xs text-ink-faint truncate mt-0.5">{current}</p>
+                            <p className="text-xs text-ink-faint truncate mt-0.5">{removed ? "No photo" : current}</p>
                           </div>
                           <div className="flex items-center gap-2">
                             <button
@@ -201,16 +211,24 @@ export function MediaManager({
                               <Upload className="w-3.5 h-3.5" />
                               <span>Change / Upload</span>
                             </button>
+                            {!removed && (
+                              <button
+                                type="button"
+                                onClick={() => onMediaChange({ ...media, [item.slot]: "" })}
+                                className="px-2.5 py-2 border border-red-200 text-red-700 hover:bg-red-50 rounded-lg text-sm font-medium"
+                                title="Remove this photo (nothing will be shown)"
+                              >
+                                Remove
+                              </button>
+                            )}
                             {current !== item.defaultUrl && (
                               <button
                                 type="button"
-                                onClick={() =>
-                                  onMediaChange({ ...media, [item.slot]: item.defaultUrl })
-                                }
+                                onClick={() => onMediaChange({ ...media, [item.slot]: item.defaultUrl })}
                                 className="px-2.5 py-2 border border-border-strong rounded-lg text-sm text-ink-muted hover:text-ink"
-                                title="Reset to default"
+                                title="Go back to the original photo"
                               >
-                                Reset
+                                {removed ? "Restore" : "Reset"}
                               </button>
                             )}
                           </div>
@@ -237,21 +255,11 @@ export function MediaManager({
             </div>
             <button
               type="button"
-              onClick={() =>
-                onGalleryChange([
-                  ...gallery,
-                  {
-                    id: `g-${Date.now()}`,
-                    src: "/images/strategy-team.jpeg",
-                    altEn: "New gallery photo",
-                    altAr: "صورة جديدة",
-                  },
-                ])
-              }
+              onClick={() => setPickerTarget({ type: "gallery-add" })}
               className="inline-flex items-center gap-1.5 px-4 py-2 bg-clay hover:bg-clay-deep text-sand text-sm font-semibold rounded-lg transition-colors"
             >
               <Plus className="w-4 h-4" />
-              <span>Add Gallery Photo</span>
+              <span>Add Gallery Photos</span>
             </button>
           </div>
 
@@ -494,6 +502,19 @@ export function MediaManager({
             ? gallery[pickerTarget.index]?.src
             : undefined
         }
+        multiple={pickerTarget?.type === "gallery-add"}
+        onSelectMany={(urls) => {
+          const stamp = Date.now();
+          onGalleryChange([
+            ...gallery,
+            ...urls.map((src, i) => ({
+              id: `g-${stamp}-${i}`,
+              src,
+              altEn: "Gallery photo",
+              altAr: "صورة من المعرض",
+            })),
+          ]);
+        }}
         onSelect={(url) => {
           if (!pickerTarget) return;
           if (pickerTarget.type === "slot") {

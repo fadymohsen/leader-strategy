@@ -14,15 +14,21 @@ export function MediaPickerModal({
   open,
   onClose,
   onSelect,
+  onSelectMany,
+  multiple = false,
   currentUrl,
   title = "Select or Upload Photo",
 }: {
   open: boolean;
   onClose: () => void;
   onSelect: (url: string) => void;
+  /** With `multiple`, called once with every chosen photo, in the order they were picked. */
+  onSelectMany?: (urls: string[]) => void;
+  multiple?: boolean;
   currentUrl?: string;
   title?: string;
 }) {
+  const [chosen, setChosen] = useState<string[]>([]);
   const [uploaded, setUploaded] = useState<MediaAsset[]>([]);
   const [local, setLocal] = useState<MediaAsset[]>([]);
   const [loading, setLoading] = useState(false);
@@ -51,25 +57,47 @@ export function MediaPickerModal({
 
   useEffect(() => {
     if (open) {
+      setChosen([]);
       loadMedia();
     }
   }, [open]);
 
+  function toggle(url: string) {
+    setChosen((c) => (c.includes(url) ? c.filter((u) => u !== url) : [...c, url]));
+  }
+
+  function confirmMany() {
+    onSelectMany?.(chosen);
+    onClose();
+  }
+
   async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = Array.from(e.target.files ?? []);
+    e.target.value = "";
+    if (files.length === 0) return;
     setUploading(true);
     setError("");
     try {
-      const fd = new FormData();
-      fd.append("file", file);
-      const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
-      const data = (await res.json()) as { url?: string; error?: string };
-      if (!res.ok || !data.url) {
-        throw new Error(data.error || "Upload failed");
+      const urls: string[] = [];
+      for (const file of files) {
+        const fd = new FormData();
+        fd.append("file", file);
+        const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+        const data = (await res.json()) as { url?: string; error?: string };
+        if (!res.ok || !data.url) {
+          throw new Error(data.error || `Upload failed: ${file.name}`);
+        }
+        urls.push(data.url);
       }
-      onSelect(data.url);
-      onClose();
+      if (multiple) {
+        // Keep the modal open: the new photos are selected and ready to add.
+        setChosen((c) => [...c, ...urls.filter((u) => !c.includes(u))]);
+        setTab("blob");
+        await loadMedia();
+      } else {
+        onSelect(urls[0]);
+        onClose();
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Upload failed");
     } finally {
@@ -105,10 +133,11 @@ export function MediaPickerModal({
             ) : (
               <Upload className="w-4 h-4" />
             )}
-            <span>{uploading ? "Uploading to Vercel Blob..." : "Upload New Photo"}</span>
+            <span>{uploading ? "Uploading..." : multiple ? "Upload New Photos" : "Upload New Photo"}</span>
             <input
               type="file"
               accept="image/*"
+              multiple={multiple}
               className="hidden"
               disabled={uploading}
               onChange={handleFileUpload}
@@ -160,12 +189,17 @@ export function MediaPickerModal({
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {list.map((item) => {
-                const selected = currentUrl === item.url;
+                const order = chosen.indexOf(item.url);
+                const selected = multiple ? order !== -1 : currentUrl === item.url;
                 return (
                   <button
                     key={item.url}
                     type="button"
                     onClick={() => {
+                      if (multiple) {
+                        toggle(item.url);
+                        return;
+                      }
                       onSelect(item.url);
                       onClose();
                     }}
@@ -183,8 +217,8 @@ export function MediaPickerModal({
                         className="w-full h-full object-cover"
                       />
                       {selected && (
-                        <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-clay text-sand flex items-center justify-center">
-                          <Check className="w-3.5 h-3.5" />
+                        <div className="absolute top-2 right-2 min-w-6 h-6 px-1 rounded-full bg-clay text-sand flex items-center justify-center text-xs font-bold">
+                          {multiple ? order + 1 : <Check className="w-3.5 h-3.5" />}
                         </div>
                       )}
                     </div>
@@ -197,6 +231,41 @@ export function MediaPickerModal({
             </div>
           )}
         </div>
+
+        {multiple && (
+          <div className="px-6 py-4 border-t border-border bg-sand-raised flex flex-wrap items-center justify-between gap-3 rounded-b-2xl">
+            <p className="text-sm text-ink-muted">
+              {chosen.length === 0
+                ? "Click photos to select them. You can pick as many as you want."
+                : `${chosen.length} photo${chosen.length === 1 ? "" : "s"} selected`}
+            </p>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setChosen(list.map((i) => i.url))}
+                className="px-3 py-2 border border-border-strong rounded-lg text-sm font-medium text-ink-muted hover:text-ink"
+              >
+                Select all shown
+              </button>
+              <button
+                type="button"
+                disabled={chosen.length === 0}
+                onClick={() => setChosen([])}
+                className="px-3 py-2 border border-border-strong rounded-lg text-sm font-medium text-ink-muted hover:text-ink disabled:opacity-40"
+              >
+                Clear
+              </button>
+              <button
+                type="button"
+                disabled={chosen.length === 0}
+                onClick={confirmMany}
+                className="px-5 py-2 bg-clay hover:bg-clay-deep disabled:opacity-50 text-sand text-sm font-semibold rounded-lg"
+              >
+                {chosen.length > 0 ? `Add ${chosen.length} photo${chosen.length === 1 ? "" : "s"}` : "Add photos"}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
