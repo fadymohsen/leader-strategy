@@ -421,6 +421,19 @@ const en = {
       }
 ],
     goalLabel: "Our Goal",
+    leadershipSchool: {
+      badge: "Leadership School",
+      headline: "Leadership School",
+      sub: "A cross-sector program that gathers leaders from across Egypt for deep training in spiritual, personal, and professional growth.",
+      about: "The Leadership School brings together leaders from all professional sectors for an intensive program focused on character formation, vision, and leadership excellence.",
+      sections: [
+        { title: "Spiritual Formation", desc: "Deep immersion in spiritual disciplines and biblical leadership foundations that shape the leader's inner life." },
+        { title: "Leadership Skills", desc: "Practical training in communication, vision-casting, decision-making, and team-building." },
+        { title: "City Networking", desc: "Connect and build relationships with leaders from Cairo, Minya, Assiut, Alexandria, and Tanta." },
+        { title: "Strategic Vision", desc: "Cast vision and plan the next chapter of the movement together — sector by sector, city by city." },
+      ],
+      goal: "To develop mature, vision-driven leaders equipped to impact their sectors and cities with kingdom influence — building the next generation of the movement.",
+    },
     cta: {
       headline: "Ready to Join Your Professional Group?",
       body: "Make your workplace a center for your mission — join the movement today.",
@@ -447,6 +460,11 @@ const en = {
       sub: "Updates from the Leader Strategies movement, from Cairo to Alexandria, Minya to Assiut and Tanta.",
     },
     readMore: "Read more",
+    servicesCta: {
+      headline: "Explore Our Services",
+      body: "Each ministry is designed for your professional field — building leaders who influence their world for Christ.",
+      link: "View All Services",
+    },
     forum: {
       badge: "Lawyers Conference",
       headline: "Moments from the Lawyers Conference",
@@ -466,29 +484,33 @@ const en = {
     },
     articles: [
       {
-        date: "September 2026",
+        date: "March 2026",
         category: "Lawyers Conference",
+        slug: "lawyers",
         title: "Lawyers Conference Brings Together Legal Professionals from Across Egypt",
         excerpt:
           "The Lawyers Conference gathered Christian lawyers and legal professionals from multiple governorates for days of training, spiritual growth, and professional development. They discussed the challenges of the legal profession and how to be witnesses for Christ in courtrooms and law offices.",
       },
       {
-        date: "August 2026",
+        date: "February 2026",
         category: "Leadership School",
+        slug: "leadership-school",
         title: "Leadership School Gathers Leaders from Across Egypt",
         excerpt:
           "Leaders from Cairo, Minya, Assiut, Alexandria, and Tanta gathered for the Leadership School — training, building, and casting vision for the movement's next chapter.",
       },
       {
-        date: "June 2026",
+        date: "January 2026",
         category: "ISP — Teachers",
+        slug: "isp",
         title: "Teacher-Leaders Training Program Completes 3rd Cohort",
         excerpt:
           "20 educators completed the ISP leadership track, equipped to transform their schools into centers of influence and mission.",
       },
       {
-        date: "May 2026",
+        date: "December 2025",
         category: "Leader Impact Next",
+        slug: "leader-impact-next",
         title: "50 Graduates Join Leader Impact Next Groups",
         excerpt:
           "Fifty recent university graduates joined specialized Leader Impact Next groups across three cities, beginning their journey of professional and spiritual development.",

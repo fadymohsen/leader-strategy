@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getDictionary, isValidLocale } from "@/lib/i18n";
@@ -94,12 +95,39 @@ export default async function NewsPage({
                   <h2 className="font-semibold text-ink text-lg mb-3 leading-snug flex-1">
                     {article.title}
                   </h2>
-                  <p className="text-ink-muted text-sm leading-relaxed">{article.excerpt}</p>
+                  <p className="text-ink-muted text-sm leading-relaxed mb-5">{article.excerpt}</p>
+                  {article.slug && (
+                    <Link
+                      href={`/${locale}/services/${article.slug}`}
+                      className="self-start text-sm font-semibold text-clay hover:text-clay-deep transition-colors inline-flex items-center gap-1"
+                    >
+                      {news.readMore}
+                      <span aria-hidden className="text-base">{locale === "ar" ? "←" : "→"}</span>
+                    </Link>
+                  )}
                 </div>
               </article>
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* ── Services CTA ── */}
+      <section className="bg-clay py-14">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="font-display text-xl md:text-2xl text-sand mb-3">
+            {news.servicesCta.headline}
+          </h2>
+          <p className="text-sand/80 text-sm md:text-base mb-6">
+            {news.servicesCta.body}
+          </p>
+          <Link
+            href={`/${locale}/services`}
+            className="inline-block px-8 py-3 bg-sand text-clay-deep font-semibold rounded-md hover:bg-sand-raised transition-colors text-sm"
+          >
+            {news.servicesCta.link}
+          </Link>
         </div>
       </section>
 
