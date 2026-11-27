@@ -10,8 +10,12 @@ export interface MediaSlotDefinition {
 }
 
 export const MEDIA_SLOTS: MediaSlotDefinition[] = [
+<<<<<<< Updated upstream
   { slot: "logo", label: "Site Logo (Navbar & Footer)", group: "Global", defaultUrl: "/logo-new.jpeg" },
   { slot: "logoWhite", label: "Navbar Logo over photos (white version)", group: "Global", defaultUrl: "/images/shield-emblem-transparent.png" },
+=======
+  { slot: "logo", label: "Site Logo (Navbar & Footer)", group: "Global", defaultUrl: "/images/shield-mark-curved.jpeg" },
+>>>>>>> Stashed changes
   { slot: "home.hero", label: "Home Hero Background", group: "Home Page", defaultUrl: "/images/strategy-team.jpeg" },
   { slot: "about.hero", label: "About Hero Background", group: "About Page", defaultUrl: "/images/team-family-retreat.jpg" },
   { slot: "services.hero", label: "Services Hero Background", group: "Services Page", defaultUrl: "/images/team-lead-up-workshop.jpg" },
